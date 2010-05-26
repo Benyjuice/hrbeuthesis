@@ -1,0 +1,166 @@
+% -*-coding: utf-8 -*-
+% File: main.tex
+%
+% 修改自: PlutoThesis_UTF8_1.9.4.20100419.zip
+%         http://code.google.com/p/plutothesis/
+%
+% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-23
+%     设计哈工程本科毕业论文规范
+% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-23
+%     设计哈工程本科毕业论文规范
+% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-25
+%     设计哈工程本科毕业论文规范
+%
+% 注: 标注 TODO 的是未测试的内容，或者计划将来完成的内容；
+%     目前专门针对 Linux 进行修改，由于论文规范的字体要求，使用 Windows 的字体;
+%
+% 
+
+% 可选的编译方式: xelatex pdflatex dvipdfmx yap
+\def\usewhat{xelatex}
+% 套件 texlive2009 中提供了 ctex 中文支持宏包，在使用 pdflatex(TODO)、dvipdfmx(TODO) 和 xelatex 时， Linux 用户已经无需进行大量中文配置。
+% 目前在 Linux 下使用 texlive2009时，安装字体后还需修改文件 texlive/2009/texmf-dist/tex/latex/ctex/fontset/ctex-xecjk-winfonts.def，配置正确后才能编译成功，否则 xelatex 仍然找不到已安装的某些字体。
+
+% 定义 xelatex 的中间临时变量，若 \usewhat 为 xelatex 时，后面执行 xelatx 的相关选项
+\def\atempxetex{xelatex}  % 这一项无需改动
+\def\version{0.0.0.20100523}  % 该变量仅用于模板文件的版本号控制
+	% XXX: 请使用 UPDATE 标记撰写简略的升级摘要，可以用 perl 等脚本编程导出成升级记录
+	%   格式为：标记: 日期: 内容: 版本号 (英文冒号，后跟一个空格)
+	% UPDATE: 20100523: Yuliang 开始为哈尔滨工程大学本科毕业设计规范修改模板: 0.0.0
+
+% 定义学位 TODO: 尚未考虑硕博论文规范
+%\def\xuewei {Doctor}  %  博士
+%\def\xuewei {Master}  %  硕士
+\def\xuewei {Bachelor}  %  学士
+
+\def\xuehao {06061320}  % setup/format.tex 中用到了学号长度和内容，TODO: 学号定义的位置和姓名不在一起，不方便
+
+% XXX:哈工程本科论文规定:
+%       单面打印(见 "哈尔滨工程大学本科生毕业设计(论文)手册(理工类)"，以后的"哈工程本科论文规定"均出自这里)
+%\def\oneortwoside{twoside} % 双面打印
+\def\oneortwoside{oneside} % 单面打印
+
+% 定义学科 TODO: 尚未考虑理工科之外的其他学科
+\def\xueke{Engineering}  % 工学
+%\def\xueke{Science}  % 理学
+%\def\xueke{Management}  % 管理学
+%\def\xueke{Arts}  % 艺术学
+
+\input{setup/type.tex}    % 本硕博类型
+
+% 下面的 book 选项中可以使用 draft 选项，使插入的图形只显示外框，以加快预览速度。
+\documentclass[12pt,a4paper,openany,\oneortwoside]{book}  % 12pt: 相当于小四号; a4paper: A4 纸打印; openany: 章节开头在奇偶页均可; \oneortwoside: oneside or twoside
+
+\input{setup/package.tex} % 引用的宏包
+
+% 论文包含的内容，需要在这里列出你的所有源文件
+\includeonly{
+               body/Introduction,
+               body/Tricks,
+               body/UpdateLog,
+               body/ToTemplateMaintainers,
+               body/copyright,
+               body/conclusion,
+               appendix/appA,
+               appendix/publications,
+               appendix/Authorization,
+               appendix/acknowledgements,
+               appendix/Resume
+            }
+% 定义所有的 eps 文件在 figures 子目录下
+\graphicspath{{figures/}} 
+
+\begin{document}
+\ifx\atempxetex\usewhat
+\else
+\begin{CJK*}{UTF8}{song}
+\fi
+
+\input{setup/Definition}  % 文本格式定义，字体字号行距图表公式算法学科等
+\input{setup/format}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  正文内容
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+\sloppy  % 解决中英文混排的断行问题，会加入间距，但不会影响断行
+\input{preface/cover} % 封面、摘要、符号表
+
+%% 中英目录
+\renewcommand{\baselinestretch}{1}
+\fontsize{12pt}{12pt}\selectfont
+\clearpage{
+  \pagestyle{empty}
+  \cleardoublepage
+}
+
+\pdfbookmark[0]{目~~~~~~~~录}{mulu}
+\tableofcontents    % 中文目录
+
+\ifxueweidoctor     % 英文目录右开，本科和硕士学位论文没有英文目录 TODO: 硕博论文再考虑
+  \clearpage{\pagestyle{empty}\cleardoublepage}
+\else%
+  \ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\fi
+\fi
+\renewcommand{\baselinestretch}{1.3}
+\fontsize{12pt}{12pt}\selectfont
+\ifxueweidoctor       % 本科和硕士学位论文没有英文目录 TODO: 硕博论文再考虑
+  \tableofengcontents % 英文目录
+\fi
+
+%\input{setup/figtab.tex}  % 图表索引, 如果不需要图表索引，注释掉这一句即可；
+% \notation  %主要符号表
+\addtocontents{toc}{\protect\vskip1\baselineskip}  % 中文目录增加空行
+\addtocontents{toe}{\protect\vskip1\baselineskip}  % 英文目录增加空行
+
+\ifxueweidoctor
+  \clearpage{\pagestyle{empty}\cleardoublepage}   % 清除目录后面空页的页眉和页脚
+\else%
+  \ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\fi  % 清除目录后面空页的页眉和页脚
+\fi
+
+\mainmatter
+\defaultfont % 对应于小四的标准字号为12pt, 可以在正文中用此命令修改所需要字体的的大小
+
+% 加入你自己写的各章内容，最好每章一个文件
+\include{body/Introduction}
+\include{body/Tricks}
+\include{body/UpdateLog}
+\include{body/ToTemplateMaintainers}
+\include{body/copyright}
+\include{body/conclusion}
+
+%参考文献
+\defaultfont
+\ifx\atempxetex\usewhat
+\bibliographystyle{chinesebst2005_UTF8}
+\else
+\bibliographystyle{chinesebst2005_UTF8}
+\fi
+\addcontentsline{toc}{chapter}{\hei \ReferenceCName}  % 参考文献加入到中文目录
+\addcontentsline{toe}{chapter}{\bfseries \xiaosi \ReferenceEName}  % 参考文献加入到英文目录
+\addtolength{\bibsep}{-0.8 em} \nocite{*}
+\bibliography{reference/reference}
+
+%\addtocontents{fen}{\protect\vskip1\baselineskip}
+%\addtocontents{ten}{\protect\vskip1\baselineskip}
+%英文图形和表格索引里加入空白行，通常放在 \include{appendix/appA}% 附录A之前。
+%区分开正文和附录的图形和表格，一般没有这个必要。
+
+%\include{appendix/publications}    % 所发文章
+%\include{appendix/Authorization}   % 承诺
+\include{appendix/acknowledgements} % 致谢
+\include{appendix/appA}             % 附录A
+%\include{appendix/Resume}          % 个人简历
+
+\clearpage
+\ifx\atempxetex\usewhat\else
+\end{CJK*}
+\fi
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

@@ -1,0 +1,78 @@
+% -*-coding: utf-8 -*-
+% File: preface/cover.tex
+%
+% 修改自: PlutoThesis_UTF8_1.9.4.20100419.zip
+%         http://code.google.com/p/plutothesis/
+%
+% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-25
+%     设计哈工程本科毕业论文规范
+%
+% 注: 标注 TODO 的是未测试的内容，或者计划将来完成的内容；
+%     目前专门针对 Linux 进行修改，由于论文规范的字体要求，使用 Windows 的盗版字体;
+%
+
+\newcommand{\chinesethesistitle}{哈尔滨工程大学本硕博学位论文~\LaTeX~模板~(\version~版)}  % 授权书用，无需断行
+\newcommand{\englishthesistitle}{\uppercase{\LaTeX~Dissertation Template of \\Harbin Engineering University~(Version \version)}}  % \uppercase作用：将英文标题字母全部大写
+\newcommand{\chinesethesistime}{2010~年~6~月}  % 封面底部的日期中文形式
+\newcommand{\englishthesistime}{June, 2010}   % 封面底部的日期英文形式
+
+\ctitle{哈尔滨工程大学本硕博学位论文\\ \LaTeX~模板~(\version~版)}  % 封面用论文标题，自己可手动断行
+\cdegree{\cxueke\cxuewei}
+\csubject{计算机科学与技术}
+\caffil{计算机科学与技术学院} %（在校生填所在系名称，同等学力人员填工作单位）
+\cauthor{某某某}  % 或{某~~~~某}
+\csupervisor{某某某~~~~教授}  % 导师名字
+%\cassosupervisor{某~~~~某~~~~教授}  % (如无副导师可以不列此项)
+%\ccosupervisor{某某某~~~~教授~}  % (如无联合培养导师则不列此项)
+\cdate{\chinesethesistime}
+
+\etitle{\englishthesistitle}
+\edegree{\exuewei \ of \exueke}
+\esubject{Microelectronics \hfill and \hfill Solid-State\newline Electronics}  % 英文二级学科名
+\eaffil{Dept.\hfill of\hfill Microelectronics\hfill Science\newline and Technology}  % 英文单位，换行用 \newline，不要用\\
+\eauthor{Alice}  % 作者姓名
+\esupervisor{Professor Bob}  % 导师姓名
+%\ecosupervisor{Professor X}
+%\eassosupervisor{Professor Y}
+\edate{\englishthesistime}
+
+\natclassifiedindex{TP309}  % 国内图书分类号
+\internatclassifiedindex{681.324}  % 国际图书分类号
+\statesecrets{公开} %秘密
+
+%\iffalse
+%\BiAppendixChapter{摘~~~~要}{}  %使用winedt编辑时文档结构图（toc）中为了显示摘要，故增加此句；
+%\fi
+\cabstract{
+这是根据哈尔滨工程大学本科论文规范制作的\LaTeX{}本硕博学位论文模板。目前暂时未制作硕博部分，
+未来会把这些部分都添加上去。
+
+本模板是网友 Yuliang 等(2010)基于哈尔滨工业大学硕博士学位论文模板，按照哈尔滨工程大学相关论
+文规范制作的\LaTeX{}论文模板，论文的启动和制作过程得到了工大论文模板维护者 luckfox 的大力支
+持，在此表示感谢。
+
+当然这个模板文件仅仅是一个开始，
+希望有``牛人''能够综合这些设置形成真正的文档类形式(cls)的模板文件，造福以后的兄弟姐妹们。
+不过补充一下， 在目前需要多人参与维护的情况下，book类的文档也具有一些自己的优势，
+大家都很容易看懂代码，上手修改。二者各有特色吧。
+总体上来说，当前这个模板还是很值得推荐使用的。
+
+本模板的目的旨在推广\LaTeX{}这一优秀的排版软件在哈工程的应用，为广大同学提供一个方便、美观的
+论文模板，减少论文撰写方面的麻烦。
+}
+
+\ckeywords{\LaTeX{}；论文模板；哈工程；(3 $\sim$ 6 个!)}
+
+\eabstract{
+This is a \LaTeX{} dissertation template of Harbin Engineering University, which is built according to the required format.
+}
+
+\ekeywords{\LaTeX{}; dissertation template; (attention:3 $\sim$ 6 key words,lower-case!)}
+
+\NotationList{\begin{tabular}{ll} %主要符号表
+A & a matrix\\
+B &  登高\\
+\end{tabular}}
+
+\makecover
+\clearpage
