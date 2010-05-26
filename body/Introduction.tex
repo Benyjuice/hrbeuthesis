@@ -1,0 +1,201 @@
+% ^^^^^^ This is for TeXworks users ^^^^^
+% !TEX root = ../main.tex 
+% !TEX program = xelatex
+% !TEX encoding = utf-8
+% vvvvvv This is for TeXworks users vvvvv
+
+% -*-coding: utf-8 -*-
+
+
+\defaultfont
+
+\BiChapter{ 绪论~$H_{\infty}$ }{ Introduction ~$H_{\infty}$ }
+\label{Introduction}
+
+\BiSection{课题背景及意义~$H_{\infty}$ }{ The Background and Significance $H_{\infty}$ }
+\label{Introduction:background}
+\LaTeX~由于具有排版美观、对公式和图表的处理能力强大以及跨平台通用性强等优势，
+使得它在科技排版中的应用越来越广泛。
+
+\BiSection{入门知识}{Mastering \LaTeX{}}
+\label{sec:learningknowledge}
+考虑到不少同学没有接触过~\LaTeX{}，为了少走弯路，快速上手，尽快学会~\LaTeX{}的基本使用方法，
+从而把更多的时间投入到论文的写作过程中，更专注于论文的内容，特增加一节介绍~\LaTeX 的基本知识，
+推荐一些文档资料，及常用的编辑技巧等内容。
+
+\BiSubsection{什么是\LaTeX{}}{What is \LaTeX}
+\label{sec:whatislatex}
+        \TeX/\LaTeX 是一套功能强大、排版完美的开放源程序的免费办公排版软件。
+
+        对多种操作系统，包括~Microsoft Windows、\CJKglue Unix类~（如：Solaris、\CJKglue Linux 等）、\CJKglue
+以及~Mac OS X 均供有相应的运行版本，其名字也不尽相同，其发展过程类似于基于~linux 内
+核的众多~linux 操作系统的发展过程。
+
+        在~Windows 下最常用的是~\href{http://www.miktex.org}{MikTeX} 及其衍生出来的套装。Linux 下现在最常用并且持续更新的是
+        TeXlive（跨平台，某些版本也可用在windows下），另一个编译系统~teTeX 最近停止了维护。
+
+        在MikTeX基础上，\href{http://www.ctex.org}{CTeX} 的~Aloft 站长加入了中文输入输出支持，配置了~CTeX 中文套
+装，安装即用，免去了用户的配置之苦，推荐中文用户入门使用。
+
+        与所见即所得~（WYSIWYG，What You See Is What You Get） 的~Microsoft Office
+软件相比，它的特点是：
+   \begin{itemize}
+      \item 所想即所得~（WYSTWYG，What You Think Is What You Get），让你更专注
+于论文的思路贯通而不是繁杂的格式要求，更适合排版科技论文；
+      \item 控制格式方便,键盘输入快捷，数学公式输入排版方便,输出精美；
+      \item 纯文本文件避免了类似~MSWord 的各种格式易变、文档损坏、公式无法编辑等不稳定现象，
+      也更有利于版本控制；
+      \item 输出的~PDF 文件是国际文档标准，哈工大要求硕博士毕业论文提交的也是~PDF 格式；
+      \item 国际期刊及会议一般都提供~\LaTeX 论文模板,使论文投稿排版更容易；
+      \item 目前国内外不少高校也都具有~\LaTeX{}学位论文写作模板，使写作学位论文的排版不再是痛苦，
+      而是一种享受。哈工大比较成熟的即为此模板；
+      \item 制作幻灯片的~LaTeX 宏包~beamer，排版公式和输入文字一样方便，没有~PowerPoint
+的那种繁琐公式和图片位置调整，众多的默认模版供选择，一个简单命令就可切换，让幻灯
+片制作更轻松、专业、漂亮；
+      \item  众多的文档类和宏包支持，给你的感觉是``没有你做不到的，只有你想不到的''；
+      \item  对许多忠实的~TeXer 而言，\TeX/\LaTeX 已经不仅仅是一种排版软件，更成为一种信仰，
+      因为它的诞生及其发展本身就是一段趋向完美的传奇。
+    \end{itemize}
+
+    很多人都对~\LaTeX{} 做过介绍，你可以从紫丁香的TeX版编号为~ 1 的帖子往后翻上几页看看。校内的RunFTP上的目录
+    \url{ftp://202.118.224.241/software/Science/TeX&LaTeX/\%D7\%CA\%C1\%CF/LaTeX/} 上也有几个幻灯片对它进行了介绍。
+    本文作者反复修改多次，最后决定推荐网站~\href{http://zzg34b.w3.c361.com/index.htm}{LaTeX编辑部} 上的几篇文章，快速全面了解它。
+   \begin{itemize}
+     \item  \href{http://learn.tsinghua.edu.cn:8080/2001315450/tex_frame.html}{TeX简介}：我们使用的~\LaTeX 系统的基础；
+     \item \href{http://zzg34b.w3.c361.com/homepage/TeXvirtue.htm}{TeX的优缺点}: 它趋向完美，但是还不是十全十美；
+     \item \href{http://zzg34b.w3.c361.com/homepage/LaTeXbring.htm}{LaTeX的产生}：我们日常接触最多的是它；
+     \item \href{http://zzg34b.w3.c361.com/homepage/compareWord.htm}{LaTeX应用情况}:国内外的情况，现在国内是使用者越来越多。
+     \item \href{http://zzg34b.w3.c361.com/homepage/compareWord.htm}{与Word相比较}:对于我们用的软件~word和~LaTeX，二者各有优点和缺点，不要陷入很偏执的观点中，这是一篇比较客观的文章。
+     \item \href{http://zzg34b.w3.c361.com/homepage/KnuthResume.htm}{Knuth 教授简历}:底层内核~ \TeX 的作者~ Donald Knuth (高德纳)的介绍，富有传奇色彩；
+     \item \href{http://zzg34b.w3.c361.com/homepage/LamportResume.htm}{Lamport 博士简历}： \LaTeX 的作者~Lamport，由于他的努力，才让~\LaTeX 使用简单很多，风靡科技界；
+   \end{itemize}
+
+\BiSubsection{推荐软件及其下载}{LaTeX Software}
+\label{sec:latexsoftware}
+
+对于新手，Windows 下只推荐免费的~CTeX 套装，因为丝毫不需要自己配置，安装后就可以使用。
+哈工大校园网用户可以从~ \url{ftp://202.118.224.241/software/Science/TeX&LaTeX/\%C8\%ED\%BC\%FE/TeXSystem/CTeX} 下载~
+CTeX-2.4.5-8-Full.exe 和~ CTeX-Fonts-2.4.4.exe，先安装套装系统，然后安装字体。当然，也可以下载同目录下的最新版ctex 2.4.6的basic或full
+版本，别忘了安装fonts-2.4.6文件。非校园网用户可以从~ \href{http://www.ctex.org}{CTeX的官方网站} 下载这两个文件。需要说明的是，CTeX 2.4 基于 miktex 2.4，支持PlutoThesis的dvipspdf，dvipdfmx和pdflatex的编译方式，不支持xelatex编译方式，还请注意。若想使用xelatex进行编译，需 miktex 2.7版，在此基础上加上dvipspdf，dvipdfmx和pdflatex中文处理的是 instanton@ctex 的MiCTeX 版本，可以在ctex论坛上找到发布和下载信息，241 ftp上可能也有不保证最新的版本下载。
+
+
+\BiSubsection{推荐的入门资料}{LaTeX Documents}
+
+如果你是第一次接触~ LaTeX，那么安装~ CTeX 之后，不要直接打开编辑软件~WinEdt 进行操作，
+因为现在你对这个软件了解还较少，会无所适从。请从~ Windows
+系统的开始~ $\rightarrow$ 程序~ $\rightarrow$ 中文 TeX 套装~ $\rightarrow$ help $\rightarrow$
+看到文档了吧，我们建议的顺序是：首先打开~ CTeX FAQ，从头读到''新手入门''这一节，然后
+从同一目录下打开~ LShort-cn 文件，从头到尾认真浏览一遍，不用尝试记住所有的命令，
+只要了解~ LaTeX 的特点，对每一部份有一个感性认识就可以。以后你还可以回头来翻看相关命令。
+然后把 ~CTeX FAQ 浏览完毕，在这个过程中，可以尝试去练习排版一些文档，查看编译效果（具体~ WinEdt 编译
+方法请看后面的节 \ref{sec:winedttricks}）。
+
+你会留意到还有两个文档~PDF: latex2e 插图指南和~mathematics (LaTeX 宝典 The LaTeX Companion 的~chapter8)，
+分别是讲插图知识和公式输入方法的，都很详细，建议也浏览一下。对于公式输入，还有一个特别值得推荐的是
+\href{http://www.tug.org/tex-archive/info/math/voss/mathmode/}{mathmode 2.0}，校园网用户还可以从
+\href{ftp://202.118.224.241/software/Science/TeX&LaTeX/}{校内~FTP TeX 资料目录}下载。
+
+\BiSubsection{WinEdt的编译及其他技巧}{Winedt Tricks}
+\label{sec:winedttricks}
+~
+有一文档~ WinEdt\_LaTeX\_guide.doc 简单介绍了~ WinEdt 的简单文档的编译方法，可以点击
+\url{http://bbs.hit.edu.cn/bbscon.php?bid=296&id=1887&ap=719} 得到。
+
+下面详细介绍编译按钮的含义，新手一般对这个特别好奇，
+请注意这里的讲解顺序不是~ WinEdt 的默认排列顺序。
+\begin{hitlist}
+  \item TeX: 用来编译使用~ TeX 命令写的文档，是底层的编译系统；
+  \item LaTeX: 用来编译使用~ LaTeX 命令写的文档，是目前我们使用最多的~ LaTeX2e 文档编译系统，生成~ dvi 文件；
+  \item cct\& LaTeX: cct 是国内的张林波研究员开发的一个使用~ LaTeX 来处理中文文档的接口系统，
+  首先把~cct 的文档由~.ctx 转换成~.tex 格式，然后调用标准的~ LaTeX 命令来生成dvi文件；
+  \item PDFLaTeX: 这是类似于~LaTeX的另外一种编译系统，直接生成~pdf 文件，支持更多的~ pdf 文件特效，现在应用越来越广泛，例如做的幻灯片；
+  \item BibTeX: 这个是用来处理参考文献的命令，通过它生成一个包含参考文献条目的列表~ bbl 文件供排版使用。
+  \item Make Index: 这个用来生成文档的索引。
+  \item TeXify: 这是几个编译命令的合集，它自动运行~ LaTeX（或pdflatex），MakeIndex 和~ BibTeX 尽可能需要的次数来生成一个
+  具有排序的文献列表和交叉引用的~ dvi（pdf）文件，简化了~ dvi（pdf）文件的生成过程。
+  \item CTeXify: 这个是~ CTeX 套装添加了中文支持的~TeXify 命令，可以生成中文的~ dvi(pdf) 文档。
+\end{hitlist}
+
+具体使用哪个编译按钮，和你的文档类型及包含的内容有关系。因为不同的编译命令，对于文档中的元素要求不一样，
+例如，如果你引用的是~eps 图形，应该用~latex来编译，如果插入的是~pdf 图形，应该用~pdflatex 来编译。
+这个解释你在前面的文档里应该也已经看到了。
+
+\BiSubsubsection{显示文档结构图}{File Structure Display}
+
+WinEdt中的~gather可以收集章节标题，形成~TOC 列表，功能类似于~word 中的文档结构图，在
+写大文档的时候这个功能非常有用，但是在我们的~Pluto 模板中，自定义了一些章节标题，
+这些自定义标题缺省的~gather 是不识别的。TeX@lilac 提供了一种方法，在~WinEdt.gdi中定义了相关命令，
+奏效。希望想使用这个功能的网友可以自己动手修改，tools 文件夹下有他修改过的~WinEdt.gdi，
+网友们也可以直接使用，放到~winedt 目录下替换同名文件即可。
+
+winEdt 的~ tree interfacezho 中也有~ TOC 这一项，这个可以通过修改 ~Winedt目录下的~WinEdtEx.ini实现。用~tools文件夹下
+的~WinEdtEx.ini 替换该同名文件就可以。
+
+另外这些自定义的命令在编辑状态下不能像缺省命令一样高亮，如果能高亮就好了，TeX 同样找到了自己定义的方法，
+在~winedt 菜单~ option/highlighting/switches 修改，tools 文件下~ Switches.dat 是他已
+定义好的，可以在上述菜单位置使用对话窗顶部的~``Load from'' 按钮加载。
+
+\BiSubsection{生成图的常见方式}{Figure Generating}
+
+在~latex 文档编写过程中，常用的图形格式是~ eps 和~ pdf 。
+
+pdf 文件生成，可以用很多软件生成，例如~adobe acrobat 、pdffactory、pdf xchange 等。
+这里推荐~ acrobat (注意不是~ acrobat  reader)，因为它安装后生成一个~ pdf 打印机，
+任何一个文档都可以通过这个打印机生成~pdf 文件，更主要的功能是对~ pdf 文件阅读编辑。
+pdf 文件可以在~acrobat 里进行裁剪~ (documents,crop pages...)，取出部分页面。它还支持
+直接另存为~ eps 文件的功能。所以，有了~acrobat 软件，几乎所有的图形处理问题都可以解决。
+不过这个软件是商业软件。
+
+可用于~latex 的作图软件比较多，所有的作图软件：~visio，~ coraldraw，~ photoshop，~ gnuplot 生成的图
+都可以通过上面的方法转换成~eps 或~pdf 文件。另外，还有很多专门为~latex 开发的作图软件，
+有通过命令的形式生成图的，例如~metapost，~pstricks，~asymptote，~pgf/tikz 等，也有简单的
+具有作图界面的软件，例如~Dia，~winfig，~gclc 等。  总体上来讲，这些软件功能相对比较简单，做出的图也都很漂亮，但是都没有微软的
+~visio 软件功能强大，所以对于入门者最好先用~visio 来作图。
+
+对于插图的命令，王磊的中文版插图指南已经很详细了，这里不再介绍，请翻阅该书。
+
+\BiSubsection{新手如何写数学公式}{Math Inputting}
+
+新手一般感觉用~LaTeX 写公式比较麻烦，从而望而却步。其实，你可以从~mathtype（商业软件，
+如果你在~ word 里不用它的话，可以用它免费的~TeX 公式软件~TeXaids）转换的方法。
+在~mathtype 公式输入界面下，选择菜单栏 ~``preference，translators...,translate to other language,
+选择~ TeX--LaTeX2.09 and later (标准的LaTeX命令)，或者~ TeX--AMS-LaTeX(需要~amsmaht 宏包支持) ,确定 ''
+，然后输入公式，选中，复制，粘贴到你的编辑器中你想放入公式的地方，你会看到这就是你
+想要的公式的~ LaTeX  代码，这样就可以正常编译了，有时候你需要调整一下你使用的数学环境才能达到
+你的要求。
+
+如果在输入数学公式的时候，你忘记了一个数学符号，可以点击工具栏的求和符号图标，会显示
+数学符号工具栏，然后点击你想要的数学符号，就插入到了文档中。还有一个专门的~symbol.pdf 文档，ctex
+套装中也已经配备，几乎所有的符号，包括一些稀奇古怪，甚至都没看到过的符号，都可以在这里找到。
+
+前面提到，ctex 套装的~help 文件里已带的~ch8.pdf 和~Mathmode.pdf 文件对公式书写介绍的很详细，各种各样的公式
+都可以通过不同的数学环境得到，建议写公式时参阅。
+
+\BiSubsection{快速插入图表}{Inserting Figures and Tables}
+
+对于图表等环境的插入，WinEdt 提供了很体贴的方法。只要选择工具栏的图片和表格按钮，就可以
+插入一段完整的图表命令，你需要的只是把其中的星号换成自己的东西就可以了。
+WinEdt还提供了一个宏，GUI 方式完成图的插入过程，选项更多，也更方便。
+有时候，感觉表格比较复杂，不容易用~LaTeX 写命令，可以尝试一下 ~xl2latex 2.0 这个~ excel
+输出表格为~LaTeX 代码的宏。首先在~excel 里生成表格，然后运行一下宏，就生成了表格的~LaTeX 代码。
+模板的~edittools 目录下提供了这一文件。
+
+\BiSubsection{更多技巧及别人入门心得}{More Tricks and Others' Thoughts}
+
+更多的入门技巧，可以参考紫丁香TeX版的置底的帖子~\href{http://bbs.hit.edu.cn/bbscon.php?board=TeX&id=2038&ftype=11}{版面部分问题导航(主要是面向新手)}。
+
+\BiSubsection{校内TeX资源}{TeX resources in HIT}
+前面已经多次提到RunFTP上的TeX资源，这里再次总结一下校内的这两个FTP。
+\begin{hitlist}
+  \item ftp://202.118.224.241/software/Science/TeX\&LaTeX/  ，这个为HIT的官方出资，网友维护的FTP，又称为RunFTP。
+  TeX目录只是其中一个文件夹，用来存放和TeX有关的软件、文档等资料；
+  \item ftp://202.118.239.46/Incoming/TeX/  这个貌似是属于计算机系吧？（我不能确定，抱歉！） 目前由cliff@lilac等人维护，
+建议此FTP上的TeX目录只是在241 出现问题down掉的时候采用，不过此FTP上的资料和241上的没有关系，二者是独立的。
+\end{hitlist}
+
+非常感谢上面两个FTP的管理员给TeX版提供软件和资料存放空间，并且给予维护管理。
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End: 

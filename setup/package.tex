@@ -1,0 +1,202 @@
+% -*-coding: utf-8 -*-
+% File: setup/package.tex
+%
+% 修改自: PlutoThesis_UTF8_1.9.4.20100419.zip
+%         http://code.google.com/p/plutothesis/
+%
+% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-23
+%     设计哈工程本科毕业论文规范
+%
+% 注: 标注 TODO 的是暂未测试的内容，或者计划将来完成的内容；
+%
+%
+
+%% 图形支持宏包，为了使用 pdftex，需要作相应判断
+\usepackage{etex}  % 增加计数器总数（原来是 256，宏包多，可能不够用）；编译需基于 eTeX，目前 pdflatex 等均可
+\usepackage{ifpdf}
+
+\ifx\atempxetex\usewhat  % main.tex: \def\atempxetex{xelatex}
+	\usepackage[dvipdfm]{graphicx}
+\else
+	\ifpdf
+		\usepackage[pdftex]{graphicx}
+	\else
+		\usepackage[dvips]{graphicx}
+	\fi
+\fi
+
+%% 版面控制宏包，定义规定的版面尺寸
+% 纸张大小: \documentclass 的选项中已设置 a4paper，故不为 geometry 设置 paperwidth 和 paperheight
+% 若设置 paperwidth=18.4cm, paperheight= 26cm，使用 16 开纸打印，可节能减碳 :)
+%
+% 页边距和页眉页脚: XXX 哈工程本科论文规定: 
+%     打印在 A4 (大 16 开, 210mm*297mm) 纸上，上下左右页边距分别为：45mm、40mm、25mm、45mm
+%     上下右三面裁切后，为 16 开纸，184mm*260mm；
+%     页眉 38mm，页脚 33mm (指页眉页脚距离纸张边缘的距离)；
+%       故: top=45mm, bottom=40m, left=25mm, right=45mm
+%           totalbody={140mm, 226mm} (width=140, height=226mm)
+%           headheight=7mm, headsep=top-headheight-38mm=0mm, footskip=7mm
+%           body={140mm*212mm} (textwidth=140, textheight=212mm)
+%       因此可设置: top=45true mm, bottom=40true mm, left=25true mm, right=45true mm
+%             或者: body={140true mm, 212true mm}
+%           数字后跟 true，如 15true cm 意思是保证尺寸不会随着一些参数变化而变化
+%
+% 其他设置:
+% bindingoffset 用于设置页边装订距离；此处设置为0，使用论文规范中定义的左边距 25 mm 来装订
+% 页码在版芯下边线之下隔行居中放置；TODO
+%
+% XXX: 经过对现行 Word 模板进行实际测量，这里将 top 下压为 48mm，相应的 headsep 增大为 3mm
+% 
+% 老旧参数，headsep 为零使得页眉线和正文距离太近
+%\usepackage[top=45true mm, bottom=40true mm, left=25true mm, right=45true mm,
+%            headheight=7mm, headsep=0mm, footskip=7mm,
+%            bindingoffset=0 pt
+%            ]{geometry}
+\usepackage[top=48true mm, bottom=40true mm, left=25true mm, right=45true mm,
+            headheight=7mm, headsep=3mm, footskip=7mm,
+            bindingoffset=0 pt
+            ]{geometry}
+\usepackage{layouts}                    % 打印当前页面格式的宏包
+\usepackage[sf]{titlesec}               % 控制标题的宏包，sf 表示无衬线体，中文即黑体
+\usepackage{titletoc}                   % 控制目录的宏包，说明文档与 titlesec 在一起
+\usepackage[perpage,symbol]{footmisc}   % 脚注控制
+\usepackage{fancyhdr}                   % 页眉和页脚的相关定义
+\usepackage{fancyref}                   % 设置不同的引用文字
+\usepackage{array}                      % 增强表格的功能，可能与xeCJK宏包冲突，需放在xeCJK之前
+
+\ifx\atempxetex\usewhat       % 如果使用 xelatex
+%\usepackage[slantfont,boldfont,CJKaddspaces]{xeCJK}
+%\CJKlanguage{zh-cn}
+\usepackage{ctex}
+\else
+%\usepackage{CJKutf8} %CJKpunct}
+\usepackage[UTF8]{ctex}
+\usepackage{times}            % 使用 Times 字体的宏包
+\fi                          
+                             
+\usepackage{type1cm}          % tex1cm 宏包，控制字体的大小
+\usepackage{indentfirst}      % 首行缩进宏包
+\usepackage{color}            % 支持彩色
+                             
+\usepackage{amsmath}          % AMSLaTeX 宏包，用来排出更加漂亮的公式
+\usepackage{relsize}          % 调整公式字体大小: \mathsmaller \mathlarger
+\usepackage{amssymb}         
+\usepackage{textcomp}         % 千分号等特殊符号
+\usepackage{mathrsfs}         % 不同于 \mathcal or \mathfrak 之类的英文花体字体
+\usepackage{bm}               % 处理数学公式中的黑斜体的宏包
+
+% 定理类环境宏包，其中 amsmath 选项用来兼容 AMS LaTeX 的宏包
+\usepackage[amsmath,thmmarks,hyperref]{ntheorem}
+
+\usepackage{epsfig}           % eps 图像
+\usepackage[below]{placeins}  % 允许上一个 section 的浮动图形出现在下一个 section 的开始部分，还提供 \FloatBarrier 命令，使所有未处理的浮动图形立即被处理
+%\usepackage{psfrag}          % 替换 eps 图形中的文字
+%\usepackage{floatflt}        % 图文混排用宏包，texlive2008 默认不带此宏包，可以自己安装，若是不需要这个功能可以不管它。
+\usepackage{rotating}         % 图形和表格的控制
+%\usepackage{endfloat}        % 可将浮动对象放置到文件的最后
+\usepackage{setspace}         % 定制表格和图形的多行标题行距
+\usepackage{flafter}          % 使得所有浮动体不能被放置在其浮动环境之前，以免浮动体在引述它的文本之前出现.
+\usepackage{multirow}         % 使用 Multirow 宏包，使得表格可以合并多个 row 格
+\usepackage{booktabs}         % 表格，横的粗线；\specialrule{1pt}{0pt}{0pt}
+\usepackage{longtable}        % 支持跨页的表格
+
+\usepackage[hang,center]{subfigure}  %支持子图；centerlast 设置最后一行是否居中
+\usepackage[subfigure]{ccaption}  % 浮动图形和表格标题样式，已经替代 caption2
+
+%\usepackage{cite}            % 支持引用的宏包
+\usepackage[sort&compress,numbers]{natbib}  % 支持引用缩写的宏包
+\usepackage{hypernat}
+
+\usepackage{enumitem}         % 使用 enumitem 宏包，改变列表项的格式
+\usepackage{calc}             % 长度可以用 + - * / 进行计算
+
+% 生成有书签的 pdf 及其开关, 该宏包应放在所有宏包的最后, 宏包之间有冲突
+\def\atemp{dvipspdf}
+\ifx\atemp\usewhat
+% XXX: 打印的时候可以将下面的 colorlinks 改成 false，使字体都是黑色
+% 设置 pdfborder 用于去掉链接的边框
+\usepackage[dvips,unicode,
+           bookmarksnumbered=true,
+           bookmarksopen=true,
+           colorlinks=false,
+           pdfborder={0 0 1},
+           citecolor=blue,
+           linkcolor=red,
+           anchorcolor=green,
+           urlcolor=blue,            
+           breaklinks=true
+           ]{hyperref}
+\usepackage{breakurl}         % 消除 dvips 的时候网页链接断行失效的问题
+\fi
+
+\def\atemp{dvipdfmx}
+\ifx\atemp\usewhat
+% dvi-->pdf 生成书签
+\usepackage[dvipdfm,unicode,
+            bookmarksnumbered=true,
+            bookmarksopen=true,
+            colorlinks=false,
+            pdfborder={0 0 1},
+            citecolor=blue,
+            linkcolor=red,
+            anchorcolor=green,
+            urlcolor=blue,
+            breaklinks=true
+            ]{hyperref}
+\fi
+
+\def\atemp{pdflatex}
+\ifx\atemp\usewhat
+
+\usepackage{cmap}             % pdflatex 编译时，可以生成可复制、粘贴的中文 PDF 文档
+\usepackage[pdftex,unicode,
+            %CJKbookmarks=true,
+            bookmarksnumbered=true,
+            bookmarksopen=true,
+            colorlinks=false,
+            pdfborder={0 0 1},
+            citecolor=blue,
+            linkcolor=red,
+            anchorcolor=green,
+            urlcolor=blue,           
+            breaklinks=true
+            ]{hyperref}
+\fi
+
+\def\atemp{yap}
+\ifx\atemp\usewhat
+% 考虑到 yap 可以正反向搜索，dvipdf 使 yap 中的链接有效
+\usepackage[dvipdfmx,unicode,
+            %CJKbookmarks=true,
+            bookmarksnumbered=true,
+            bookmarksopen=true,
+            colorlinks=false,
+            pdfborder={0 0 1},
+            citecolor=blue,
+            linkcolor=red,
+            anchorcolor=green,
+            urlcolor=blue,       
+            breaklinks=true
+            ]{hyperref}
+\fi
+
+\ifx\atempxetex\usewhat
+% 下面的 naturalnames 用于与 algorithm2e 宏包协调
+\usepackage[xetex,
+            bookmarksnumbered=true,
+            bookmarksopen=true,
+            colorlinks=false,
+            pdfborder={0 0 1},
+            citecolor=blue,
+            linkcolor=red,
+            anchorcolor=green,
+            urlcolor=blue,
+            breaklinks=true,
+            naturalnames
+            ]{hyperref}  
+\fi
+
+\usepackage{arydshln}        % 分块矩阵画虚线，挺好用
+
+% 算法的宏包，注意宏包兼容性，先后顺序为float、hyperref、algorithm(2e)，否则无法生成算法列表
+\usepackage[boxed, linesnumbered, algochapter]{algorithm2e}
