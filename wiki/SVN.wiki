@@ -1,0 +1,40 @@
+#summary One-sentence summary of this page.
+#labels Phase-Implementation
+
+= Linux 下使用 SVN 的简易指南 =
+
+*1、检出最新版本的代码，如果你打算检出以后 commit，那么需要使用 HTTPS，如下：*
+    _{{{svn checkout https://hrbeuthesis.googlecode.com/svn/trunk/ --username yourusername}}}_
+这个命令执行成功后，会在你的当前目录下建立一个叫 trunk 的目录，里面就是项目的当前主分支最新版了
+
+*2、编辑修改：*
+
+进 trunk 里面，干活，修改，添加，删除，类似的……有人说最好 cp 出一个副本来工作，也有道理。举两个例子：
+
+譬如一：添加一个文件 foo.tex
+
+譬如二：编辑文件 Makefile
+
+*3、检查状态：*
+
+还是在 trunk 目录里面，命令
+    _{{{svn stat *}}}_
+
+如果你譬如一了：可以看到你的文件们的状态，譬如刚刚添加的 foo.tex，状态是?
+
+如果你譬如二了：可以看到刚刚修改过的 Makefile，状态是M
+
+*4、更新 svn 数据：*
+
+如果是譬如一：上传之前，命令
+      _{{{svn add *}}}_
+刚刚添加的文件 foo.tex，状态就变成了 A，意思是即将添加进去
+
+如果是譬如二：直接转到下面
+
+*5、上传：*
+    _{{{svn commit --username yourusername}}}_
+然后 svn 会打开你在 _~/.subversion/config_ 文件里面设置的编辑器，譬如我的 vi，最上面一行写点更新日志啥的，最好别啥也不写
+
+==*Note:*==
+*有一点很容易疏忽，Google Code 里面，你的密码和你的 Google 帐户的密码是不同的，你需要到你的 Google Code 帐户页面，也就是 https://code.google.com/u/jyl198803 (应该改成你的用户名)里的 settings 页面查看 Google 为你生成的密码……*
