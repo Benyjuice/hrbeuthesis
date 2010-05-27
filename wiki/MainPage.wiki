@@ -7,13 +7,6 @@
 
 = Details =
 
-    # LaTeX 相关资料：TODO～请创建页面进行编辑
-    # Wiki 编辑方法：TODO～请创建页面进行编辑
-        Google 自带的例子：
-        {{{
-        Add your content here.  Format your content with:
-          * Text in *bold* or _italic_
-          * Headings, paragraphs, and lists
-          * Automatic links to other wiki pages
-         }}}
-    # [SVN] 使用方法
+    # LaTeX 相关资料：TODO～请创建页面，建议：其他地方有的内容不进行复制粘贴重复工作，只加入指引性的链接
+    # Wiki 编辑方法：请参考 chinese-room 项目的页面 [http://code.google.com/p/chinese-room/wiki/WikiSyntax] WikiSyntax
+    # SVN 使用方法：[SVN] 简易使用指南
