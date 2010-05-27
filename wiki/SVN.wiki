@@ -3,7 +3,7 @@
 
 = Linux 下使用 SVN 的简易指南 =
 
-*1、检出最新版本的代码，如果你打算检出以后 commit（模板维护小组成员才有此commit权限，普通用户只需下载更新就行了，不过注意更新时别覆盖了你自己的论文正文!），那么需要使用 HTTPS，如下：*
+*1、检出最新版本的代码，如果你打算检出以后 commit（模板维护小组成员才有此commit权限，普通用户只需下载），那么需要使用 HTTPS，如下：*
     _{{{svn checkout https://hrbeuthesis.googlecode.com/svn/trunk/ --username yourusername}}}_
 这个命令执行成功后，会在你的当前目录下建立一个叫 trunk 的目录，里面就是项目的当前主分支最新版了
 
@@ -38,3 +38,5 @@
 
 ==*Note:*==
 *有一点很容易疏忽，Google Code 里面，你的密码和你的 Google 帐户的密码是不同的，你需要到你的 Google Code 帐户页面，也就是 https://code.google.com/u/jyl198803 (应该改成你的用户名)里的 settings 页面查看 Google 为你生成的密码……*
+
+* 普通用户拿模板写自己的论文时，若要更新请特别注意模板的改动内容，千万别覆盖了你自己的论文正文!!! 建议正文文档的文件名与模板不同，然后在main中替换相应的文件名为自己的论文文件名。
