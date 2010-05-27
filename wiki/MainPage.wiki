@@ -1,5 +1,5 @@
 #summary One-sentence summary of this page.
-#labels Phase-Implementation,Phase-Support
+#labels Phase-Implementation,Phase-Support,Featured
 
 = 哈尔滨工程大学本硕博学位论文 LaTeX 模板（非官方） =
 
