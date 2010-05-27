@@ -34,11 +34,12 @@ ifneq ($(empty),$(XELATEX))
 	@echo Making xelatex......
 	rm -f main_xelatex.pdf &
 	xelatex main.tex
+	bibtex main
 	xelatex main.tex
 	xelatex main.tex
 	mv main.pdf main_xelatex.pdf
 	@echo Done. Starting the browser......
-#	$(PDFREADER) main_xelatex.pdf&
+	$(PDFREADER) main_xelatex.pdf&
 endif
 ifneq ($(empty),$(DVIPDFMX))  # TODO
 	@echo Making dvipdfmx......
