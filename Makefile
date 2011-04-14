@@ -4,9 +4,6 @@
 # 修改自: PlutoThesis_UTF8_1.9.4.20100419.zip
 #         http://code.google.com/p/plutothesis/
 #
-# 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-23
-#     设计哈工程本科毕业论文规范
-#
 # 注: 标注 TODO 的是未测试的编译方式;
 #     测试环境为 CentOS(安装了 XP 的六套 sim 字体) + texlive2009
 #

@@ -4,56 +4,114 @@
 % 修改自: PlutoThesis_UTF8_1.9.4.20100419.zip
 %         http://code.google.com/p/plutothesis/
 %
-% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-23
-%     设计哈工程本科毕业论文规范
-% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-23
-%     设计哈工程本科毕业论文规范
-% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-25
-%     设计哈工程本科毕业论文规范
 %
-% 注: 标注 TODO 的是未测试的内容，或者计划将来完成的内容；
-%     目前专门针对 Linux 进行修改，由于论文规范的字体要求，使用 Windows 的字体;
+%
+% 注: 标注 TODO 的是未测试或者计划将来完成的内容
+%     本科论文规范主要参考学校印发的文件: "哈尔滨工程大学本科生毕业设计(论文)手册(理工类)"
+%     由于学校论文规范的字体要求, 在 Linux 中使用需要安装 Windows 的字体
+%     字体安装方法可参考:
+%       http://blog.chinaunix.net/space.php?uid=15031453&do=blog&id=96953
 %
 % 
+%
 
-% 可选的编译方式: xelatex pdflatex dvipdfmx yap
+
+
+% 选择编译方式
+% 可选的编译方式有: xelatex, pdflatex, dvipdfmx, yap
+% 推荐使用最新的 xelatex
+%
+% Tip: texlive2009 中提供了 ctex 中文支持宏包, 使用 pdflatex(TODO), dvipdfmx(TODO) 和 xelatex 时, Linux 用户已经无需进行大量中文配置
+%
+% TODO: 目前只测试了 xelatex
+
 \def\usewhat{xelatex}
-% 套件 texlive2009 中提供了 ctex 中文支持宏包，在使用 pdflatex(TODO)、dvipdfmx(TODO) 和 xelatex 时， Linux 用户已经无需进行大量中文配置。
-% 目前在 Linux 下使用 texlive2009时，安装字体后还需修改文件 texlive/2009/texmf-dist/tex/latex/ctex/fontset/ctex-xecjk-winfonts.def，配置正确后才能编译成功，否则 xelatex 仍然找不到已安装的某些字体。
 
-% 定义 xelatex 的中间临时变量，若 \usewhat 为 xelatex 时，后面执行 xelatx 的相关选项
+
+
+% 定义 xelatex 的中间临时变量, 若 \usewhat 为 xelatex 时, 后面将执行 xelatx 的相关选项
+% 使用到这个变量的文件有:
+%   main.tex
+%   setup/Definition.tex
+%   setup/format.tex
+%   setup/package.tex
+
 \def\atempxetex{xelatex}  % 这一项无需改动
-\def\version{0.0.0.20100523}  % 该变量仅用于模板文件的版本号控制
-	% XXX: 请使用 UPDATE 标记撰写简略的升级摘要，可以用 perl 等脚本编程导出成升级记录
-	%   格式为：标记: 日期: 内容: 版本号 (英文冒号，后跟一个空格)
-	% UPDATE: 20100523: Yuliang 开始为哈尔滨工程大学本科毕业设计规范修改模板: 0.0.0
 
-% 定义学位 TODO: 尚未考虑硕博论文规范
-%\def\xuewei {Doctor}  %  博士
-%\def\xuewei {Master}  %  硕士
-\def\xuewei {Bachelor}  %  学士
 
-\def\xuehao {06061320}  % setup/format.tex 中用到了学号长度和内容，TODO: 学号定义的位置和姓名不在一起，不方便
 
-% XXX:哈工程本科论文规定:
-%       单面打印(见 "哈尔滨工程大学本科生毕业设计(论文)手册(理工类)"，以后的"哈工程本科论文规定"均出自这里)
+% 这个变量仅用于模板文件的版本号控制, 请维护者酌情修改
+
+\def\version{0.0.0.20110414}
+
+
+
+% 选择学位
+%
+% TODO: 增加硕博论文规范
+
+%\def\xuewei {Doctor}  % 博士
+%\def\xuewei {Master}  % 硕士
+\def\xuewei {Bachelor}  % 学士
+
+
+
+% 输入学号
+% 使用到这个变量的文件有:
+%   setup/format.tex
+%
+
+\def\xuehao {06061320}
+
+
+
+% 选择双面打印或单面打印
+%
+% Tip: 哈工程本科论文规定使用单面打印
+%
+% setup/type.tex 中已有完整定义, 此处不定义也可
+% 
+%\def\oneortwoside{oneside} % 单面打印
 %\def\oneortwoside{twoside} % 双面打印
-\def\oneortwoside{oneside} % 单面打印
 
-% 定义学科 TODO: 尚未考虑理工科之外的其他学科
+
+
+% 选择学科类型
+%
+% TODO: 考察理工科之外的其他学科论文要求
+
 \def\xueke{Engineering}  % 工学
 %\def\xueke{Science}  % 理学
 %\def\xueke{Management}  % 管理学
 %\def\xueke{Arts}  % 艺术学
 
-\input{setup/type.tex}    % 本硕博类型
 
-% 下面的 book 选项中可以使用 draft 选项，使插入的图形只显示外框，以加快预览速度。
-\documentclass[12pt,a4paper,openany,\oneortwoside]{book}  % 12pt: 相当于小四号; a4paper: A4 纸打印; openany: 章节开头在奇偶页均可; \oneortwoside: oneside or twoside
 
-\input{setup/package.tex} % 引用的宏包
+% 导入类型文件
+
+\input{setup/type.tex}
+
+
+
+% 使用 book 文档类，定义其属性:
+%   12pt: 相当于小四号
+%   a4paper: A4 纸打印
+%   openany: 章节开头在奇偶页均可
+%   \oneortwoside: 决定单面还是双面打印, 该变量在 setup/type.tex 中定义
+%
+% Tip: 测试时，book 的选项中可以使用 draft 选项，使插入的图形只显示外框，以加快预览速度。
+\documentclass[12pt,a4paper,openany,\oneortwoside]{book}
+
+
+
+% 引入的宏包  % TODO TODO TODO TODO TODO
+
+\input{setup/package.tex}
+
+
 
 % 论文包含的内容，需要在这里列出你的所有源文件
+
 \includeonly{
                body/Introduction,
                body/Tricks,
@@ -67,26 +125,62 @@
                appendix/acknowledgements,
                appendix/Resume
             }
-% 定义所有的 eps 文件在 figures 子目录下
+
+
+
+% 定义所有的 eps 图像文件在 figures 子目录下
+
 \graphicspath{{figures/}} 
 
+
+
+% 文档开始
+
 \begin{document}
+
+
+
+% 如果使用 xelatex 方式编译, 则不需使用 CJK 环境
+
 \ifx\atempxetex\usewhat
 \else
 \begin{CJK*}{UTF8}{song}
 \fi
 
-\input{setup/Definition}  % 文本格式定义，字体字号行距图表公式算法学科等
+
+
+% 文本格式定义, 字体字号行距图表公式算法学科等
+\input{setup/Definition}
 \input{setup/format}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  正文内容
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frontmatter
-\sloppy  % 解决中英文混排的断行问题，会加入间距，但不会影响断行
-\input{preface/cover} % 封面、摘要、符号表
 
-%% 中英目录
+% 使正式章节前的封面和摘要等内容与正文分开计算页码
+%   下文的命令 \mainmatter 之后是正文体, 在那里开始第一章
+
+\frontmatter
+
+
+
+% 宽松命令
+%   解决中英文混排的断行问题, 会加入词间距, 但不会影响断行
+
+
+
+
+
+% 封面、摘要、符号表
+
+\input{preface/cover}
+
+
+
+% 目录
+
 \renewcommand{\baselinestretch}{1}
 \fontsize{12pt}{12pt}\selectfont
 \clearpage{
@@ -104,9 +198,11 @@
 \fi
 \renewcommand{\baselinestretch}{1.3}
 \fontsize{12pt}{12pt}\selectfont
-\ifxueweidoctor       % 本科和硕士学位论文没有英文目录 TODO: 硕博论文再考虑
+\ifxueweidoctor       % 本科和硕士学位论文没有英文目录
   \tableofengcontents % 英文目录
 \fi
+
+
 
 %\input{setup/figtab.tex}  % 图表索引, 如果不需要图表索引，注释掉这一句即可；
 % \notation  %主要符号表
