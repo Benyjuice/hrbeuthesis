@@ -4,17 +4,14 @@
 % 修改自: PlutoThesis_UTF8_1.9.4.20100419.zip
 %         http://code.google.com/p/plutothesis/
 %
-% 修改记录: Yuliang <jyl198803@gmail.com> 2010-05-23
-%     设计哈工程本科毕业论文规范
 %
-% 注: 标注 TODO 的是暂未测试的内容，或者计划将来完成的内容；
-%
-%
+%%% 学位类型的一些定义
 
-% 本硕博类型的一些定义
+
 
 %% 导言区使用中文
-\makeatletter % 将 @ 符号当作字母，以便使用 LaTeX 内部命令
+
+\makeatletter  % 将特殊符号 @ 当作普通字母
 \@tempcnta=128 % 定义变量 \@tempcnta 为 128
 \loop % 开始一个循环
   \catcode\@tempcnta=13
@@ -23,14 +20,21 @@
   \repeat
 \makeatother % 恢复 @ 符号的原义
 
+
+
 %% 判断论文类型
-\newif\ifxueweidoctor % 声明三个新的逻辑型变量: \xueweidoctor \xueweimaster \xueweibachelor
+
+
+% 声明下面三个新的逻辑型变量
+
+\newif\ifxueweidoctor
 \newif\ifxueweimaster
 \newif\ifxueweibachelor
 
 % 根据 \xuewei 的定义为 \xueweidoctor \xueweimaster \xueweibachelor 赋值
+
 \def\temp{Doctor}
-\ifx\temp\xuewei % 若 \temp 和 \xuewei 相匹配
+\ifx\temp\xuewei % \ifx 用于判断两个变量是否匹配
   \xueweidoctortrue  \xueweimasterfalse \xueweibachelorfalse
 \fi
 \def\temp{Master}
@@ -42,7 +46,8 @@
   \xueweidoctorfalse  \xueweimasterfalse \xueweibachelortrue
 \fi
 
-% 定义学位相关的几个命令
+% 根据上面变量定义学位相关的几个命令
+
 \ifxueweidoctor
   \newcommand{\cxuewei}{博士}
   \newcommand{\exuewei}{Doctor}
@@ -64,27 +69,38 @@
   \newcommand{\xueweishort}{本}
 \fi
 
-% 决定单双面打印
-\ifxueweidoctor % TODO: 哈工程博士?面打印
-  \def\oneortwoside{oneside}
+
+
+%% 决定单双面打印
+
+% 根据学位决定单双面打印
+
+\ifxueweidoctor % 哈工程博士双面打印
+  \def\oneortwoside{twoside}
 \fi
 
-\ifxueweidoctor % TODO: 哈工程硕士?面打印
-  \def\oneortwoside{oneside}
+\ifxueweidoctor % 哈工程硕士双面打印
+  \def\oneortwoside{twoside}
 \fi
 
 \ifxueweibachelor % 哈工程本科论文单面打印
   \def\oneortwoside{oneside}
 \fi
 
-% 修改了上面的学位判断逻辑，\oneortwoside 没有定义的情况应该不会发生了
+% 若 \oneortwoside 没有定义, 使用默认
+
 \ifx\oneortwoside\undefined
   \def\oneortwoside{oneside}
 \fi
 
-% 定义逻辑变量 \oneortwoside，根据前面的 \oneortwoside 变量内容决定 true or false
-% twoside 为 true
+
+
+%% 定义布尔变量 \oneortwoside
+
 \newif\ifoneortwoside
+
+% 根据前面的 \oneortwoside 变量内容决定该布尔变量真假
+% twoside 为 true
 
 \def\temp{twoside}
 \ifx\temp\oneortwoside
