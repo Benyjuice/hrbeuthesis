@@ -1,0 +1,68 @@
+This is BibTeX, Version 0.99c (TeX Live 2009)
+The top-level auxiliary file: main.aux
+A level-1 auxiliary file: body/Introduction.aux
+A level-1 auxiliary file: body/Tricks.aux
+A level-1 auxiliary file: body/UpdateLog.aux
+A level-1 auxiliary file: body/ToTemplateMaintainers.aux
+A level-1 auxiliary file: body/copyright.aux
+A level-1 auxiliary file: body/conclusion.aux
+The style file: chinesebst2005_UTF8.bst
+A level-1 auxiliary file: appendix/acknowledgements.aux
+A level-1 auxiliary file: appendix/appA.aux
+Database file #1: reference/reference.bib
+Warning--there's a number but no volume in Yao1993
+Warning--"2$\varepsilon$}用户手册" isn't a brace-balanced string for entry TEXGURU99
+while executing--line 1569 of file chinesebst2005_UTF8.bst
+Warning--"2$\VAREPSILON$}用户手册" isn't a brace-balanced string for entry TEXGURU99
+while executing--line 1569 of file chinesebst2005_UTF8.bst
+Warning--"2$\varepsilon$}, {\LaTeX 2$\varepsilon$}插图指南" isn't a brace-balanced string for entry WANG00
+while executing--line 1569 of file chinesebst2005_UTF8.bst
+Warning--"2$\VAREPSILON$}, {\LaTeX 2$\varepsilon$}插图指南" isn't a brace-balanced string for entry WANG00
+while executing--line 1569 of file chinesebst2005_UTF8.bst
+Warning--"2$\varepsilon$}插图指南" isn't a brace-balanced string for entry WANG00
+while executing--line 1569 of file chinesebst2005_UTF8.bst
+Warning--"2$\VAREPSILON$}插图指南" isn't a brace-balanced string for entry WANG00
+while executing--line 1569 of file chinesebst2005_UTF8.bst
+Warning--empty year in wwwlixing
+You've used 14 entries,
+            2994 wiz_defined-function locations,
+            749 strings with 6720 characters,
+and the built_in function-call counts, 30486 in all, are:
+= -- 2395
+> -- 355
+< -- 1558
++ -- 2668
+- -- 91
+* -- 268
+:= -- 3634
+add.period$ -- 42
+call.type$ -- 14
+change.case$ -- 92
+chr.to.int$ -- 229
+cite$ -- 16
+duplicate$ -- 3367
+empty$ -- 2202
+format.name$ -- 27
+if$ -- 4981
+int.to.chr$ -- 0
+int.to.str$ -- 14
+missing$ -- 129
+newline$ -- 81
+num.names$ -- 14
+pop$ -- 3152
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 1742
+stack$ -- 0
+substring$ -- 2830
+swap$ -- 223
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 193
+width$ -- 16
+write$ -- 150
+(There were 8 warnings)

@@ -1,22 +1,11 @@
 TODO:
 
-继续修改各个文件:
-    body/Introduction
-    body/Tricks
-    body/UpdateLog
-    body/ToTemplateMaintainers
-    body/copyright
-    body/conclusion
-    appendix/appA
-
-解决尚未解决的问题:
-    各源代码文件中标明 TODO 符号的地方
-
-测试：
-    在Windows和Linux平台下均需要进行测试
-
-根据硕博论文规范修改硕博论文格式:
-    appendix/publications
-    appendix/Authorization
-    appendix/acknowledgements
-    appendix/Resume
+main.tex:
+    测试其他编译方式, 或者只使用 xelatex 方式
+    setup/package.tex
+    setup/Definition.tex
+    setup/format.tex
+    preface/cover.tex
+    博士论文英文目录
+    setup/figtab.tex
+    符号表命令
