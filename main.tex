@@ -17,7 +17,7 @@
 
 
 
-% 选择编译方式
+%% 选择编译方式
 % 可选的编译方式有: xelatex, pdflatex, dvipdfmx, yap
 % 推荐使用最新的 xelatex
 %
@@ -29,7 +29,8 @@
 
 
 
-% 定义 xelatex 的中间临时变量, 若 \usewhat 为 xelatex 时, 后面将执行 xelatx 的相关选项
+%% 定义 xelatex 的中间临时变量
+% 若 \usewhat 为 xelatex 时, 后面将执行 xelatx 的相关选项
 % 使用到这个变量的文件有:
 %   main.tex
 %   setup/Definition.tex
@@ -46,7 +47,7 @@
 
 
 
-% 选择学位
+%% 选择学位
 %
 % TODO: 增加硕博论文规范
 
@@ -56,7 +57,7 @@
 
 
 
-% 输入学号
+%% 输入学号
 % 使用到这个变量的文件有:
 %   setup/format.tex
 %
@@ -65,18 +66,18 @@
 
 
 
-% 选择双面打印或单面打印
+%% 选择双面打印或单面打印
 %
 % Tip: 哈工程本科论文规定使用单面打印
 %
-% setup/type.tex 中已有完整定义, 此处不定义也可
+% setup/type.tex 中已有完整定义, 此处如无特殊需要不定义也可
 % 
 %\def\oneortwoside{oneside} % 单面打印
 %\def\oneortwoside{twoside} % 双面打印
 
 
 
-% 选择学科类型
+%% 选择学科类型
 %
 % TODO: 考察理工科之外的其他学科论文要求
 
@@ -93,7 +94,7 @@
 
 
 
-% 使用 book 文档类，定义其属性:
+%% 使用 book 文档类，定义其属性:
 %   12pt: 相当于小四号
 %   a4paper: A4 纸打印
 %   openany: 章节开头在奇偶页均可
@@ -104,7 +105,7 @@
 
 
 
-% 引入的宏包  % TODO TODO TODO TODO TODO
+% 引入的宏包
 
 \input{setup/package.tex}
 
@@ -140,7 +141,8 @@
 
 
 
-% 如果使用 xelatex 方式编译, 则不需使用 CJK 环境
+%% 使用变量 \atempxetex 判断是否需要 CJK 环境
+%  如果使用 xelatex 方式编译, 则不需使用 CJK 环境
 
 \ifx\atempxetex\usewhat
 \else
@@ -159,17 +161,17 @@
 %  正文内容
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 使正式章节前的封面和摘要等内容与正文分开计算页码
-%   下文的命令 \mainmatter 之后是正文体, 在那里开始第一章
+%% 使正式章节前的封面和摘要等内容与正文分开计算页码
+%    下文的命令 \mainmatter 之后是正文体, 在那里开始第一章
 
 \frontmatter
 
 
 
-% 宽松命令
-%   解决中英文混排的断行问题, 会加入词间距, 但不会影响断行
+%% 宽松命令
+%    解决中英文混排的断行问题, 会加入词间距, 但不会影响断行
 
-
+\sloppy
 
 
 
@@ -179,46 +181,94 @@
 
 
 
-% 目录
+%% 中文目录
 
+% 设置为单倍行距, 即为 \baselineskip 的 \baselinestretch=1 倍
 \renewcommand{\baselinestretch}{1}
+% 设置"目录"二字的字体
 \fontsize{12pt}{12pt}\selectfont
+% 为目录增加空白页, 双面时目录右开
 \clearpage{
   \pagestyle{empty}
   \cleardoublepage
 }
-
+% 创建中文目录
 \pdfbookmark[0]{目~~~~~~~~录}{mulu}
-\tableofcontents    % 中文目录
+\tableofcontents
 
-\ifxueweidoctor     % 英文目录右开，本科和硕士学位论文没有英文目录 TODO: 硕博论文再考虑
+
+
+%% 英文目录
+
+% 本科论文和硕士论文无英文目录
+% TODO 硕博论文考察清楚后, 整理这里的逻辑, 双面打印时英文目录需要右开
+\ifxueweidoctor
+  \clearpage{
+    \pagestyle{empty}
+    \cleardoublepage
+  }
+\else
+  \ifoneortwoside
+    \clearpage{
+      \pagestyle{empty}
+      \cleardoublepage
+    }
+  \fi
+\fi
+% 设置为 1.3 倍行距
+\renewcommand{\baselinestretch}{1.3}
+% 设置 Contents 的字体
+\fontsize{12pt}{12pt}\selectfont
+% 创建英文目录
+%   命令 \tableofengcontents 在 setup/format.tex 里定义
+\ifxueweidoctor
+  \tableofengcontents
+\fi
+
+
+
+%% 图表索引
+%   如果不需要图表索引, 注释掉这一句即可
+
+%\input{setup/figtab.tex}
+
+
+% 主要符号表
+
+%\notation
+
+
+
+% 中英文目录增加空行
+
+\addtocontents{toc}{\protect\vskip1\baselineskip}
+\addtocontents{toe}{\protect\vskip1\baselineskip}
+
+
+
+% 双面打印时需清除目录后面空页的页眉和页脚
+\ifxueweidoctor
   \clearpage{\pagestyle{empty}\cleardoublepage}
-\else%
+\else
   \ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\fi
 \fi
-\renewcommand{\baselinestretch}{1.3}
-\fontsize{12pt}{12pt}\selectfont
-\ifxueweidoctor       % 本科和硕士学位论文没有英文目录
-  \tableofengcontents % 英文目录
-\fi
 
 
 
-%\input{setup/figtab.tex}  % 图表索引, 如果不需要图表索引，注释掉这一句即可；
-% \notation  %主要符号表
-\addtocontents{toc}{\protect\vskip1\baselineskip}  % 中文目录增加空行
-\addtocontents{toe}{\protect\vskip1\baselineskip}  % 英文目录增加空行
-
-\ifxueweidoctor
-  \clearpage{\pagestyle{empty}\cleardoublepage}   % 清除目录后面空页的页眉和页脚
-\else%
-  \ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\fi  % 清除目录后面空页的页眉和页脚
-\fi
+% 开始正文体各章节
 
 \mainmatter
-\defaultfont % 对应于小四的标准字号为12pt, 可以在正文中用此命令修改所需要字体的的大小
+
+
+
+% 对应于小四的标准字号为12pt, 可以在正文中用此命令修改所需要字体的的大小
+
+\defaultfont
+
+
 
 % 加入你自己写的各章内容，最好每章一个文件
+
 \include{body/Introduction}
 \include{body/Tricks}
 \include{body/UpdateLog}
@@ -226,7 +276,10 @@
 \include{body/copyright}
 \include{body/conclusion}
 
+
+
 %参考文献
+
 \defaultfont
 \ifx\atempxetex\usewhat
 \bibliographystyle{chinesebst2005_UTF8}

@@ -1,0 +1,86 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Chen1992}
+谌颖.
+\newblock 空间最优交会控制理论与方法研究[D].
+\newblock 哈尔滨:哈尔滨工业大学, 1992:8--13.
+
+\bibitem{Niwa1990}
+S.Niwa, M.~Suzuki, K.~Kimura.
+\newblock Electrical Shock Absorber for Docking System Space[C]//IEEE
+  International Workshop on Intelligent Motion Control. Istenbul: Bogazici
+  University, 1990:825--830.
+
+\bibitem{wu1997}
+吴葳, 洪炳熔.
+\newblock 自由浮游空间机器人捕捉目标的运动规划研究[C]//{
+  中国第五届机器人学术会议论文集 }. 哈尔滨: 某某出版社,
+  1997:75--80.
+
+\bibitem{Lin1992}
+林来兴.
+\newblock 空间控制技术[M].
+\newblock 哈尔滨: 宇航出版社, 1992:25--42.
+
+\bibitem{McDonnell1994}
+J.~R. McDonnell, D.~Wagen.
+\newblock Evolving Recurrent Perceptions for Time-{S}eries Modeling[J].
+\newblock IEEE Trans. on Neural Networks, 1994, 5(1):24--38.
+
+\bibitem{Yao1993}
+X.Yao.
+\newblock Evolutionary Artifitial Neural Networks[J].
+\newblock J. Of Neural Systems, 1993, (4):203--222.
+
+\bibitem{BEZOS02}
+J.~Bezos.
+\newblock The Titlesec and Titletoc Packages[M].
+\newblock 2nd ed., Cityname: University of SomeName, 2002:10--20.
+
+\bibitem{OOSTRUM01}
+{P. Oostrum, ifuleyou@bbs.ctex.org~译}.
+\newblock {\LaTeX}下的页面布局[M].
+\newblock 哈尔滨: 某某大学出版社, 2001:10--20.
+
+\bibitem{SHELL02}
+M.~Shell.
+\newblock How to Use the {IEEEtran} {\LaTeX} Class[J].
+\newblock Journal of {\LaTeX} Class Files, 2002, 1(11):10--20.
+
+\bibitem{TEXGURU99}
+{\TeX}Guru.
+\newblock {\LaTeX 2$\varepsilon$}用户手册[M].
+\newblock 哈尔滨: 某某大学出版社, 1999:10--20.
+
+\bibitem{WANG00}
+{K. Reckdahl~原著, 王磊~译}.
+\newblock Using Import Graphics in {\LaTeX 2$\varepsilon$}, {\LaTeX
+  2$\varepsilon$}插图指南[M].
+\newblock 哈尔滨: 某某大学出版社, 2000:10--20.
+
+\bibitem{Zhang2002}
+张三, 李四, 王五, 等.
+\newblock 七仙女下凡除妖记[M].
+\newblock 第二版., 哈尔滨: 某某大学出版社, 2002:1--200.
+
+\bibitem{zhangsanfeng}
+S.~F. Zhang.
+\newblock Tai Ji Jian and Tai Ji Quan[D].
+\newblock Harbin:wu dang university, 1783:15--16.
+
+\bibitem{wwwlixing}
+李兴, 吴诗其.
+\newblock 宽带ip卫星通信技术[J].
+\newblock \url{http://www.opnet.com/products/home.html}.
+
+\end{thebibliography}
