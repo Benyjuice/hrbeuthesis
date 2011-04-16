@@ -42,7 +42,7 @@
 
 *5、上传：*
     _{{{svn commit --username yourusername}}}_
-然后 svn 会打开你在 _~/.subversion/config_ 文件里面设置的编辑器，譬如我的 vi，最上面一行写点更新日志啥的，最好不要啥也不写
+然后 svn 会打开你之前在 _~/.subversion/config_ 文件里面设置的编辑器，譬如我的 vi，最上面一行写点更新日志啥的，最好不要啥也不写
 
 ==*Note:*==
 * 有一点很容易疏忽，Google Code 里面，你的密码和你的 Google 帐户的密码是不同的，你需要到你的 Google Code 帐户页面，也就是 https://code.google.com/u/jyl198803 (应该改成你的用户名)里的 settings 页面查看 Google 为你生成的密码。
