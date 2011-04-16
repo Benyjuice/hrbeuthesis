@@ -4,8 +4,6 @@
 # 修改自: PlutoThesis_UTF8_1.9.4.20100419.zip
 #         http://code.google.com/p/plutothesis/
 #
-# 注: 标注 TODO 的是未测试的编译方式;
-#     测试环境为 CentOS(安装了 XP 的六套 sim 字体) + texlive2009
 #
 #
 
@@ -14,7 +12,7 @@ DVIPDFMX:=$(shell grep '\\def\\usewhat{dvipdfmx}' main.tex)
 PDFLATEX:=$(shell grep '\\def\\usewhat{pdflatex}' main.tex)
 DVIPSPDF:=$(shell grep '\\def\\usewhat{dvipspdf}' main.tex)
 YAP:=$(shell grep '\\def\\usewhat{yap}' main.tex)
-XELATEX :=$(shell grep '\\def\\usewhat{xelatex}'  main.tex)
+XELATEX:=$(shell grep '\\def\\usewhat{xelatex}'  main.tex)
 
 # 定义空变量，用于与上述变量比对：非空的编译方式将被执行
 empty=
@@ -23,9 +21,7 @@ empty=
 PDFREADER=evince
 DVIREADER=xdvi
 
-# 定义所有参与编译的文件名变量，产生 all 的依赖
-# TODO
-
+# 根据 main.tex 中所选编译方式进行编译
 all:
 ifneq ($(empty),$(XELATEX))
 	@echo Making xelatex......
@@ -38,7 +34,7 @@ ifneq ($(empty),$(XELATEX))
 	@echo Done. Starting the browser......
 	$(PDFREADER) main_xelatex.pdf&
 endif
-ifneq ($(empty),$(DVIPDFMX))  # TODO
+ifneq ($(empty),$(DVIPDFMX))
 	@echo Making dvipdfmx......
 	rm -f main.pdf main.dvi &
 	latex main.tex
@@ -49,7 +45,7 @@ ifneq ($(empty),$(DVIPDFMX))  # TODO
 	@echo Done. Starting the browser......
 	$(PDFREADER) main.pdf&
 endif
-ifneq ($(empty),$(PDFLATEX))  # TODO
+ifneq ($(empty),$(PDFLATEX))
 	@echo Making pdflatex......
 	rm -f main_pdflatex.pdf&
 	pdflatex main.tex
@@ -60,7 +56,7 @@ ifneq ($(empty),$(PDFLATEX))  # TODO
 	@echo Done. Starting the browser......
 	$(READER) main_pdflatex.pdf&
 endif
-ifneq ($(empty),$(DVIPSPDF))  # TODO
+ifneq ($(empty),$(DVIPSPDF))
 	@echo Making dvipspdf......
 	rm -f main_dvipspdf.pdf main.dvi main.ps&
 	latex main.tex
@@ -72,7 +68,7 @@ ifneq ($(empty),$(DVIPSPDF))  # TODO
 	@echo Done. Starting the browser......
 	$(PDFREADER) main_dvipspdf.pdf&
 endif
-ifneq ($(empty),$(YAP))  # TODO
+ifneq ($(empty),$(YAP))
 	@echo Making dvi......
 	rm -f main.dvi&
 	latex main.tex
