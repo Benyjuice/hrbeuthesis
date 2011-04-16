@@ -1,11 +1,37 @@
 TODO:
 
-main.tex:
-    测试其他编译方式, 或者只使用 xelatex 方式
-    setup/package.tex
+一、main.tex
+
+二、preface/cover.tex
+      封面
+      中英文摘要
+
+三、setup/package.tex
     setup/Definition.tex
     setup/format.tex
-    preface/cover.tex
-    博士论文英文目录
-    setup/figtab.tex
-    符号表命令
+
+
+四、论文各章节内容
+      1. 引言
+      2. 正文
+      3. 配图
+      4. 表格
+      5. 公式
+      6. 算法
+
+五、参考文献的格式文件
+
+六、致谢, 附录等附加部分
+
+七、Makefile
+      测试其他常用的编译方式
+        pdflatex
+        dvipdfmx
+        dvipspdf
+        yap
+
+八、博士论文英文目录
+
+九、setup/figtab.tex
+
+十、符号表

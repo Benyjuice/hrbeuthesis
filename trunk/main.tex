@@ -21,7 +21,7 @@
 % 可选的编译方式有: xelatex, pdflatex, dvipdfmx, yap
 % 推荐使用最新的 xelatex
 %
-% Tip: texlive2009 中提供了 ctex 中文支持宏包, 使用 pdflatex(TODO), dvipdfmx(TODO) 和 xelatex 时, Linux 用户已经无需进行大量中文配置
+% Tip: texlive2009 中提供了 ctex 中文支持宏包, 使用 pdflatex, dvipdfmx 和 xelatex 时, Linux 用户已经无需进行大量中文配置
 %
 % TODO: 目前只测试了 xelatex
 
@@ -49,7 +49,7 @@
 
 %% 选择学位
 %
-% TODO: 增加硕博论文规范
+% TODO: 目前只有本科论文
 
 %\def\xuewei {Doctor}  % 博士
 %\def\xuewei {Master}  % 硕士
@@ -201,7 +201,8 @@
 %% 英文目录
 
 % 本科论文和硕士论文无英文目录
-% TODO 硕博论文考察清楚后, 整理这里的逻辑, 双面打印时英文目录需要右开
+% 双面打印时英文目录需要右开
+% TODO: 硕博论文考察清楚后, 整理这里的逻辑
 \ifxueweidoctor
   \clearpage{
     \pagestyle{empty}
@@ -239,7 +240,7 @@
 
 
 
-% 中英文目录增加空行
+% 在中英文目录开始处增加空行
 
 \addtocontents{toc}{\protect\vskip1\baselineskip}
 \addtocontents{toe}{\protect\vskip1\baselineskip}
@@ -247,27 +248,37 @@
 
 
 % 双面打印时需清除目录后面空页的页眉页脚
+
 \ifxueweidoctor
-  \clearpage{\pagestyle{empty}\cleardoublepage}
+  \clearpage{
+    \pagestyle{empty}
+    \cleardoublepage
+  }
 \else
-  \ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\fi
+  \ifoneortwoside
+    \clearpage{
+      \pagestyle{empty}
+      \cleardoublepage}
+  \fi
 \fi
 
 
 
-% 开始正文体各章节
+% 从此处开始正文体各章节
 
 \mainmatter
 
 
 
-% 对应于小四的标准字号为12pt, 可以在正文中用此命令修改所需要字体的的大小
+%% 开始使用默认字号
+%    对应于小四的标准字号为12pt
+% Tip: 在正文中也可使用此命令修改所需要字体的的大小
 
 \defaultfont
 
 
 
-% 加入你自己写的各章内容，最好每章一个文件
+% 加入你自己写的论文各章内容, 最好每章一个文件
 
 \include{body/Introduction}
 \include{body/Tricks}
@@ -278,23 +289,43 @@
 
 
 
-%参考文献
+%%参考文献
 
+% 默认字号
 \defaultfont
+% 使用 chinesebst2005_UTF8.bst 定义的参考文献格式
 \ifx\atempxetex\usewhat
-\bibliographystyle{chinesebst2005_UTF8}
+  \bibliographystyle{chinesebst2005_UTF8}
 \else
-\bibliographystyle{chinesebst2005_UTF8}
+  \bibliographystyle{chinesebst2005_UTF8}
 \fi
-\addcontentsline{toc}{chapter}{\hei \ReferenceCName}  % 参考文献加入到中文目录
-\addcontentsline{toe}{chapter}{\bfseries \xiaosi \ReferenceEName}  % 参考文献加入到英文目录
+
+
+% 分别把参考文献加入到中英文目录中
+
+\addcontentsline{toc}{chapter}{\hei \ReferenceCName}
+\addcontentsline{toe}{chapter}{\bfseries \xiaosi \ReferenceEName}
+
+
+% 减小参考文献的间距
+
 \addtolength{\bibsep}{-0.8 em} \nocite{*}
+
+
+% 参考文献
+
 \bibliography{reference/reference}
 
-%\addtocontents{fen}{\protect\vskip1\baselineskip}
-%\addtocontents{ten}{\protect\vskip1\baselineskip}
+
+
 %英文图形和表格索引里加入空白行，通常放在 \include{appendix/appA}% 附录A之前。
 %区分开正文和附录的图形和表格，一般没有这个必要。
+%\addtocontents{fen}{\protect\vskip1\baselineskip}
+%\addtocontents{ten}{\protect\vskip1\baselineskip}
+
+
+
+% 作品, 承诺, 致谢, 附录, 简历
 
 %\include{appendix/publications}    % 所发文章
 %\include{appendix/Authorization}   % 承诺
@@ -302,12 +333,26 @@
 \include{appendix/appA}             % 附录A
 %\include{appendix/Resume}          % 个人简历
 
+
+
 \clearpage
-\ifx\atempxetex\usewhat\else
+
+
+
+% 如果使用 xelatex 方式编译, 结束 CJK 环境
+
+\ifx\atempxetex\usewhat
+\else
 \end{CJK*}
 \fi
 
+
+
+% 文档结束
+
 \end{document}
+
+
 
 %%% Local Variables: 
 %%% mode: latex
