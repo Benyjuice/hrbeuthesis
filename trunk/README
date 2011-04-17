@@ -4,18 +4,22 @@
 致谢:
     本模板自哈工大 PlutoThesis_UTF8 1.9.4.20100419 版本修改而来, 感谢哈工大各位模板撰写人员的辛苦工作
     感谢工大论文模板维护者 luckfox 的大力支持，您的贡献和意见都非常重要
+    感谢所有参与模板撰写，或者提出意见和建议的老师和同学们
 
 
-  使用说明:
-    环境:
-      一、Linux + WindowsXP 的 SIM 字体 + texlive2009
-        已测试 Linux: CentOS, Fedora, Debian
-      二、WindowsXP + texlive2009
-      三、WindowsXP + CTEX 套装
+使用说明:
+  环境:
+    一、Linux + WindowsXP 的 SIM 字体 + texlive2009
+          已测试 Linux: CentOS, Fedora, Debian
+    二、WindowsXP + texlive2009
+    三、WindowsXP + CTEX 套装
+    TODO: 补充些各种编译环境搭建的文章链接, 加入模板正文中, 生成 readme.pdf
 
+  使用方法:
+    TODO: 写入 readme.pdf
 
-  版本:
-      2010-05-25: 0.0.-1 版本:
-                  尚未可以使用
-                  本科部分可以制作符合规范的封面、扉页、中英文摘要和目录
-                  硕博部分什么也做不出来
+版本:
+    2010-05-25: 0.0.-1 版本:
+                尚未可以使用
+                本科部分可以制作符合规范的封面、扉页、中英文摘要和目录
+                硕博部分什么也做不出来
