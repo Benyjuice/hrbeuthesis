@@ -15,3 +15,7 @@
     整理 README 文件
     检查学习和修改 main.tex
     调整 TODO 中内容及其优先级
+
+修改记录: Yuliang <jyl198803@gmail.com> 2011-04-17
+    检查学习和修改 preface/cover.tex
+    从代码库中去掉 main_xelatex.pdf, 更名为 readme.pdf
