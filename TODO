@@ -7,6 +7,7 @@ TODO:
       中英文摘要
 
 三、setup/package.tex
+      使用 geometry 宏包对版面进行控制时, 使用布尔变量 \ifxuewei* 对本硕博进行分别控制
     setup/Definition.tex
     setup/format.tex
 
