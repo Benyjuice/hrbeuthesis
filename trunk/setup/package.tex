@@ -8,22 +8,38 @@
 %%% 可能用到的宏包以及参数定义
 
 
+% eTex 宏包
 
-%% 图形支持宏包，为了使用 pdftex，需要作相应判断
-\usepackage{etex}  % 增加计数器总数（原来是 256，宏包多，可能不够用）；编译需基于 eTeX，目前 pdflatex 等均可
+% eTex 将计数器等寄存器从 256 个扩展到 32768 个
+%   使用 etex 时需要用基于 etex 的引擎进行编译, 现在的引擎多已是基于 etex 的了
+
+\usepackage{etex}
+
+
+
+%% 图形支持宏包 graphicx
+
+% ifpdf 的命令 \ifpdf 可判断 pdftex 的模式(pdf 模式或 dvi 模式)
+
 \usepackage{ifpdf}
 
-\ifx\atempxetex\usewhat  % main.tex: \def\atempxetex{xelatex}
-	\usepackage[dvipdfm]{graphicx}
+% 判断编译方式, 如果是 pdftex 方式还要判断其模式, 以确定图形支持宏包的参数
+
+\ifx\atempxetex\usewhat  % \atempxetex 在 main.tex 中定义
+    \usepackage[dvipdfm]{graphicx}
 \else
-	\ifpdf
-		\usepackage[pdftex]{graphicx}
-	\else
-		\usepackage[dvips]{graphicx}
-	\fi
+    \ifpdf
+      \usepackage[pdftex]{graphicx}
+    \else
+      \usepackage[dvips]{graphicx}
+    \fi
 \fi
 
-%% 版面控制宏包，定义规定的版面尺寸
+
+
+%% 版面控制宏包 geometry
+
+
 % 纸张大小: \documentclass 的选项中已设置 a4paper，故不为 geometry 设置 paperwidth 和 paperheight
 % 若设置 paperwidth=18.4cm, paperheight= 26cm，使用 16 开纸打印，可节能减碳 :)
 %
@@ -50,10 +66,27 @@
 %            headheight=7mm, headsep=0mm, footskip=7mm,
 %            bindingoffset=0 pt
 %            ]{geometry}
-\usepackage[top=48true mm, bottom=40true mm, left=25true mm, right=45true mm,
-            headheight=7mm, headsep=3mm, footskip=7mm,
-            bindingoffset=0 pt
-            ]{geometry}
+\ifxueweibachelor
+  \usepackage[top=48true mm, bottom=40true mm, left=25true mm, right=45true mm,
+              headheight=7mm, headsep=3mm, footskip=7mm,
+              bindingoffset=0 pt
+              ]{geometry}
+\fi
+\ifxueweimaster % TODO
+  \usepackage[top=48true mm, bottom=40true mm, left=25true mm, right=45true mm,
+              headheight=7mm, headsep=3mm, footskip=7mm,
+              bindingoffset=0 pt
+              ]{geometry}
+\fi
+\ifxueweidoctor % TODO
+  \usepackage[top=48true mm, bottom=40true mm, left=25true mm, right=45true mm,
+              headheight=7mm, headsep=3mm, footskip=7mm,
+              bindingoffset=0 pt
+              ]{geometry}
+\fi
+
+
+
 \usepackage{layouts}                    % 打印当前页面格式的宏包
 \usepackage[sf]{titlesec}               % 控制标题的宏包，sf 表示无衬线体，中文即黑体
 \usepackage{titletoc}                   % 控制目录的宏包，说明文档与 titlesec 在一起
