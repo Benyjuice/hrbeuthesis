@@ -40,32 +40,40 @@
 %% 版面控制宏包 geometry
 
 
-% 纸张大小: \documentclass 的选项中已设置 a4paper，故不为 geometry 设置 paperwidth 和 paperheight
-% 若设置 paperwidth=18.4cm, paperheight= 26cm，使用 16 开纸打印，可节能减碳 :)
+% 本科论文版面设置:
 %
-% 页边距和页眉页脚: XXX 哈工程本科论文规定: 
-%     打印在 A4 (大 16 开, 210mm*297mm) 纸上，上下左右页边距分别为：45mm、40mm、25mm、45mm
-%     上下右三面裁切后，为 16 开纸，184mm*260mm；
-%     页眉 38mm，页脚 33mm (指页眉页脚距离纸张边缘的距离)；
-%       故: top=45mm, bottom=40m, left=25mm, right=45mm
-%           totalbody={140mm, 226mm} (width=140, height=226mm)
-%           headheight=7mm, headsep=top-headheight-38mm=0mm, footskip=7mm
-%           body={140mm*212mm} (textwidth=140, textheight=212mm)
-%       因此可设置: top=45true mm, bottom=40true mm, left=25true mm, right=45true mm
-%             或者: body={140true mm, 212true mm}
-%           数字后跟 true，如 15true cm 意思是保证尺寸不会随着一些参数变化而变化
+%   本科论文规定打印在 A4 纸上, 经过上下右三面的裁切后变成 88 版 GB/T 148 中的 16 开纸
+%     Tip: A4 纸是国际化标准组织 ISO 216 标准中的规范, 长宽为 210mm*297mm;
+%     Tip: 88 版 GB/T 148 是等效 ISO 216 制订的标准, 其中还规定了我国自己的 16 开纸,
+%              GB/T 148-1997 废弃了 88 版中的 16 开标准, 规定使用国际标准 A 系列纸张,
+%              因此现国标 A4 纸与 ISO 216 标准的 A4 纸也是相同大小的,
+%              我校规定本科论文大小仍是 GB/T 148 的 16 开, 长宽为 184mm*260mm;
+%     Tip: 国家标准 GB/T 9704-1999, 即 99 版 "国家行政机关公文格式",
+%              规定公文用纸使用 1997 年修订的 GB/T 148-1997 中规定的 A4 纸;
+%     Tip: 不同大小的全开纸裁切出的 16 开纸大小是不同的, 譬如全开纸有大度正度等,
+%              因此 16 开纸可能有各种不同的大小, 其实 A4 纸就是 A0 纸的 16 开,
+%              学校采用的 184mm*260mm 16 开纸是 GB/T 148 中我国自己的 16 开;
+%   由于打印时使用 A4 纸, 后文描述涉及页边距等概念均以 A4 纸大小 210mm*297mm 为准
+%
+% 纸张: a4paper (即 ISO 216 标准的 A4 纸)
+%   由于 \documentclass 的参数中已设置 a4paper
+%   故 geometry 不用再设置 paperwidth 和 paperheight 或 a4paper 等参数
+%
+% 页边距: 指正文版芯(totalbody)上下左右距离纸张页面边缘的距离
+%   上边距 45mm, 下边距 40mm, 左边距 25mm, 右边距 45mm
+%
+% 页眉页脚: 指页眉页脚距离纸张边缘的距离
+%   页眉 38mm, 页脚 33mm
 %
 % 其他设置:
-% bindingoffset 用于设置页边装订距离；此处设置为0，使用论文规范中定义的左边距 25 mm 来装订
-% 页码在版芯下边线之下隔行居中放置；TODO
+%   bindingoffset 用于设置页边装订距离, 此处设置为 0 pt
 %
-% XXX: 经过对现行 Word 模板进行实际测量，这里将 top 下压为 48mm，相应的 headsep 增大为 3mm
-% 
-% 老旧参数，headsep 为零使得页眉线和正文距离太近
-%\usepackage[top=45true mm, bottom=40true mm, left=25true mm, right=45true mm,
-%            headheight=7mm, headsep=0mm, footskip=7mm,
-%            bindingoffset=0 pt
-%            ]{geometry}
+% 校对:
+%   经过对现行 Word 模板进行实际测量, 为了增加页眉与第一行文字的间距
+%   将 top 下压为 48mm, 相应 headsep 增大为 3mm
+%
+%   Tip: 各长度的数字后跟 true，如 15true cm 意思是保证尺寸不会随着一些参数变化而变化
+%
 \ifxueweibachelor
   \usepackage[top=48true mm, bottom=40true mm, left=25true mm, right=45true mm,
               headheight=7mm, headsep=3mm, footskip=7mm,

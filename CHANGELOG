@@ -22,3 +22,6 @@
 
 修改记录: Yuliang <jyl198803@gmail.com> 2011-04-19
     检查学习 setup/package.tex 中部分宏包(geometry 未完成)
+
+修改记录: Yuliang <jyl198803@gmail.com> 2011-04-19
+    检查学习 setup/package.tex 中宏包 geometry 的参数(这里的设置还需要进一步商榷)
