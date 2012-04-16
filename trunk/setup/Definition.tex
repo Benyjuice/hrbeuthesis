@@ -18,7 +18,7 @@
 %     http://blog.chinaunix.net/u2/68417/showart_2219798.html
 %   使用 Debian 系列操作系统的同学也可以参考这篇文章，类似，不过我没有试过 TODO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifx\atempxetex\usewhat 
+\ifx\atempxetex\usewhat
   % xelatex 可以直接调用系统字体
   % XXX: 请只使用 "fc-list" 命令列出的字体，注释掉没有安装而且也不用的字体
   %      只列出中文字体的命令: "fc-list :lang=zh-cn"
@@ -121,7 +121,7 @@
 \newcommand{\FigureBiCaption}[2]
 {
   \renewcommand{\figurename}{图}
-  \caption{\protect\setlength{\baselineskip}{1.5em}#1}  
+  \caption{\protect\setlength{\baselineskip}{1.5em}#1}
   % \protect\setlength{\baselinestretch}{1.3}\selectfont
   \vspace{-1.3ex}%-0.5ex
   \figencaption{\protect\setlength{\baselineskip}{1.5em}#2}%
@@ -160,7 +160,7 @@
   \ifthenelse{\lengthtest{\wd\tempbox > \linewidth}}%
   {\\[-20pt]\hspace*{#1}\parbox[t]{\linewidth}{\flushleft\noindent\wuhao\selectfont\thesubfigure\hskip\subfiglabelskip \centering#2\hangafter=1\hangindent=15pt}}%
   {\\\hspace*{#1}\centerline{\wuhao\selectfont\thesubfigure\hskip\subfiglabelskip #2}}
-} 
+}
 
 %\newcommand{\SubfigureCaption}[2]  % Two Parameters, the first one is the width of the subfigure,
 %{
@@ -299,26 +299,26 @@
 \markboth{#1}{#1}%\markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}
 \addcontentsline{toc}{chapter}{\hei #1}
 \addcontentsline{toe}{chapter}{\bfseries \xiaosi #2}  \chapter*{#1}
-} 
+}
 \newcommand{\BiAppendixChapterTMP}[2]  % 临时命令，解决摘要不加入目录的问题
 {\phantomsection
 \markboth{#1}{#1}
 \addcontentsline{toe}{chapter}{\hei #1}
 \addcontentsline{toe}{chapter}{\bfseries \xiaosi #2}  \chapter*{#1}
-} 
+}
 \newcommand{\BiAppChapter}[2]  % 该附录命令适用于有章节的完整附录
 {\phantomsection  \chapter{#1}  % \markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}} %为了winedt中project tree中toc正确显示，不要挪到下一行；
 %\addcontentsline{toc}{chapter}{\hei #1}
  \addcontentsline{toe}{chapter}{\bfseries \xiaosi Appendix \thechapter~~#2}
 }
 
-\renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}  % 使图编号为 7-1 的格式 %\protect{~}
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}  % 使图编号为 7.1 的格式 %\protect{~}
 %\renewcommand\fnum@figure{\figurename\nobreakspace\thefigure\protect{~~~~~~~~~}} %
 
 \renewcommand{\thesubfigure}{\alph{subfigure})}  % 使子图编号为 a)的格式
-\renewcommand{\p@subfigure}{\thefigure ~~}  % 使子图引用为 7-1 a) 的格式，母图编号和子图编号之间用~~加一个空格 
+\renewcommand{\p@subfigure}{\thefigure ~~}  % 使子图引用为 7.1 a) 的格式，母图编号和子图编号之间用~~加一个空格 
 %\renewcommand{\thesubfigure}{\alph{subfigure}}
-%\renewcommand{\p@subfigure}{\thefigure}  % 使子图引用为 7-1a 的格式
+%\renewcommand{\p@subfigure}{\thefigure}  % 使子图引用为 7.1a 的格式
 %\renewcommand{\@thesubfigure}{\thesubfigure)\hskip\subfiglabelskip}  % 使子图编号为 a)的格式
 
 \renewcommand{\thetable}{\arabic{chapter}-\arabic{table}}%%使表编号为 7-1 的格式
