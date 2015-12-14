@@ -26,7 +26,7 @@
 % 判断编译方式, 如果是 pdftex 方式还要判断其模式, 以确定图形支持宏包的参数
 
 \ifx\atempxetex\usewhat  % \atempxetex 在 main.tex 中定义
-    \usepackage[dvipdfm]{graphicx}
+    \usepackage[dvipdfmx]{graphicx}
 \else
     \ifpdf
       \usepackage[pdftex]{graphicx}
