@@ -420,10 +420,12 @@ mu$}\hfill
     \begin{titlepage}
 
     % 封面
-    \begin{center}
-    \parbox[t][0.8cm][t]{\textwidth}{\hei \wuhao \hfill 学~~~~~~号：\underline{\makebox[\lengthofxuehao][c]\xuehao}~~~}
-    \parbox[t][0.8cm][t]{\textwidth}{\hei \wuhao \hfill 密~~~~~~级：\underline{\makebox[\lengthofxuehao][c]{}}~~~}  % \lengthofxuehao 决定了一个空横线的长度，本科论文的密级留空，即使填写，密级也比学号短，故使用学号长度
-    \end{center}
+    %\begin{center}
+     \parbox[t][0.8cm][t]{7cm}{\hei \wuhao 分类号：\underline{\makebox[\lengthofxuehao][c]{}}\\
+     \hfill U~~D~~C：\underline{\makebox[\lengthofxuehao][c]{}}~~~}
+    \parbox[t][0.8cm][t]{7cm}{\hei \wuhao 密级：\underline{\makebox[\lengthofxuehao][c]{}} \\ 
+    	\hfill 编号：\underline{\makebox[\lengthofxuehao][c]{}}~~~}  % \lengthofxuehao 决定了一个空横线的长度，本科论文的密级留空，即使填写，密级也比学号短，故使用学号长度
+    %\end{center}
 
     \begin{center}
 
@@ -485,20 +487,47 @@ mu$}\hfill
     \parbox[t][2.1cm][t]{\textwidth}{
       \begin{center} \end{center}
     }
-    \else
-    \parbox[t][2.0cm][t]{\textwidth}{
-      \xiaoer
-      \begin{center} {\song  \@cauthor}  \end{center} }
+    \else %硕士
+    %\parbox[t][2.0cm][t]{\textwidth}{
+    %  \xiaosan
+    %  \begin{center} {\song  \@cauthor}  \end{center} }
+     \parbox[t][1.0cm][t]{\textwidth}{
+     	\xiaosan
+     	\makebox[3.0cm][c]{}
+     	\makebox[6em][s]{\song 硕士研究生：}
+     	\makebox[7cm][l]{\song \@cauthor}
+     }
+     \parbox[t][1.0cm][t]{\textwidth}{
+     	\xiaosan
+     	\makebox[3.0cm][c]{}
+     	\makebox[6em][s]{\song 指导老师：}
+     	\makebox[7cm][l]{\song \@csupervisor}
+     }
+     \parbox[t][1.0cm][t]{\textwidth}{
+     	\xiaosan
+     	\makebox[3.0cm][c]{}
+     	\makebox[6em][s]{\song 学科、专业：}
+     	\makebox[7cm][l]{\song \@csubject}
+     }
+     \parbox[t][1.0cm][t]{\textwidth}{
+     	\xiaosan
+     	\makebox[3.0cm][c]{}
+     	\makebox[6em][s]{\song 论文主审人：}
+     	\makebox[7cm][l]{\song \@csupervisor}
+     }
     \fi
 
-    \ifxueweibachelor
-    \else  % TODO: 将来的事
-    \parbox[t][8.5cm][t]{\textwidth}{
-        \centering
-        \includegraphics[width = 8cm]{heu_logo}
-    }
-    \fi
+	% 没有logo要求
+    %\ifxueweibachelor
+    %\else  % TODO: 将来的事
+    %\parbox[t][8.5cm][t]{\textwidth}{
+    %    \centering
+    %    \includegraphics[width = 8cm]{heu_logo}
+    %}
+    %\fi
 
+	% 插入适量的空行
+	\vfill
     \ifxueweibachelor  % 反正本科规范没有这个，硕博未知
     \else
       \parbox[t][1.2cm][t]{\textwidth}{\xiaoer
@@ -520,9 +549,17 @@ mu$}\hfill
     % 本科论文扉页
     \newpage
     \thispagestyle{empty}
-    \begin{center}
+    
 
-    \parbox[t][0.8cm][t]{\textwidth}{
+   
+    
+    \parbox[t][0.8cm][t]{7cm}{\hei \wuhao 分类号：\underline{\makebox[\lengthofxuehao][c]{}}\\
+    	\hfill U~~D~~C：\underline{\makebox[\lengthofxuehao][c]{}}~~~}
+    \parbox[t][0.8cm][t]{7cm}{\hei \wuhao 密级：\underline{\makebox[\lengthofxuehao][c]{}} \\ 
+    	\hfill 编号：\underline{\makebox[\lengthofxuehao][c]{}}~~~}
+    \begin{center}
+    	
+    \parbox[t][1.8cm][t]{\textwidth}{
       \begin{center} \end{center}
     }
 
@@ -547,40 +584,58 @@ mu$}\hfill
     \parbox[t][1.0cm][t]{\textwidth}{
       \sihao
       \makebox[3.6cm][c]{}
-      \makebox[3.1cm][s]{\song 院~~~~~~~~（系）：}
-      \makebox[7cm][l]{\song \@caffil}
-    }
-    \parbox[t][1.0cm][t]{\textwidth}{
-      \sihao
-      \makebox[3.6cm][c]{}
-      \makebox[3.1cm][s]{\song 专~~~~~~~~~~~~~~业：}
-      \makebox[7cm][l]{\song \@csubject}
-    }
-    \parbox[t][1.0cm][t]{\textwidth}{
-      \sihao
-      \makebox[3.6cm][c]{}
-      \makebox[3.1cm][s]{\song 学~~~~~~~~~~~~~~号：}
-      \makebox[7cm][l]{\song \xuehao}
-    }
-    \parbox[t][1.0cm][t]{\textwidth}{
-      \sihao
-      \makebox[3.6cm][c]{}
-      \makebox[3.1cm][s]{\song 学~~生~~姓~~名：}
+      \makebox[7em][s]{\song \textbf {硕士研究生：}}
       \makebox[7cm][l]{\song \@cauthor}
     }
     \parbox[t][1.0cm][t]{\textwidth}{
       \sihao
       \makebox[3.6cm][c]{}
-      \makebox[3.1cm][s]{\song 指~~导~~教~~师：}
+      \makebox[7em][s]{\song \textbf {指导教师：}}
+      \makebox[7cm][l]{\song \@csubject}
+    }
+    \parbox[t][1.0cm][t]{\textwidth}{
+      \sihao
+      \makebox[3.6cm][c]{}
+      \makebox[7em][s]{\song \textbf {学位级别：}}
+      \makebox[7cm][l]{\song \xuehao}
+    }
+    \parbox[t][1.0cm][t]{\textwidth}{
+      \sihao
+      \makebox[3.6cm][c]{}
+      \makebox[7em][s]{\song \textbf {学科、专业：}}
+      \makebox[7cm][l]{\song \@cauthor}
+    }
+    \parbox[t][1.0cm][t]{\textwidth}{
+      \sihao
+      \makebox[3.6cm][c]{}
+      \makebox[7em][s]{\song \textbf {所在单位：}}
       \makebox[7cm][l]{\song \@csupervisor}
     }
-
-    \parbox[t][2.6cm][t]{\textwidth}{
-      \begin{center} \end{center}
+    \parbox[t][1.0cm][t]{\textwidth}{
+    	\sihao
+    	\makebox[3.6cm][c]{}
+    	\makebox[7em][s]{\song \textbf {论文提交日期：}}
+    	\makebox[7cm][l]{\song \xuehao}
+    }
+    \parbox[t][1.0cm][t]{\textwidth}{
+    	\sihao
+    	\makebox[3.6cm][c]{}
+    	\makebox[7em][s]{\song \textbf {论文答辩日期：}}
+    	\makebox[7cm][l]{\song \xuehao}
+    }
+    \parbox[t][1.0cm][t]{\textwidth}{
+    	\sihao
+    	\makebox[3.6cm][c]{}
+    	\makebox[7em][s]{\song \textbf{学位授予单位：}}
+    	\makebox[7cm][l]{\song \xuehao}
     }
 
-    \parbox[t][0.5cm][t]{\textwidth}{
-    \begin{center}{\song \xiaoer \@cdate} \end{center} }
+    %\parbox[t][2.6cm][t]{\textwidth}{
+    %  \begin{center} \end{center}
+   % }
+
+    %\parbox[t][0.5cm][t]{\textwidth}{
+    %\begin{center}{\song \xiaoer \@cdate} \end{center} }
 
     \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -638,41 +693,41 @@ mu$}\hfill
 %  下面是原硕博论文的封面，双 % 的两行是原来就注释过一次的
 %  而且没有注释掉时产生的英文封面很难看，因为调整的东西太多了
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%    \newpage
-%    \thispagestyle{empty}
-%    \begin{center}
-%    \parbox[t][0.6cm][t]{\textwidth}{
-%    \begin{center} \end{center}}
-%
-%    \parbox[t][2.2cm][t]{\textwidth}{
-%    \xiaosi Classified Index: \@natclassifiedindex \\
-%                  U.D.C.:  \@internatclassifiedindex }
-%
-%    \parbox[t][2.7cm][b]{\textwidth}{\xiaoer
-%    \begin{center} {  Dissertation for the {\exueweier} Degree }\end{center} } %与中文保持一致，删除in {\exueke}
-%
-%    \parbox[t][3.0cm][b]{\textwidth}{\erhao
-%    \begin{center} {  \@etitle}\end{center} }
-%
-%    \parbox[t][4.0cm][t]{\textwidth}{
-%    \begin{center}  \end{center} }
-%
-%    \parbox[t][6cm][c]{\textwidth}{ {\sihao
-%    \begin{center} \renewcommand{\arraystretch}{1.5} 
-%    \begin{tabular}{p{0cm}p{14em}p{13.4em}l@{\extracolsep{2em}}l}
-%    ~ & \textbf{Candidate:}                     &  \@eauthor\\
-%    ~ & \textbf{Supervisor:}                    &  \@esupervisor\\
-%    \@ecosupervisor
-%    \@eassosupervisor
-%    ~ & \textbf{Academic Degree Applied for:}   &  \@edegree\\
-%    ~ & \textbf{Specialty:}                     &  \@esubject\\
-%    ~ & \textbf{Affiliation:}                   &  \@eaffil\\
-%    ~ & \textbf{Date of Defence:}               &  \@edate\\
-%    ~ & \textbf{Degree-Conferring-Institution:} &  Harbin Institute of Technology
-%    \end{tabular}
-%    \end{center}}}
-%
-%    \end{center}
+    \newpage
+    \thispagestyle{empty}
+    \begin{center}
+    \parbox[t][0.6cm][t]{\textwidth}{
+    \begin{center} \end{center}}
+
+    \parbox[t][2.2cm][t]{\textwidth}{
+    \xiaosi Classified Index: \@natclassifiedindex \\
+                  U.D.C.:  \@internatclassifiedindex }
+
+    \parbox[t][2.7cm][b]{\textwidth}{\xiaoer
+    \begin{center} {  Dissertation for the {\exueweier} Degree }\end{center} } %与中文保持一致，删除in {\exueke}
+
+    \parbox[t][3.0cm][b]{\textwidth}{\erhao
+    \begin{center} {  \@etitle}\end{center} }
+
+    \parbox[t][4.0cm][t]{\textwidth}{
+    \begin{center}  \end{center} }
+
+    \parbox[t][6cm][c]{\textwidth}{ {\sihao
+    \begin{center} \renewcommand{\arraystretch}{1.5} 
+    \begin{tabular}{p{0cm}p{14em}p{13.4em}l@{\extracolsep{2em}}l}
+    ~ & \textbf{Candidate:}                     &  \@eauthor\\
+    ~ & \textbf{Supervisor:}                    &  \@esupervisor\\
+    \@ecosupervisor
+    \@eassosupervisor
+    ~ & \textbf{Academic Degree Applied for:}   &  \@edegree\\
+    ~ & \textbf{Specialty:}                     &  \@esubject\\
+    ~ & \textbf{Affiliation:}                   &  \@eaffil\\
+    ~ & \textbf{Date of Defence:}               &  \@edate\\
+    ~ & \textbf{Degree-Conferring-Institution:} &  Harbin Institute of Technology
+    \end{tabular}
+    \end{center}}}
+
+    \end{center}
 
     \end{titlepage}
 
