@@ -370,13 +370,13 @@ mu$}\hfill
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcounter{pubctr}  % 自定义新计数器
 \newenvironment{publist}{  % 定义新环境
-\begin{list}{\arabic{pubctr}}  % 标签格式
+\begin{list}{\hei (\arabic{pubctr})}  % 标签格式
     {
      \usecounter{pubctr}
      \setlength{\leftmargin}{2em}      % 左边界 \leftmargin =\itemindent + \labelwidth + \labelsep
      \setlength{\itemindent}{0em}      % 标号缩进量
      \setlength{\labelwidth}{1em}      % 标号宽度
-     \setlength{\labelsep}{1em}        % 标号和列表项之间的距离,默认0.5em
+     \setlength{\labelsep}{0.3em}        % 标号和列表项之间的距离,默认0.5em
      \setlength{\rightmargin}{0em}     % 右边界
      \setlength{\topsep}{0ex}          % 列表到上下文的垂直距离
 %     \setlength{\partopsep}{0ex}       % 列表是一个新的段落时，加的额外到上下文的距离
