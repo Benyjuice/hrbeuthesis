@@ -233,9 +233,35 @@ mu$}\hfill
   \fi
 \fi
 
+%% 定义摘要目录的页眉
+\fancypagestyle{contents} {
+	\fancyhf{}
+	\fancyhead[CO]{\song \xiaowu\@ctitle}
+	\fancyhead[CE]{\song \xiaowu 哈尔滨工程大学\cxueke\cxuewei 学位论文}
+	\fancyfoot[C,C]{\xiaowu --~\thepage~--}	
+}
+\fancypagestyle{fancyplain} {
+	\ifoneortwoside
+	\fancyhead[CO]{\song \xiaowu\leftmark}
+	\fancyhead[CE]{\song \xiaowu 哈尔滨工程大学\cxueke\cxuewei 学位论文}
+	\fancyfoot[C,C]{\xiaowu --~\thepage~--}
+	\else  % 因为变态的本科论文规范是单面的，所以单面必然会复杂
+	\ifxueweibachelor  % 为变态的本科规范单独设置
+	\fancyhead[CO]{\song \wuhao 哈尔滨工程大学\cxuewei 毕业论文}
+	\fancyhead[CE]{\song \wuhao 哈尔滨工程大学\cxuewei 毕业论文}
+	\fancyfoot[C,C]{\xiaowu ~\thepage~}
+	\else  % 想必是其他要求单面打印的学位，格式没改动
+	\fancyhead[CO]{\song \wuhao 哈尔滨工程大学\cxueke\cxuewei 学位论文}
+	\fancyhead[CE]{\song \wuhao 哈尔滨工程大学\cxueke\cxuewei 学位论文}
+	\fancyfoot[C,C]{\xiaowu --~\thepage~--}
+	\fi
+	\fi
+}
+
 \renewcommand\frontmatter{
     \cleardoublepage
   \@mainmatterfalse
+  \pagestyle{contents}
   \pagenumbering{Roman}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

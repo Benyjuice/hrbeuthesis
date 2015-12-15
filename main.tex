@@ -267,7 +267,7 @@
 % 从此处开始正文体各章节
 
 \mainmatter
-
+\pagestyle{fancyplain}
 
 
 %% 开始使用默认字号
@@ -311,7 +311,8 @@
 
 \addtolength{\bibsep}{-0.8 em} \nocite{*}
 
-
+% 参考文献采用contents页眉
+\pagestyle{contents}
 % 参考文献
 
 \bibliography{reference/reference}
