@@ -693,6 +693,8 @@ mu$}\hfill
 %  下面是原硕博论文的封面，双 % 的两行是原来就注释过一次的
 %  而且没有注释掉时产生的英文封面很难看，因为调整的东西太多了
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifxueweimaster
+ %% 硕士论文英文扉页和原创性声明
     \newpage
     \thispagestyle{empty}
     \begin{center}
@@ -713,21 +715,94 @@ mu$}\hfill
     \begin{center}  \end{center} }
 
     \parbox[t][6cm][c]{\textwidth}{ {\sihao
-    \begin{center} \renewcommand{\arraystretch}{1.5} 
-    \begin{tabular}{p{0cm}p{14em}p{13.4em}l@{\extracolsep{2em}}l}
-    ~ & \textbf{Candidate:}                     &  \@eauthor\\
-    ~ & \textbf{Supervisor:}                    &  \@esupervisor\\
-    \@ecosupervisor
-    \@eassosupervisor
-    ~ & \textbf{Academic Degree Applied for:}   &  \@edegree\\
-    ~ & \textbf{Specialty:}                     &  \@esubject\\
-    ~ & \textbf{Affiliation:}                   &  \@eaffil\\
-    ~ & \textbf{Date of Defence:}               &  \@edate\\
-    ~ & \textbf{Degree-Conferring-Institution:} &  Harbin Institute of Technology
-    \end{tabular}
+    \begin{center} \renewcommand{\arraystretch}{1.5}
+    	\parbox[t][1.0cm][t]{\textwidth}{
+    		\sihao
+    		\makebox[3.6cm][c]{}
+    		\makebox[7em][r]{\song \textbf {Candidate：}}
+    		\makebox[7em][l]{\song \@eauthor}
+    	}
+    	\parbox[t][1.0cm][t]{\textwidth}{
+    		\sihao
+    		\makebox[3.6cm][c]{}
+    		\makebox[7em][r]{\song \textbf {Supervisor：}}
+    		\makebox[7em][l]{\song \@esupervisor}
+    	}
+    	\parbox[t][1.0cm][t]{\textwidth}{
+    		\sihao
+    		\makebox[3.6cm][c]{}
+    		\makebox[7em][r]{\song \textbf {Academic Degree Applied for：}}
+    		\makebox[7em][l]{\song \@edegree}
+    	}
+    	\parbox[t][1.0cm][t]{\textwidth}{
+    		\sihao
+    		\makebox[3.6cm][c]{}
+    		\makebox[7em][r]{\song \textbf {Specialty：}}
+    		\makebox[7em][l]{\song \@esubject}
+    	}
+    	\parbox[t][1.0cm][t]{\textwidth}{
+    		\sihao
+    		\makebox[3.6cm][c]{}
+    		\makebox[7em][r]{\song \textbf {Date of Submission:}}
+    		\makebox[7em][l]{\song \@edate}
+    	}
+    	\parbox[t][1.0cm][t]{\textwidth}{
+    		\sihao
+    		\makebox[3.6cm][c]{}
+    		\makebox[7em][r]{\song \textbf {Date of Oral Examination：}}
+    		\makebox[7em][l]{\song \@edate}
+    	}
+    	\parbox[t][1.0cm][t]{\textwidth}{
+    		\sihao
+    		\makebox[3.6cm][c]{}
+    		\makebox[7em][r]{\song \textbf {University:}}
+    		\makebox[7em][l]{\song Harbing Engineering University}
+    	}
     \end{center}}}
 
     \end{center}
+    
+    \ifoneortwoside
+    \newpage
+    ~~~\vspace{1em}
+    \thispagestyle{empty}
+    \fi
+    %% 原创性声明
+    \newpage
+    \thispagestyle{empty}
+    \begin{center}
+    	\heiti  \xiaosan 哈尔滨工程大学\\学位论文原创性声明
+    \end{center}
+    
+    ~~~~本人郑重声明：本论文的所有工作，是在导师的指导下，由作者本人独立完成的。
+    有关观点、方法、数据和文献的引用已在文中指出，并与参考文献相对应。除文中已注
+    明引用的内容外，本论文不包含任何其他个人或集体已经公开发表的作品成果。对本文
+    的研究做出重要贡献的个人和集体，均已在文中以明确方式标明。本人完全意识到本声
+    明的法律结果由本人承担。\\
+    
+    \hfill 作者(签字):~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    \hfill 日期:~~~~~~~~~~年~~~~月~~~~日
+    
+    \begin{center}
+    	\heiti  \xiaosan 哈尔滨工程大学\\
+    	学位论文授权使用声明
+    \end{center}
+    
+    ~~~~本人完全了解学校保护知识产权的有关规定，即研究生在校攻读学位期间论文工作
+    的知识产权属于哈尔滨工程大学。哈尔滨工程大学有权保留并向国家有关部门或机构送
+    交论文的复印件。本人允许哈尔滨工程大学将论文的部分或全部内容编入有关数据库进
+    行检索，可采用影印、缩印或扫描等复制手段保存和汇编本学位论文，可以公布论文的
+    全部内容。同时本人保证毕业后结合学位论文研究课题再撰写的论文一律注明作者第一
+    署名单位为哈尔滨工程大学。涉密学位论文待解密后适用本声明。
+    
+    ~~~~本论文（□在授予学位后即可 □在授予学位 12 个月后 □解密后）由哈尔滨工
+    程大学送交有关部门进行保存、汇编等。
+    
+    \parbox[t][0.8cm][t]{7cm}{作者(签字):\\日期：~~~~~~~~~~年~~~~月~~~~日}
+    \parbox[t][0.8cm][t]{7cm}{导师(签字):\\~~~~~~~~~~年~~~~月~~~~日}
+    
+\fi
 
     \end{titlepage}
 
