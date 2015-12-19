@@ -1,0 +1,29 @@
+\ttl@change@i {\@ne }{chapter}{0em}{\vspace {0.5em}\hei }{\contentslabel {0em}}{\hspace *{0em}}{\normalfont \titlerule *[5pt]{.}\contentspage }\relax 
+\ttl@change@v {chapter}{}{}{}\relax 
+\ttl@change@i {\@ne }{section}{1.40cm}{\vspace {0.5em}}{\contentslabel {1.8em}}{\hspace *{-1.8em}}{\titlerule *[5pt]{.}\contentspage }\relax 
+\ttl@change@v {section}{}{}{}\relax 
+\ttl@change@i {\@ne }{subsection}{2.50cm}{\vspace {0.5em}}{\contentslabel {2.7em}}{\hspace *{-2.7em}}{\titlerule *[5pt]{.}\contentspage }\relax 
+\ttl@change@v {subsection}{}{}{}\relax 
+\ttl@change@i {\@ne }{subsubsection}{3.60cm}{\vspace {0.5em}}{\contentslabel {3.4em}}{\hspace *{-3.4em}}{\titlerule *[5pt]{.}\contentspage }\relax 
+\ttl@change@v {subsubsection}{}{}{}\relax 
+\contentsline {chapter}{第\nobreakspace {}{1}\nobreakspace {}章\hspace {0.8em}绪论}{1}{section*.10}
+\vskip 1\baselineskip 
+\contentsline {chapter}{第\nobreakspace {}{2}\nobreakspace {}章\hspace {0.8em}二阶差分编码}{2}{section*.11}
+\contentsline {section}{\numberline {2.1}二阶差分检测的基本原理$^{\unhbox \voidb@x \hbox {\scriptsize \cite {simon1992implementation}}}$}{2}{section*.12}
+\contentsline {section}{\numberline {2.2}二阶差分编码与直接序列扩频}{3}{section*.15}
+\contentsline {subsection}{\numberline {2.2.1}DD-SS的发射机}{3}{section*.16}
+\contentsline {subsection}{\numberline {2.2.2}DD-SS的接收机}{4}{section*.19}
+\contentsline {subsubsection}{\numberline {2.2.2.1}接收机解扩频}{5}{section*.21}
+\contentsline {subsubsection}{\numberline {2.2.2.2}二阶差分检测}{5}{section*.22}
+\contentsline {chapter}{第\nobreakspace {}{3}\nobreakspace {}章\hspace {0.8em}接收机系统设计}{7}{section*.23}
+\contentsline {section}{\numberline {3.1}MSP432扩频接收机软件设计}{7}{section*.24}
+\contentsline {subsection}{\numberline {3.1.1}MSP432驱动程序设计}{7}{section*.25}
+\contentsline {subsubsection}{\numberline {3.1.1.1}ADC数据采集驱动}{7}{section*.26}
+\contentsline {subsubsection}{\numberline {3.1.1.2}UART数据传输驱动}{7}{section*.28}
+\contentsline {subsection}{\numberline {3.1.2}MSP432动态内存管理}{8}{section*.29}
+\contentsline {subsubsection}{\numberline {3.1.2.1}内存池介绍}{9}{section*.30}
+\contentsline {subsubsection}{\numberline {3.1.2.2}内存池的优缺点}{10}{section*.32}
+\contentsline {subsubsection}{\numberline {3.1.2.3}内存池在本文中的应用}{10}{section*.33}
+\contentsline {chapter}{\CJKfamily {hei}参考文献}{11}{section*.35}
+\contentsline {chapter}{\CJKfamily {hei}致\nobreakspace {}\nobreakspace {}\nobreakspace {}\nobreakspace {}谢}{12}{section*.39}
+\contentsfinish 

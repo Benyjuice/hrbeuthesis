@@ -1,0 +1,37 @@
+\documentclass[tikz,14pt,border=10pt]{standalone}
+\usepackage{textcomp}
+\usetikzlibrary{shapes,arrows}
+\begin{document}
+	
+	% Definition of blocks:
+	\tikzset{%
+		block/.style    = {draw, thick, rectangle, minimum height = 3em,
+			minimum width = 3em},
+		sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+		input/.style    = {coordinate}, % Input
+		output/.style   = {coordinate} % Output
+	}
+	
+\begin{tikzpicture}[auto, thick, node distance=2cm, >=triangle 45]
+
+\draw
+	node [input, name=input1] {}
+	node [sum, right of=input1] (times1) {\Large $\times$}
+	node [sum, right of = times1, xshift=2.5cm] (times2) {\Large $\times$}
+	node [block, below of=times1,xshift=1.5cm] (delay1) {延迟}
+	node [block, below of=times2,xshift=1.5cm] (delay2) {Delay T}
+	node [output, right of=times2,name=output1, xshift=2.5cm]{}
+	
+;
+	\draw [->](input1) -- (times1);
+	\draw [->] (times1) -- (times2);
+	\draw [->](times2) -- (output1);
+	\draw [->] (5,0) |- (delay1);
+	\draw [->] (delay1) -| (times1);
+	\draw [->] (9.5,0) |- (delay2);
+	\draw [->] (delay2) -| (times2);
+	
+	
+\end{tikzpicture}
+	
+\end{document}

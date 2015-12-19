@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{simon1992implementation}
+M.~K. Simon, D.~Divsalar.
+\newblock On the Implementation and Performance of Single and Double
+  Differential Detection Schemes[J].
+\newblock Communications, IEEE Transactions on, 1992, 40(2):278--291.
+
+\bibitem{liu2014long}
+Z.~Liu, K.~Yoo, T.~Yang, et~al.
+\newblock Long-range Double-differentially Coded Spread-spectrum Acoustic
+  Communications with a Towed Array[J].
+\newblock Oceanic Engineering, IEEE Journal of, 2014, 39(3):482--490.
+
+\bibitem{俊英1992水下声信道}
+惠俊英.
+\newblock 水下声信道[M].
+\newblock 国防工业出版社, 1992.
+
+\end{thebibliography}

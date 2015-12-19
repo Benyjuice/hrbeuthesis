@@ -114,7 +114,9 @@
 % 论文包含的内容，需要在这里列出你的所有源文件
 
 \includeonly{
-               body/Introduction,
+               body/introduction,
+               body/Software,
+               body/ddcode,
                body/Tricks,
                body/UpdateLog,
                body/ToTemplateMaintainers,
@@ -134,6 +136,10 @@
 \graphicspath{{figures/}} 
 
 \input{setup/Definition}
+
+% 流程图
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
 
 % 文档开始
 
@@ -280,9 +286,10 @@
 
 % 加入你自己写的论文各章内容, 最好每章一个文件
 
-\include{body/Introduction}
-\include{body/Tricks}
-\include{body/UpdateLog}
+\include{body/introduction}
+\include{body/ddcode}
+\include{body/Software}
+%\include{body/Tricks}
 %\include{body/ToTemplateMaintainers}
 %\include{body/copyright}
 %\include{body/conclusion}
@@ -331,7 +338,7 @@
 %\include{appendix/publications}    % 所发文章
 %\include{appendix/Authorization}   % 承诺
 \include{appendix/acknowledgements} % 致谢
-\include{appendix/appA}             % 附录A
+%\include{appendix/appA}             % 附录A
 %\include{appendix/Resume}          % 个人简历
 
 
