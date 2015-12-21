@@ -21,7 +21,7 @@
 		\tikzset{%
 			block/.style    = {draw, thick, rectangle, minimum height = 2em,
 				minimum width = 3em},
-			sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+			sum/.style      = {draw, circle, inner sep=0pt, node distance = 2cm}, % Adder
 			input/.style    = {coordinate}, % Input
 			output/.style   = {coordinate} % Output
 		}
@@ -259,7 +259,8 @@ h(t,m)=\sum_{p=1}^{N_p}A_p[m]\delta(t-\tau_p[m])
 \begin{split}
 	z[m]=&\frac{y[m]}{y[m-1]}\times\frac{y[m-2]}{y[m-1]} \\
 	=&\frac{A_q[m]e^{j\phi_q[m]} u[m]}{A_q[m-1]e^{j\phi_q[m-1]} u[m-1]} \times \frac{A_q[m-2]e^{j\phi_q[m-2]} u[m-2]}{A_q[m-1]e^{j\phi_q[m-1]} u[m-1]} \\
-	=&\frac{A_q[m]A_q[m-2]}{A_q[m-1]A_q[m-1]}\times\frac{u[m]u[m-2]}{u[m-1]u[m-1]}\times e^{j\left[(\phi_q[m]-\phi_q[m-1]) - (\phi_q[m-1] - \phi_q[m-2])\right]}
+	=&\frac{A_q[m]A_q[m-2]}{A_q[m-1]A_q[m-1]}\times\frac{u[m]u[m-2]}{u[m-1]u[m-1]} \\
+	&\times e^{j\left[(\phi_q[m]-\phi_q[m-1]) - (\phi_q[m-1] - \phi_q[m-2])\right]}
 \end{split}
 \end{equation}
 由$\tau_p[m+1] -\tau_p[m]~=~\tau_p[m]-\tau_p[m-1]$可得\[ (\phi_q[m]-\phi_q[m-1]) - (\phi_q[m-1] - \phi_q[m-2]) = 0 \]则:
