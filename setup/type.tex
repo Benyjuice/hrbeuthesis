@@ -11,14 +11,14 @@
 
 %% 导言区使用中文
 
-\makeatletter  % 将特殊符号 @ 当作普通字母
-\@tempcnta=128 % 定义变量 \@tempcnta 为 128
-\loop % 开始一个循环
-  \catcode\@tempcnta=13
-  \ifnum\@tempcnta<255
-    \advance \@tempcnta \@ne
-  \repeat
-\makeatother % 恢复 @ 符号的原义
+%\makeatletter  % 将特殊符号 @ 当作普通字母
+%\@tempcnta=128 % 定义变量 \@tempcnta 为 128
+%\loop % 开始一个循环
+%  \catcode\@tempcnta=13
+%  \ifnum\@tempcnta<255
+%    \advance \@tempcnta \@ne
+%  \repeat
+%makeatother % 恢复 @ 符号的原义
 
 
 
