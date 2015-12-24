@@ -1,0 +1,76 @@
+\def \nod{~~~~}
+\def \zihao{\wuhao}
+	\tikzstyle{neuron}=[circle,fill=black!25,minimum size=0pt,inner sep=0pt]
+	\tikzstyle{num}=[circle,fill=red!25,minimum size=0pt,inner sep=0pt]
+
+\begin{tikzpicture}[>=stealth',node distance=1cm]
+	\draw 
+		(0,0) rectangle ++(1,1)
+		(1,0) rectangle ++(1,1)
+		(2,0) rectangle ++(1,1)
+		(3,0) rectangle ++(1,1)
+		(4,0) rectangle ++(2,1)
+		(6,0) rectangle ++(2,1)
+		(8,0) rectangle ++(4,1)
+		;
+	\draw 
+		(0.5,0.5) node {1k}
+		++(1,0) node {1k}
+		++(1,0) node {1k}
+		++(1,0) node {1k}
+		++(1.5,0) node {2k}
+		++(2,0) node {2k}
+		++(3,0) node {4k}
+	;
+
+	\draw[yshift=-1.5cm] 
+		(0,0) rectangle ++(1,1)
+		(1,0) rectangle ++(1,1)
+		(2,0) rectangle ++(1,1)
+		(3,0) rectangle ++(1,1)
+		(4,0) rectangle ++(2,1)
+		(6,0) rectangle ++(2,1)
+		(8,0) rectangle ++(4,1)
+	;
+	\draw[yshift=-1.5cm,fill=gray!20] (4,0) rectangle ++(2,1);
+	
+	\draw[yshift=-3cm] 
+		(0,0) rectangle ++(1,1)
+		(1,0) rectangle ++(1,1)
+		(2,0) rectangle ++(1,1)
+		(3,0) rectangle ++(1,1)
+		(4,0) rectangle ++(2,1)
+		(6,0) rectangle ++(2,1)
+		(8,0) rectangle ++(4,1)
+	;
+	\draw[yshift=-3cm,fill=gray!20]
+		(0,0) rectangle ++(1,1)
+		(1,0) rectangle ++(1,1)
+		(2,0) rectangle ++(1,1)
+		(3,0) rectangle ++(1,1)
+		(4,0) rectangle ++(2,1)
+	;
+	
+	\path[yshift=-4.5cm,fill=gray!20] (6,0) rectangle ++(1,1);
+	\draw[yshift=-4.5cm] 
+		(0,0) rectangle ++(1,1)
+		(1,0) rectangle ++(1,1)
+		(2,0) rectangle ++(1,1)
+		(3,0) rectangle ++(1,1)
+		(4,0) rectangle ++(2,1)
+		(6,0) rectangle ++(2,1)
+		(8,0) rectangle ++(4,1)
+		;
+	\draw[yshift=-4.5cm,fill=gray!20]
+		(0,0) rectangle ++(1,1)
+		(1,0) rectangle ++(1,1)
+		(2,0) rectangle ++(1,1)
+		(3,0) rectangle ++(1,1)
+		(4,0) rectangle ++(2,1)
+		;
+	
+	\draw node at (-1.cm,-1.cm) {\wuhao 分配2k};
+	\draw[yshift=-1.5cm] node at (-1.4cm,-1.cm) {\wuhao 分配4个1k};
+	\draw[yshift=-3cm] node at (-1.cm,-1.cm) {\wuhao 分配1k};
+		
+\end{tikzpicture}

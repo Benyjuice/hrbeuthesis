@@ -93,7 +93,8 @@
               ]{geometry}
 \fi
 
-
+%%公式加粗
+\usepackage{bm}
 
 \usepackage{layouts}                    % 打印当前页面格式的宏包
 \usepackage[sf]{titlesec}               % 控制标题的宏包，sf 表示无衬线体，中文即黑体
@@ -102,6 +103,7 @@
 \usepackage{fancyhdr}                   % 页眉和页脚的相关定义
 \usepackage{fancyref}                   % 设置不同的引用文字
 \usepackage{array}                      % 增强表格的功能，可能与xeCJK宏包冲突，需放在xeCJK之前
+\usepackage{tabu}						% 增强表格，可设置宽度占比
 
 \ifx\atempxetex\usewhat       % 如果使用 xelatex
 %\usepackage[slantfont,boldfont,CJKaddspaces]{xeCJK}
@@ -235,7 +237,7 @@
             ]{hyperref}  
 \fi
 
-\usepackage{arydshln}        % 分块矩阵画虚线，挺好用
-
+\usepackage{arydshln}        % 分块矩阵画虚线，挺好用 
+\ADLinactivate %与tabu冲突用到时，再用\ADLinactivate启用
 % 算法的宏包，注意宏包兼容性，先后顺序为float、hyperref、algorithm(2e)，否则无法生成算法列表
 \usepackage[boxed, linesnumbered, algochapter]{algorithm2e}

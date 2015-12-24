@@ -1,0 +1,112 @@
+\def \nod{~~~~}
+\def \zihao{\wuhao}
+	\tikzstyle{neuron}=[circle,fill=black!25,minimum size=0pt,inner sep=0pt]
+	\tikzstyle{num}=[circle,fill=red!25,minimum size=0pt,inner sep=0pt]
+
+\begin{tikzpicture}[>=stealth',node distance=2cm]
+	\def\intevel{0.25cm} %码宽度
+	\def\hl{0.8cm}
+	\def\gl{4}
+
+	%% a(t)
+	\path[draw] (0,0)
+		--++(\gl*\intevel,0)
+		--++(0,\hl)
+		--++(2*\gl*\intevel,0)
+		--++(0,-\hl)
+		--++(\gl*\intevel,0)
+		--++(0,\hl)
+		--++(\gl*\intevel,0)
+		;
+	\draw
+		(3cm,1cm) --++(0,0.5cm)
+		(4cm,1cm) --++(0,0.5cm);
+	\draw node[name=mrk1] at(3.5cm,1.25cm) {\small$T_s$};
+	\draw [->] (mrk1)--(3cm,1.25cm);
+	\draw [->] (mrk1)--(4cm,1.25cm);
+	\draw node[xshift=-0.5cm,yshift=.4cm] at(0,0) {$a(t)$};
+	\coordinate (o1) at (6cm,0);
+	\coordinate (o2) at (10cm,0);
+	\draw[->] (o1)--(o2) node[right]{$f$};
+	\draw[->] (8cm,-0.2cm) --+(0,1.4cm) node[left] {\xiaowu 幅度};
+	\draw[xshift=8cm,thick] plot[samples=300,domain=-1.5:1.5,id=x2] function{sin(80*x)/(80*x)};
+	
+	% c(t)
+	\draw (0,-1.5cm+\hl)
+		--++(2*\intevel,0)
+		--++(0,-\hl)
+		--++(\intevel,0)
+		--++(0,\hl)
+		--++(\intevel,0)
+		--++(2*\intevel,0)
+		--++(0,-\hl)
+		--++(\intevel,0)
+		--++(0,\hl)
+		--++(\intevel,0)
+		--++(2*\intevel,0)
+		--++(0,-\hl)
+		--++(\intevel,0)
+		--++(0,\hl)
+		--++(\intevel,0)
+		--++(2*\intevel,0)
+		--++(0,-\hl)
+		--++(\intevel,0)
+		--++(0,\hl)
+		--++(\intevel,0)
+		--++(2*\intevel,0)
+		--++(0,-\hl)
+		--++(\intevel,0)
+		--++(0,\hl)
+		--++(\intevel,0)
+		;
+	\draw node at(2.7cm,-0.5cm) {\small$T_c$};
+	
+	\draw node[xshift=-0.5cm,yshift=.4cm] at(0,-1.5cm) {$c(t)$};
+	\coordinate (o1) at (6cm,-1.5cm);
+	\coordinate (o2) at (10cm,-1.5cm);
+	\draw[->] (o1)--(o2) node[right]{$f$};
+	\draw[->] (8cm,-1.7cm) --+(0,1.4cm) node[left] {\xiaowu 幅度};
+	\draw[xshift=8cm,yshift=-1.5cm,thick] plot[samples=300,domain=-1.5:1.5,id=x3] function{sin(5*x)/(5*x)};
+	
+	% d(t)
+	\draw (0,-3cm)
+	--++(2*\intevel,0)
+	--++(0,\hl)
+	--++(\intevel,0)
+	--++(0,-\hl)
+	--++(\intevel,0)
+	--++(0,\hl)
+	--++(2*\intevel,0)
+	--++(0,-\hl)
+	--++(\intevel,0)
+	--++(0,\hl)
+	--++(\intevel,0)
+	--++(2*\intevel,0)
+	--++(0,-\hl)
+	--++(\intevel,0)
+	--++(0,\hl)
+	--++(\intevel,0)
+	--++(0,-\hl)
+	--++(2*\intevel,0)
+	--++(0,\hl)
+	--++(\intevel,0)
+	--++(0,-\hl)
+	--++(\intevel,0)
+	--++(2*\intevel,0)
+	--++(0,\hl)
+	--++(\intevel,0)
+	--++(0,-\hl)
+	--++(\intevel,0)
+	;
+	\draw node[xshift=-0.5cm,yshift=.4cm] at(0,-3cm) {$d(t)$};
+	\coordinate (o1) at (6cm,-3cm);
+	\coordinate (o2) at (10cm,-3cm);
+	\draw[->] (o1)--(o2) node[right]{$f$};
+	\draw[->] (8cm,-3.2cm) --+(0,1.4cm) node[left] {\xiaowu 幅度};
+	\draw[xshift=8cm,yshift=-3cm,thick] plot[samples=300,domain=-1.5:1.5,id=x3] function{sin(5*x)/(5*x)};
+	
+	% label 
+	\draw node at (2.2cm,-3.8cm) {\wuhao 码元波形};
+	\draw node at (8cm,-3.8cm) {\wuhao 码元频谱};
+	
+\end{tikzpicture}

@@ -185,6 +185,13 @@
 \vspace{1ex}
 }
 
+\newcommand{\TableCaption}[1]
+{
+	\renewcommand{\tablename}{表}
+	\caption{\protect\setlength{\baselineskip}{1.5em}#1}
+	\vspace{1ex}
+}
+
 %% 长表格的caption在中英文表格目录中正常显示
 \setlength{\LTcapwidth}{\textwidth} %长表格宽度
 \def\@cont@LT@LTBiToeCaption#1[#2]#3{%

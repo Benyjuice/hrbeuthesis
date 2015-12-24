@@ -1,0 +1,34 @@
+
+\begin{tikzpicture}[>=stealth']
+		\tikzset{%
+			block/.style    = {draw, thick, rectangle, minimum height = 2em,
+				minimum width = 3em},
+			sum/.style      = {draw, circle, inner sep=0pt, node distance = 2cm}, % Adder
+			input/.style    = {coordinate}, % Input
+			output/.style   = {coordinate} % Output
+		}
+		
+		\node[input] (in) at(0,0) {};
+		\node[sum] (t1) at (2,1) {\Large $\times$};
+		\node[sum] (t2) at (2,-1) {\Large $\times$};
+		\node[block,right of=t1,node distance = 2cm] (m1) {$\downarrow M$~FIR};
+		\node[block,right of=t2,node distance = 2cm] (m2) {$\downarrow M$~FIR};
+		\node[input,inner sep=0,minimum size=0] (f1) at(1,0) {};
+		\draw (in) -- (f1);
+		\draw[->] (f1) |- (t1);
+		\draw[->] (f1) |- (t2);
+		\draw[->] (t2) -- (m2);
+		\draw[->] (t1) -- (m1);
+		\draw node[above of=t1] (src1) {$cos(\omega n)$};
+		\draw[->] (src1)--(t1);
+		
+		\draw node[below of=t2] (src2) {$sin(\omega n)$};
+		\draw[->] (src2)--(t2);
+		\draw node[above of=in,below] {$r(t)$};
+		
+		\node[inner sep=0] (save) at (6,0) {$\circledS$};
+		\node[above of=save,below right] {\wuhao 复数形式缓存};
+		
+		\draw[->] (m1) -| (save);
+		\draw[->] (m2) -| (save);
+\end{tikzpicture}

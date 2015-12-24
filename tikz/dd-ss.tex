@@ -1,0 +1,32 @@
+\def \nod{~~~~}
+\def \zihao{\wuhao}
+	\tikzstyle{neuron}=[circle,fill=black!25,minimum size=0pt,inner sep=0pt]
+	\tikzstyle{num}=[circle,fill=red!25,minimum size=0pt,inner sep=0pt]
+	\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+		1 with {\arrow[semithick]{open triangle 60}}},
+	double distance=1.4pt, shorten >= 5.5pt,
+	preaction = {decorate},
+	postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+	\tikzstyle{adct} = [rectangle,fill=gray!25,minimum width=5cm, minimum height=1cm,text centered, draw=black]
+	\tikzstyle{block} = [rectangle,fill=gray!75!red,minimum width=2cm, minimum height=1cm,text centered, draw=black]
+\begin{tikzpicture}[>=stealth',node distance=3cm]
+	\draw 
+		node[adct] (adc) {ADC数据采集驱动}
+		node[adct,xshift=6cm] (uart) {UART数据传输驱动}
+		node[block,above of=adc,xshift=-1.5cm] (sync) {同步}
+		node[block,right of=sync,xshift=1cm] (cache) {缓存}
+		node[block,above of=uart] (pro) {解扩}
+	;
+	\node[inner sep=0,minimum size=0](hid) at (-1.5cm,0.5cm){};
+	\node[inner sep=0,minimum size=0,right of=hid,xshift=-2.98cm,yshift=1cm](k) {};
+	\draw [vecArrow] (hid) -- (sync);
+	\draw [vecArrow] (k) -| (cache);
+	\draw [vecArrow] (cache) -- (pro);
+	\draw [vecArrow] (pro) -- (uart);
+	\draw [vecArrow,dashed] (sync) -- (cache);
+	
+	\draw[dashed,very thick] (-4cm,1.0cm) --++(14cm,0);
+	\node at (9.5cm,1.4cm) {应用层};
+	\node at (9.5cm,0.6cm) {驱动层};
+	
+\end{tikzpicture}

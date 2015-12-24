@@ -1,0 +1,22 @@
+\def \nod{~~~~}
+\def \zihao{\wuhao}
+\begin{tikzpicture}[>=stealth',node distance=3cm]
+	\draw [->] (0,0) -- (6cm,0) node[below] {$f$};
+	\draw [->] (0,0) -- (0,6cm) node[right] {$|S(f)|$};
+	
+	\draw[thick] plot[domain=1:5,samples=300,id=hfm] function{4.5/x};
+	\draw[dashed] (1,0) -- (1,4.5)--(0,4.5);
+	\draw[dashed] (3,0) -- (3,1.5)--(0,1.5);
+	\draw[dashed] (5,0) -- (5,4.5/5)--(0,4.5/5);
+	
+	\node[left] at (0,4.5) {$\frac{Af_0}{\sqrt{|m|}f_L}$};
+	\node[above left] at (0,1.5) {$\frac{A}{\sqrt{|m|}}$};
+	\node[left] at (0,4.5/5) {$\frac{Af_0}{\sqrt{|m|}f_H}$};
+	
+	\node[below] at (1,0) {$f_L$};
+	\node[below] at (3,0) {$f_0$};
+	\node[below] at (5,0) {$f_H$};
+	
+	
+	
+\end{tikzpicture}

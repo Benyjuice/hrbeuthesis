@@ -98,5 +98,7 @@ clean:
 	-rm -rf ./setup/auto
 	-rm -rf ./preface/auto
 	-rm -rf *.prv
+	-rm -rf *.gnuplot
+	-rm -rf *.table
 
 .PHONY: clean

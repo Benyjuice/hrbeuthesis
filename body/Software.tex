@@ -1,8 +1,7 @@
 \defaultfont
 \chapter{接收机系统设计}
 
-\section{MSP432扩频接收机软件设计}
-\subsection{MSP432驱动程序设计}
+\section{MSP432驱动软件设计}
 	MSP432驱动程序包括ADC数据采集驱动和UART数据传输驱动两部分。
 在设计驱动程序时参考了中断-回调函数模型，即中断服务函数处理中断请求然后请求调用
 回调函数。回调函数不是由中断服务函数直接调用，而是由中断服务函数连接到回调函数链表中由
@@ -10,7 +9,7 @@
 
 	下面结合这一模型及具体驱动程序做详细说明。
 
-\subsubsection{ADC数据采集驱动}
+\subsection{ADC数据采集驱动}
 	系统采用带通采样以降低数据处理负荷，采样率$4KHz$。MSP432的Timer\_A0为ADC14提供采样率
 的采样保持时钟。为保证系统实时性，采集数据设计为PING-PONG存储。MSP432的$\mu$DMA模块提供这一功能。
 PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即触发一次中断，在中断服务函数中判断
@@ -50,14 +49,16 @@ PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即�
 		\label{Figure:Software:ADCModule}
 	\end{figure}
 
-\subsubsection{UART数据传输驱动}
+\subsection{UART数据传输驱动}
 	UART驱动设计为1152008N1(波特率115200bps，8位数据位，无校验位，1位停止位)传输格式。UART的接受
 采用中断-回调函数模型，回调函数形式为：void msp432\_uart\_callback(uint16\_t *data, uint32\_t len)。
 
 	UART的发送利用$\mu$DMA以实现非阻塞调用。提供给的外部编程接口为函数int msp432\_uart\_send(uint8\_t *data, uint32\_t len)
 ，函数将数据存入缓存区域并启动uDMA通道。函数返回实际写入缓存区域的数据长度，如果写入失败则返回-1。 
 
-\subsection{MSP432动态内存管理}
+\section{MSP432动态内存管理}
+
+
 	单片机在做信号处理算法时常常遇到需要使用较大数组的问题。例如在做32bit浮点采样数据为900点，本地数据为108点的快速相关算法时
 需要分配至少两个4k大小的存储区域。在编写函数时有三种处理方式：
 
@@ -73,7 +74,7 @@ PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即�
 快速的动态内存管理。
 
 
-\subsubsection{内存池介绍}
+\subsection{内存池介绍}
 	内存池(Memory Pool)，又被称为固定大小区块规则(fixed-size-block allocation)，允许程序设计者以类似C语言的malloc或者C++的new运算符进行动态内存的申请。
 对于其他动态内存分配算法来说，因为会动态记忆区块大小导致的碎片问题，致使在实时系统上表现不佳，甚至根本无法使用。
 内存池技术提供了一种更有效率的解决方案：预先规划一定数量的内存区块，使程序可以在执行期分配(allocate)、使用(access)和释放(free)内存区块。
@@ -86,28 +87,32 @@ PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即�
 	\item 再次请求一个大小为1k的内存块，此时内存池将在2k大小的池内匹配内存区域
 	\item 如果再请求1k或者2看的内存块，内存池将在4k大小的池内匹配内存区域。
 \end{publist}
+
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[width = 0.8\textwidth]{memalloc}
+		\input{tikz/mempool}
 		\caption{内存池内存分配实例}
 		\label{Figure:Software:memalloc}
 	\end{figure}
 
-\subsubsection{内存池的优缺点}
+\subsection{内存池的优缺点}
 	内存池允许在程序执行时以常数时间分配内存块，并且不会产生内存碎片。一次释放内存中大量空闲内存只需要一个操作，无需像malloc那样依次个别释放。
 内存池不必将每次分配的内存的详细信息记录下来（例如内存大小，因为内存池本身就包含了大小的信息）。内存池在使用时也必须按照程序需求来做调整才能保证
 时间与空间的效率，这也是内存池的显著缺点。
 
-\subsubsection{内存池在本文中的应用}
+\subsection{内存池在本文中的应用}
 	本文所涉及到的算法及所需要的内存大小如表\ref{Tab:Software:Tab1}所示。分析得出内存池需要最多1个32～Bytes，2个128Bytes，6个2048~Bytes和1个8192～Bytes的内存空间。
 进一步分析，快速相关以及解调解扩相互间都是独立的，即前一算法执行完毕后一算法才会执行。因此，2048～Bytes的空间只需要2个。为给其他局部变量预留空间，最终的内存池分布为：
 16~Bytes$\times$8、32~Bytes$\times$4、128~Bytes$\times$2、256~Bytes$\times$1、2048~Bytes$\times$2、4096~Bytes$\times$1、8192~Bytes$\times$1。
+
 
 	\begin{table}[htbp]
 		\centering 
 		\caption{算法内存需求}
 		\label{Tab:Software:Tab1}
-		\begin{tabular*}{\textwidth}{c|c|c|c}
+		\vspace{0.5ex}
+		\wuhao
+		\begin{tabu} to \textwidth {X[1,c]|X[1,c]|X[1,c]|X[1,c]}
 			\specialrule{1.5pt}{0pt}{0pt}
 			% after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
 			算法 & 		数据量 & 数据类型 & 占用空间(Byte) \\
@@ -117,13 +122,71 @@ PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即�
 			\multirow{2}*{解调} & 2048$\times$2 & float32 & 8192$\times$2 \\
 							& 512$\times$2  & float32 & 2048 $\times$2\\
 			\hline
-			\multirow{3}*{解扩与解二阶差分} & 512 $\times$2 & float32 & 2048 $\times$ 2\\
+			\multirow{3}*{解扩与二阶差分检测} & 512 $\times$2 & float32 & 2048 $\times$ 2\\
 							& 32 $\times$ 2 & float32 & 128 $\times$2 \\
 							& 32 $\times$ 1 & int8 & 32 $\times$1 \\
 			\specialrule{1.5pt}{0pt}{0pt}
-		\end{tabular*}
+		\end{tabu}
 	\end{table}
 	
+\section{算法实现程序设计}
+该部分程序主要实现DD-SS算法及数据流程控制，由同步、缓存、解扩三部分组成，它们之间的关系如图\ref{fig:software:ddss}所示。由ADC采集到的数据首先会进行同步搜索，搜索到同步信号后同步信号后的数据解调降采样后缓存。等到缓存满一帧后开始解扩及二阶差分检测，然后通过UART数据传输驱动将数据发出。
+\begin{figure}[htbp]
+	\centering
+	\input{tikz/dd-ss.tex}
+	\caption{DD-SS程序组成框图}
+	\label{fig:software:ddss}
+\end{figure}
+
+\subsection{同步搜索}
+同步搜索采用双曲线调频信号(hyperbolic frequency-modulation，HFM)做相关进行。HFM是一种多普勒不变信号，其时间函数为\citeup{田坦2009声呐技术}
+\begin{equation}
+s(t)=Ae^{\left[-j\left(2\pi\frac{f_0^2}{m}\right)\ln\left(1-\frac{m}{f_0} t\right)\right]}
+\end{equation}
+频谱函数为\citeup{田坦2009声呐技术}
+\begin{equation}
+|S(f)|=A\frac{f_0}{\sqrt{|m|}\cdot f}
+\end{equation}
+图\ref{fig:software:hfm}展示了双曲线调频信号的幅度谱。
+\begin{figure}[htbp]
+	\centering
+	\input{tikz/hfm}
+	\caption{双曲线调频信号幅度谱}
+	\label{fig:software:hfm}
+\end{figure}
+
+由于HFM信号具有多普勒不变性\citeup{田坦2009声呐技术}，即具有多普勒的接受信号$r(t)$与发射信号$s(t)$满足
+\begin{equation}
+r(t)=s(Dt)=s(t-t_0)
+\end{equation}
+式中，$D=1/\alpha\approx1+\delta$。可见，HFM将多普勒转化成为一个延时$t_0$，且
+\begin{equation}
+t_0=\frac{1-D}{(m/f_0)D}
+\end{equation}
+
+在MSP432的CMSIS-DSP库的直接相关算法计算速度慢，文献\cite{press2007numerical}介绍一种采用FFT的快速相关算法，利用快速相关算法可以节省大量运算时间。根据式(\ref{eq:ddcode:recv})可将接受信号写为
+\begin{equation}
+r(t)=\sum_{p=1}^{N_p}A_px(t-\tau_p)+n(t)
+\end{equation}
+式中$n(t)$为高斯白噪声，$x(t)$为HFM同步信号。经过相关后\citeup{farrokhi2008performance}
+\begin{equation}
+R_{rx}(\tau)=\sum_{p=1}^{N_p}A_pR_{xx}(\tau-\tau_p)+u(\tau)
+\end{equation}
+式中$u(\tau)$是噪声分量。$R_{rx}(\tau)$在$\tau_p(p=1,2,\cdots,N_p)$处有峰值，峰值$|A_p1R_{xx}(0)|$只与增益$A_p$有关。因此，选择峰值最大的第$q$个峰将得到最大的处理后信噪比。
+
+\subsection{通带解调与缓存}
+通带解调过程如图\ref{fig:software:pass}所示。I路与Q路分别乘以$cos(\omega n)$和$sin(\omega n)$后经过降采样滤波器得到时间宽度为$T_c$(扩频码宽度)的序列，然后缓存到缓存区。降采样滤波器将滤波和降采样结合，能够避免不必要计算的数据点大大节约了计算时间。缓存时，按照I路与路分开存储。
+\begin{figure}[htbp]
+	\centering
+	\input{tikz/pass}
+	\caption{基带解调}
+	\label{fig:software:pass}
+\end{figure}
+
+当缓存区满一帧时，调用解扩程序进行剩余的数据处理过程。
+
+\subsection{解扩与解二阶差分}
+
 	
 	
 	

@@ -1,0 +1,8 @@
+\begin{tikzpicture}[>=stealth',node distance=2cm]
+	\draw [->] (0,0)--(4,0);
+	\draw [->] (2,-0.2)--(2,1.5) node [below,xshift=-0.5cm] {$a(f)$};
+	\draw[xshift=2cm] plot[samples=300,domain=-1.8:1.8,id=dsss] function{abs(sin(2*pi*x)/(2*pi*x))};
+	\draw[xshift=2cm] node at (0.5cm,-0.5cm) {$\frac{B_a}{2}$};
+	\draw[xshift=2cm] node at (-0.5cm,-0.5cm) {$\text{-}\frac{B_a}{2}$};
+	
+\end{tikzpicture}

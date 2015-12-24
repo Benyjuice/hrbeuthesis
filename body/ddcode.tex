@@ -1,6 +1,76 @@
-\chapter{二阶差分编码}
+\chapter{二阶差分扩频通信系统原理}
+\section{直接序列扩频的基本原理}
+信道无差错传输信息的最大信息速率为信道容量\citeup{文元美2005现代通信原理},记为$C$。根据香农公式，加性高斯白噪声功率为$N$,信道的带宽为$B$,信号功率为$S$的连续信道的的信道容量$C$为
+\begin{equation}
+C=B\log_2\left[1+\frac{S}{N}\right]
+\end{equation}
+在信道容量$C$一定时，为了降低$S/N$(信噪比)的要求，可以增大带宽$B$。换言之，在信噪比无法提高时可以通过增大带宽来提高信道容量。直接序列扩频正是增大带宽，以减小系统对信噪比$S/N$的要求。
+\subsection{直接序列扩频过程}
+图\ref{fig:ddcode:dsss}中$a(t)$为原始数据码元，$c(t)$为扩展频谱的码元，$d(t)$为传输的基带信号。为了能够将$a(t)$的频谱展宽，将$a(t)$与一个频谱比自己宽很多的$c(t)$相乘得到$d(t)$。$d(t)$的频谱宽度与$c(t)$相当，图\ref{fig:ddcode:dsss}中的频谱只是示意，实际$d(t)$的频谱要复杂得多。
+
+\begin{figure}[htbp]
+	\centering
+	\input{tikz/dsss}
+	\caption{直接序列扩频示意图}
+	\label{fig:ddcode:dsss}
+\end{figure}
+
+$c(t)$由伪随机码(Pseudo Code)$c[n]$产生,伪随机码具有一下特性:
+\begin{hitlist}
+	\item 在序列中“0”与“1”出现的频率各为$\frac{1}{2}$
+	\item 序列中长度为$n$的游程数占游程总数的$\frac{1}{2^n}$
+	\item 将给定的伪随机序列位移任何个元素所得的序列和原序列对应元素有一半相同一半不同
+\end{hitlist}
+
+满足以上三个条件的序列有良好的自相关特性合互相关特性。在解调时能够获得更高的信噪比，同时能够抑制不同序列之间的干扰。
+\subsection{直接序列解扩频过程}
+图\ref{fig:ddcode:dsssspec}展示了直扩系统各关键节点的频谱。直扩系统接收信号为\citeup{杨倬2006基于扩频技术的水下通信技术研究}
+\begin{equation}
+r_1(t)=s(t)+n(t)+J(t)
+\end{equation}
+其中$s(t)$为有用信号，$n(t)$为噪声信号(此处假设为白噪声)，$J(t)$为干扰信号。解扩时，将接收信号与发射断的伪随机信号$c(t)$相乘
+\begin{equation}
+\begin{split}
+	r(t)&=r_1(t)c(t)\\
+		&=s(t)c(t)+n(t)c(t)+J(t)c(t) \\
+		&=a(t)+n'(t)+J'(t)
+\end{split}
+\end{equation}
+如图\ref{fig:ddcode:dsssspec}(d)所示，由于伪随机序列与白噪声不相关,因此$n'(t)$的能量不会增大。由于伪随机序列的互相关特性，$J'(t)$的能量将会被显著印制。
+\begin{figure}[htbp]
+	\centering
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\subfigure[原始信号频谱]{
+			\input{tikz/dsss_a}
+			}
+	\end{minipage}	
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\subfigure[扩频后信号频谱]{
+			\input{tikz/dsss_b}
+		}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\subfigure[通过信道后的频谱]{
+			\input{tikz/dsss_c}
+		}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\subfigure[解扩后的频谱]{
+			\input{tikz/dsss_d}
+		}
+		\label{fig:ddcode:dsssspec:c}
+	\end{minipage}
+	\caption{直接序列扩频频谱图}
+	\label{fig:ddcode:dsssspec}
+\end{figure}
+
+
 \section{二阶差分检测的基本原理\citeup{simon1992implementation}}
-	在数字通信系统中，信道引入的随机载波频率偏移通常时很难准确估计的或者需要耗费大量的运算时间和运算单元的。两个有相互运动的节点之间通信的信道或者发送与接受之间载波未准确同步都会引入多普勒。在这种情况下，对信息的解调必须是非相干的解调，差分检测既是一种典型的非相干检测。传统的差分检测（用一阶差分将原始数据的相位进行编码）对载波的频率偏移很敏感。令$\Delta\omega\,=\,2\pi f $为信道引入的随机载波频率偏移，$1/T$为通信码率。那么，差分检测的输出端的相位就会发生$\Delta\omega T $的偏移。如果这一偏移量很大，将足以影响到系统的误码率。
+	在数字通信系统中，信道引入的随机载波频率偏移通常时很难准确估计的或者需要耗费大量的运算时间和运算单元的。两个有相互运动的节点之间通信的信道或者发送与接受之间载波未准确同步都会引入多普勒。在这种情况下，对信息的解调必须是非相干的解调，差分检测既是一种典型的非相干检测。传统的差分检测（用一阶差分将原始数据的相位进行编码）对载波的频率偏移很敏感。令$\Delta\omega\,=\,2\pi \Delta f $为信道引入的随机载波频率偏移，$1/T$为通信码率。那么，差分检测的输出端的相位就会发生$\Delta\omega T $的偏移。如果这一偏移量很大，将足以影响到系统的误码率。
 	
 	其中一个解决上述问题的方法就是使用二阶差分进行相位编码，在接收端使用二阶差分检测。图\ref{Figure:DDcode:encode}为MPSK二阶差分编码传输端的编码过程示意图。令输入相位为$\phi(t)$，一阶和二阶差分输出相位分别为$\theta_1(t)$和$\theta_2(t)$。则有：
 	\begin{equation}
@@ -72,6 +142,7 @@
 	\end{equation}
 经过第二级差分检测后的信号为：
 	\begin{equation}
+	\label{eq:ddcode:snd}
 	\begin{split}
 	r_2(t)&=\rho(t)\rho^2(t-T)\rho(t-2T)e^{j\left[ \theta_2(t)-2\theta_2(t-T)+\theta_2(t-2T)\right]} \\
 	   &=\rho(t)\rho^2(t-T)\rho(t-2T)e^{j\phi(t)}
@@ -110,7 +181,9 @@
 				\end{figure}
 				
 \section{二阶差分编码与直接序列扩频}
-文献\cite{liu2014long}将二阶差分编码与直接序列扩频结合，将其称为DD-SS(Double-differential coded spread-spectrum)，本文将沿用这一称谓。本文所述DD-SS系统框图如图\ref{Figure::ddcode:ddssend}与图\ref{Figure::ddcode:ddssrecv}所示。下面将分别就系统的发射机和接收机做详细介绍。
+文献\cite{liu2014long}将二阶差分编码与直接序列扩频结合，将其称为DD-SS(Double-differential coded spread-spectrum)，本文将沿用这一称谓。DD-SS是将直接序列扩频与二阶差分检测结合的通信技术。
+扩频能够提高差分检测的信噪比，二阶差分能够抵消信道或者系统本身引起的
+多普勒频偏本文所述DD-SS系统框图如图\ref{Figure::ddcode:ddssend}与图\ref{Figure::ddcode:ddssrecv}所示。下面将分别就系统的发射机和接收机做详细介绍。
 
 \subsection{DD-SS的发射机}
 
@@ -201,6 +274,7 @@ h(t,m)=\sum_{p=1}^{N_p}A_p[m]\delta(t-\tau_p[m])
 	根据上述假设，接收信号$\widetilde{r}(t)$为:
 \begin{equation}
 	\widetilde{r}(t,m)=\sum_{p=1}^{N_p}A_p[m]\widetilde{x}(t-\tau_p[m])
+	\label{eq:ddcode:recv}
 \end{equation}
 \begin{figure}[htbp]
 	\centering
@@ -241,7 +315,7 @@ h(t,m)=\sum_{p=1}^{N_p}A_p[m]\delta(t-\tau_p[m])
 	在$N_p$个多途中，通过同步技术能够找到能量最大的第$q$条多途。则解扩后的信号$y[m]$为：
 \begin{equation}
 	y[m]=\int_{D_{q,m}}^{}r(t)c(t-mT_s-\tau_p[m])
-\end{equation}结合上述假设，可以得到\cite{liu2014long}：
+\end{equation}结合上述假设，可以得到\citeup{liu2014long}：
 \begin{equation}
 	y[m]=A_q[m]e^{j2\pi f_c\tau_p[m]}u[m]
 \end{equation}
@@ -256,6 +330,7 @@ h(t,m)=\sum_{p=1}^{N_p}A_p[m]\delta(t-\tau_p[m])
 \end{equation}
 类比上式并令$\phi_q[m]=-2\pi f_c \tau_q[m]$，进行如下变换：
 \begin{equation}
+\label{fu:ddcode:eq1}
 \begin{split}
 	z[m]=&\frac{y[m]}{y[m-1]}\times\frac{y[m-2]}{y[m-1]} \\
 	=&\frac{A_q[m]e^{j\phi_q[m]} u[m]}{A_q[m-1]e^{j\phi_q[m-1]} u[m-1]} \times \frac{A_q[m-2]e^{j\phi_q[m-2]} u[m-2]}{A_q[m-1]e^{j\phi_q[m-1]} u[m-1]} \\
@@ -270,6 +345,15 @@ z[m]&=\frac{A_q[m]A_q[m-2]}{A_q[m-1]A_q[m-1]}\times\frac{u[m]u[m-2]}{u[m-1]u[m-1
     &=\frac{A_q[m]A_q[m-2]}{A_q[m-1]A_q[m-1]}d[m]
 \end{split}
 \end{equation}
+式中前一项为实数，并不影响PSK解调，因此：
+\begin{equation}
+d[m]=det \langle z[m] \rangle
+\end{equation}
+算子$det\langle \bullet \rangle$为PSK解调器。综上，可以将式(\ref{fu:ddcode:eq1})作为二阶差分检测器。
+
+当考虑到多普勒影响时根据式(\ref{eq:ddcode:snd})，条件$(\phi_q[m]-\phi_q[m-1]) - (\phi_q[m-1] - \phi_q[m-2]) = 0$仍然成立。因此，结论不变。
+
+
 
 
 

@@ -1,0 +1,15 @@
+\begin{tikzpicture}[>=stealth',node distance=2cm]
+	
+	\draw [->] (0,0)--(4,0);
+	\draw [->] (2,-0.2)--(2,1.5) node [below,xshift=-1.5cm,yshift=-0.cm] (mk) {$d(f)$};
+	\draw [->] (mk)--(1.0cm,0.2cm);
+	\draw[xshift=2cm,thick] plot[samples=300,domain=-1.5:1.5,id=dsssb] function{abs(sin(pi*x/1.5)/(pi*x/1.5))/3};
+	\draw[xshift=2cm,dashed] plot[samples=300,domain=-0.5:0.5,id=dsssc1] function{abs(sin(2*pi*x)/(2*pi*x))};
+	\draw node at(2.5cm,1.1cm) {$J'(f)$};
+	\draw[xshift=2cm] (-1.7cm,0)--++(0,0.5cm)--(1.7cm,0.5cm)--++(0,-0.5cm);
+	\draw[xshift=2cm] node at (1.7cm,-0.5cm) {$\frac{B}{2}$};
+	\draw[xshift=2cm] node at (-1.7cm,-0.5cm) {$\text{-}\frac{B}{2}$};
+	\draw node at (4.0cm,0.8cm) (no) {\wuhao 噪声};
+	\draw [->](no)--(2.7cm,0.5cm);
+	
+\end{tikzpicture}
