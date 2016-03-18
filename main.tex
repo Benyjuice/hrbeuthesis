@@ -117,7 +117,7 @@
                body/introduction,
                body/Software,
                body/ddcode,
-               body/Tricks,
+               body/experiment,
                body/UpdateLog,
                body/ToTemplateMaintainers,
                body/copyright,
@@ -139,7 +139,34 @@
 
 % 流程图
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows,decorations.markings}
+\usepackage{pgfplots}
+\usepackage{listings}
+\lstset{                        %Settings for listings package.
+	language=[ANSI]{C},
+	backgroundcolor=\color{lightgray},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	commentstyle=\color{olive},
+	directivestyle=\color{blue},
+	extendedchars=false,
+	% frame=single,%shadowbox
+	framerule=0pt,
+	keywordstyle=\color{blue}\bfseries,
+	morekeywords={*,define,*,include...},
+	numbersep=5pt,
+	rulesepcolor=\color{red!20!green!20!blue!20},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stepnumber=2,
+	stringstyle=\color{purple},
+	tabsize=4,
+	title=\lstname
+}
+\usetikzlibrary{shapes.geometric, arrows,decorations.markings,calc}
+\usetikzlibrary{positioning,shapes,shadows}
 
 % 文档开始
 
@@ -289,6 +316,7 @@
 \include{body/introduction}
 \include{body/ddcode}
 \include{body/Software}
+\include{body/experiment}
 %\include{body/Tricks}
 %\include{body/ToTemplateMaintainers}
 %\include{body/copyright}

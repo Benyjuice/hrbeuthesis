@@ -1,0 +1,36 @@
+
+\tikzstyle{comment}=[rectangle, draw=black, rounded corners, fill=gray!10,
+text centered, anchor=north, text width=3cm]
+
+\begin{tikzpicture}
+  \node (adc0) [comment, rectangle split, rectangle split parts=2, text justified,text width=4cm]
+  {
+  	\textbf{adc0:msp432\_dev}
+  	\nodepart{second}phy\_addr:ADC\_MEM0 \newline flag:\newline privt:null
+  };
+  
+  \node (adc-driver) [comment, rectangle split, rectangle split parts=2, text justified,text width=5cm,below = 6cm of adc0.west,anchor=west] 
+  {
+  	\textbf{adc\_driver:msp432\_driver}
+  	\nodepart{second}open:adc\_open\newline close:adc\_close \newline read:adc\_read \newline write:adc\_write \newline ioctl:adc\_ioctl \newline interpt:adc\_interpt
+  };
+  
+  
+  \node (code) [comment, text justified,text width=4cm,right = 6cm of adc-driver.north,anchor=north,yshift=-1cm]
+  {
+  	adc\_open()\\
+  	$~~~~~~$$\vdots$\newline
+  	adc\_interpt()
+  	
+  };
+  
+  \draw [-,dashed,line width=0.35mm] (-3.0cm,0.5cm) --+(0,-10cm);
+  \draw [dashed,line width=0.35mm] (-3.0cm,-4.3cm) --+ (11.5cm,0);
+  
+  \node at (-3.8cm,-3cm) {应用层};
+  \node at (-2.2cm,-3.6cm) {设备层};
+  \node at (-2.2cm,-5cm) {驱动层};
+   
+  
+  
+\end{tikzpicture}

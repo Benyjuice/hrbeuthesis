@@ -1,0 +1,26 @@
+
+\begin{tikzpicture}[>=stealth',node distance = 3cm]
+		\tikzset{%
+			block/.style    = {draw, thick, rectangle, minimum height = 2em,
+				minimum width = 3em},
+			sum/.style      = {draw, circle, inner sep=0pt, node distance = 2cm}, % Adder
+			input/.style    = {coordinate}, % Input
+			output/.style   = {coordinate} % Output
+		}
+		
+		\node[input] (in) at(0,0) {};
+		\node[block,right of=in] (corr) {相关器};
+		\node[block,right of=corr] (peak) {峰值检测};
+		\node[block,right of=peak,text width=4em,text centered] (ddcode) {二阶差分检测};
+		\node[output,right of=ddcode](out) {};
+		
+		\draw[->] (in)--(corr);
+		\draw[->] (corr)--(peak);
+		\draw[->] (peak)--(ddcode);
+		\draw[->] (ddcode)--(out);
+		
+		\draw[dashed] (1.5,-0.5)--++(0,1) --++(6,0)--++(0,-1)--(1.5,-0.5);
+		
+		\node at (4.5,0.7) {解扩};
+		
+\end{tikzpicture}

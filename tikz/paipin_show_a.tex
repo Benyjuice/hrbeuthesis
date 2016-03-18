@@ -1,0 +1,8 @@
+\begin{tikzpicture}[>=stealth',node distance=2cm]
+	\draw [->] (-0.1,0)--(8.5,0) node [right=3pt] {$t$};
+	\draw [->] (0,-1.5)--(0,1.5);
+	\draw plot[samples=300,domain=0:8,id=pai_a] function{sin(pi*x)};
+	\draw plot[samples=300,domain=0:8,id=pai_b] function{-sin(pi*x)};
+	\draw [|<->|,dashed] (0,1) --node[above] {\xiaowu 短PN序列} (1.7,1);
+	
+\end{tikzpicture}

@@ -1,0 +1,41 @@
+
+\tikzstyle{comment}=[rectangle, draw=black, rounded corners, fill=gray!10,
+text centered, anchor=north, text width=3cm]
+
+\begin{tikzpicture}
+  \node (uart0) [comment, rectangle split, rectangle split parts=2, text justified,text width=4cm]
+  {
+  	\textbf{uart0:msp432\_dev}
+  	\nodepart{second}phy\_addr:EUSCI\_A0\newline flag:\newline privt:\&p
+  };
+  
+  \node (uart-driver) [comment, rectangle split, rectangle split parts=2, text justified,text width=5cm,below = 6cm of uart0.west,anchor=west] 
+  {
+  	\textbf{uart\_driver:msp432\_driver}
+  	\nodepart{second}open:uart\_open\newline close:uart\_close \newline read:uart\_read \newline write:uart\_write \newline ioctl:uart\_ioctl \newline interpt:uart\_interpt
+  };
+  
+  \node (private) [comment, rectangle split, rectangle split parts=2, text justified,text width=4cm,right = 6cm of uart0.north,anchor=north]
+  {
+  	\textbf{p:uart\_dev\_private}
+  	\nodepart{second}sendbuf\newline recvbuf \newline sendidx \newline recvidx \newline sendlen \newline recvlen
+  };
+  
+  \node (code) [comment, text justified,text width=4cm,right = 6cm of uart-driver.north,anchor=north,yshift=-1cm]
+  {
+  	uart\_open()\\
+  	$~~~~~~$$\vdots$\newline
+  	uart\_interpt()
+  	
+  };
+  
+  \draw [-,dashed,line width=0.35mm] (-3.0cm,0.5cm) --+(0,-10cm);
+  \draw [dashed,line width=0.35mm] (-3.0cm,-4.3cm) --+ (11.5cm,0);
+  
+  \node at (-3.8cm,-3cm) {应用层};
+  \node at (-2.2cm,-3.6cm) {设备层};
+  \node at (-2.2cm,-5cm) {驱动层};
+   
+  
+  
+\end{tikzpicture}

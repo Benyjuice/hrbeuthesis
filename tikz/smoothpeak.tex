@@ -1,0 +1,14 @@
+
+\begin{tikzpicture}[>=stealth',node distance = 3cm]
+		\tikzset{%
+			block/.style    = {draw, thick, rectangle, minimum height = 2em,
+				minimum width = 3em},
+			sum/.style      = {draw, circle, inner sep=0pt, node distance = 2cm}, % Adder
+			input/.style    = {coordinate}, % Input
+			output/.style   = {coordinate} % Output
+		}
+		
+	\node at (0,0) {输入数据};
+	\draw[xshift=2cm] (0,0) -- (10,0);
+	\draw[xshift=2cm,yshift=-0.5cm] (0,0)--(2,0);
+\end{tikzpicture}

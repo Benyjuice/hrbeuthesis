@@ -1,0 +1,63 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=4.521in,
+height=3.566in,
+at={(0.758in,0.481in)},
+scale only axis,
+xmin=0,
+xmax=6,
+xlabel={SNR/dB},
+ymin=-0.0003,
+ymax=0.007,
+ylabel={BER},
+axis background/.style={fill=white},
+legend style={legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=mycolor1,solid,line width=0.8pt,mark=o,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.0064\\
+0.5	0.0052\\
+1	0.0033\\
+1.5	0.00145\\
+2	0.00145\\
+2.5	0.00115\\
+3	0.0005\\
+3.5	0.0006\\
+4	0.00015\\
+4.5	5e-05\\
+5	0\\
+5.5	5e-05\\
+6	0\\
+};
+\addlegendentry{DDSS};
+
+\addplot [color=mycolor2,solid,line width=0.8pt,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.0004\\
+0.5	0.0001\\
+1	0\\
+1.5	5e-05\\
+2	0\\
+2.5	0\\
+3	0\\
+3.5	0\\
+4	0\\
+4.5	0\\
+5	0\\
+5.5	0\\
+6	0\\
+};
+\addlegendentry{DSSS};
+
+\end{axis}
+\end{tikzpicture}%

@@ -69,7 +69,7 @@ r_1(t)=s(t)+n(t)+J(t)
 \end{figure}
 
 
-\section{二阶差分检测的基本原理\citeup{simon1992implementation}}
+\section{二阶差分检测的基本原理}
 	在数字通信系统中，信道引入的随机载波频率偏移通常时很难准确估计的或者需要耗费大量的运算时间和运算单元的。两个有相互运动的节点之间通信的信道或者发送与接受之间载波未准确同步都会引入多普勒。在这种情况下，对信息的解调必须是非相干的解调，差分检测既是一种典型的非相干检测。传统的差分检测（用一阶差分将原始数据的相位进行编码）对载波的频率偏移很敏感。令$\Delta\omega\,=\,2\pi \Delta f $为信道引入的随机载波频率偏移，$1/T$为通信码率。那么，差分检测的输出端的相位就会发生$\Delta\omega T $的偏移。如果这一偏移量很大，将足以影响到系统的误码率。
 	
 	其中一个解决上述问题的方法就是使用二阶差分进行相位编码，在接收端使用二阶差分检测。图\ref{Figure:DDcode:encode}为MPSK二阶差分编码传输端的编码过程示意图。令输入相位为$\phi(t)$，一阶和二阶差分输出相位分别为$\theta_1(t)$和$\theta_2(t)$。则有：
@@ -107,8 +107,8 @@ r_1(t)=s(t)+n(t)+J(t)
 			node [block, below of=times1,xshift=1.5cm] (delay1) {\xiaowu 延迟T}
 			node [block, below of=times2,xshift=1.5cm] (delay2) {\xiaowu 延迟T}
 			node [output, right of=times2,name=output1, xshift=2.5cm]{$\theta (t)$}
-			node at (5,0) {\textbullet}
-			node at (9.5,0) {\textbullet}
+			node[yshift=-0.05cm] at (5,0) {\textbullet}
+			node[yshift=-0.05cm] at (9.5,0) {\textbullet}
 			;
 			\draw [->](input1) --  (times1);
 			\draw [->] (times1) -- (times2);
@@ -128,11 +128,11 @@ r_1(t)=s(t)+n(t)+J(t)
 			\label{Figure:DDcode:encode}
 		\end{figure}
 		
-	图\ref{Figure:DDcode:Decode}是接收端解码框图。接收信号经过信道后，信道引起了一个大小为$\Delta\omega$的频率偏移。设接收信号的幅度为$\rho(t)$,则接收信号可以表示为(基带):
+	图\ref{Figure:DDcode:Decode}是接收端解码框图。接收信号经过信道后，信道引入了一个大小为$\Delta\omega$的频率偏移。设接收信号的幅度为$\rho(t)$,则接收信号可以表示为(基带):
 	\begin{equation}
 		r(t)=\rho(t)e^{j\left[ \theta_2(t) +\Delta\omega t \right]}
 	\end{equation}
-经过第一级差分检测后的信号为:
+经过第一级差分检测后的信号为\citeup{simon1992implementation}:
 	\begin{equation}
 	\begin{split}
 	r_1(t)&=\rho(t)\rho(t-T)e^{j\left[ \theta_2(t)-\theta_2(t-T) + \Delta\omega t - \Delta
@@ -140,7 +140,7 @@ r_1(t)=s(t)+n(t)+J(t)
 	     &=\rho(t)\rho(t-T)e^{j\left[ \theta_2(t)-\theta_2(t-T) + \Delta\omega T \right]}
 	\end{split}
 	\end{equation}
-经过第二级差分检测后的信号为：
+经过第二级差分检测后的信号为\citeup{simon1992implementation}：
 	\begin{equation}
 	\label{eq:ddcode:snd}
 	\begin{split}
@@ -163,8 +163,8 @@ r_1(t)=s(t)+n(t)+J(t)
 					node [block, below of=input1,xshift=2.5cm] (delay1) {\xiaowu 延迟T}
 					node [block, below of=times1,xshift=2.5cm] (delay2) {\xiaowu 延迟T}
 					node [output, right of=times2,name=output1]{$\theta (t)$}
-					node at (1,0) {\textbullet}
-					node at (5.5,0) {\textbullet}
+					node[yshift=-0.05cm] at (1,0) {\textbullet}
+					node[yshift=-0.05cm] at (5.5,0) {\textbullet}
 					;
 					\draw [->](input1) --  (times1);
 					\draw [->] (times1) -- (times2);
@@ -237,7 +237,7 @@ v[n] =v[n-1]d[n], n=0,1,\cdots
 		\draw [->] (-2.2,0) -- (2.2,0) node[right] {$t$};
 		\draw [->] (0,-1.1) -- (0,1.2) node[left] {$y$};
 		%\draw plot[id=x] function{sin(3.1415926*x/8)*8/3.1415926/x*cos(3.1415926*x/8)/(1-(2*x/8)\^2)};
-		\draw[domain=-2:2,samples=500,color=red] plot(\x,{sin(pi*\x r)/(pi*\x)*cos(pi*\x r)/(1-\x*\x)});
+		\draw[domain=-2:2,samples=500,color=gray] plot(\x,{sin(pi*\x r)/(pi*\x)*cos(pi*\x r)/(1-\x*\x)});
 	\end{tikzpicture}
 	\caption{升余弦函数$(\alpha=0.5)$}
 	\label{Figure:ddcode:rcos}
@@ -249,6 +249,7 @@ x(t)=\sum_{n=0}^{\infty}u[n]c(t-nT_s)
 \end{equation}
 其中，$T_s=GT_c$为码元宽度。通带传输信号$\widetilde{x}(t)$为：
 \begin{equation}
+\label{passband_signal}
 \widetilde{x}(t)=Re\{x(t)e^{j2\pi f_ct}\}
 \end{equation}
 其中，$f_c$为载波频率。
@@ -353,10 +354,113 @@ d[m]=det \langle z[m] \rangle
 
 当考虑到多普勒影响时根据式(\ref{eq:ddcode:snd})，条件$(\phi_q[m]-\phi_q[m-1]) - (\phi_q[m-1] - \phi_q[m-2]) = 0$仍然成立。因此，结论不变。
 
+\section{二阶差分检测抗干扰性能}
+文献\cite{simon1992implementation}指出,二阶差分误码率可以表示为：
+\begin{equation}
+P_E=\frac{1}{2}exp\{ -\frac{E}{N_0}\left( 2+\frac{FT}{E/N_0}\right)^{}-1\}
+\end{equation}
+较一阶差分检测其检测性能要好3dB。
+\begin{figure}[!htbp]
+	\centering
+	\input{tikz/pe}
+	\caption{二阶差分检测误码率曲线}
+	\label{fig:ddcode:pe}
+\end{figure}
+\subsection{多普勒对DDSS系统的影响}
+\label{sec:ddcode:dopuler}
+如式(\ref{passband_signal})所示，通带传输信号为:
+\[ \widetilde{x}(t)=Re\{x(t)e^{j2\pi f_ct}\} \]
+经过多普勒作用之后的信号变成:
+\begin{equation}
+\widetilde{x}_D(t)=\widetilde{x}(Dt)=Re\{x(Dt)e^{j2\pi f_cDt}\}
+\end{equation}
+式中，$D=(1-v/c)/(1+v/c)\approx1-\alpha$\citeup{田坦2009声呐技术}，$\alpha$称为多普勒因子。
 
-
-
-
-
-		
+\begin{figure}[htbp]
+	\centering
+%	\begin{tikzpicture}[>=stealth',node distance=2cm]
+	\input{tikz/tt}
+	%\draw [->] (0,0)--(4,0);
+	%\draw [->] (2,-0.2)--(2,1.5) node [below,xshift=-0.5cm] {$a(f)$};
+	%\draw[xshift=2cm] plot[samples=300,domain=-1.8:1.8,id=paipin] function{abs(sin(2*pi*x)/(2*pi*x))};
+	%\draw[xshift=2cm] node at (0.5cm,-0.5cm) {$\frac{B_a}{2}$};
+	%\draw[xshift=2cm] node at (-0.5cm,-0.5cm) {$\text{-}\frac{B_a}{2}$};
 	
+%	\end{tikzpicture}
+	\caption{有多普勒信号解调}
+	\label{fig::paiping}
+\end{figure}
+
+在接收端不对$\alpha$进行估计，仍然以载波频率$f_c$对接受信号进行解调。解调后的信号将会混入一个频率为$\alpha f_c$的拍频。如图\ref{fig::paiping}所示，拍频的包络宽度为$\alpha f_c$频率信号周期的一半，即:
+\begin{equation}
+\label{equ:ddcode:td}
+T_D=\frac{1}{2\alpha f_c}
+\end{equation}
+解调信号在相邻两个包络之间相位发生翻转。
+
+图\ref{fig::pnwdopler}展示了多普勒大小与PN序列长短的关系。在解扩时，如果PN序列长度比$T_D$大，接收信号在中间位置发生了相位翻转，积分得到的峰值变小干扰增大，更严重的将会出现错峰(如图\ref{fig::pnwdopler}(a)所示)。对于相同大小的多普勒，当PN序列越短(比$T_D$小得多)时，更有利于解扩(如图\ref{fig::pnwdopler}(b)所示)。
+
+长度为$G$码元宽度为$T_c$的PN序列，其时间长度为\[T_G=GT_c=\frac{2G}{B}\]式中，$B$为系统传输带宽。若要更好的解扩，需满足$T_G<<T_D$,即:
+\[
+\alpha << \frac{B}{4\alpha f_c}
+\]
+则有系统容忍最大的多普勒为：
+\begin{equation}
+\alpha_{max} \varpropto \frac{B}{4\alpha f_c}
+\end{equation}
+因此，降低载波频率、增大带宽、减小PN序列长度均有利于系统抵抗多普勒。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{minipage}{0.8\textwidth}
+		\centering
+		\subfigure[多普勒较大时]{
+			\input{tikz/paipin_show_a}
+		}
+	\end{minipage}
+	\begin{minipage}{0.8\textwidth}
+		\centering
+		\subfigure[多普勒较小时]{
+			\input{tikz/paipin_show_b}
+		}
+	\end{minipage}	
+	\caption{PN序列长度与多普勒大小关系}
+	\label{fig::pnwdopler}
+\end{figure}
+
+\subsection{载波同步对DDSS的影响}
+在分析通带信号变基带信号时，总会假设载波是同步的，即认为本地载波相位与接收信号的载波相位一致。但这个假设条件通常难以满足，比如用于帧头同步的线性调频信号同步位置出现差错或者出现了多普勒，这都会导致接收信号的相位与本地载波相位不一致。
+
+由式(\ref{passband_signal}),发射信号为：
+\[
+\widetilde{x}(t)=x_i(t)cos(2\pi f_ct)+x_q(t)sin(2\pi f_ct)
+\]
+其中$x_i(t)$和$x_q(t)$分别为$x(t)$的实部和虚部。
+在不考虑信道和多普勒等因素的影响，仅仅考虑载波相位相差$\Delta\phi$，基带信号为：
+%\begin{equation}
+%\begin{split}
+%x_i'(t)&=2\times LPF\left\lbrace \left[ x_i(t)cos(2\pi f_ct+\Delta\phi) +x_q(t)sin(2\pi f_ct+\Delta\phi)\right] cos(2\pi f_ct)\right\rbrace \\
+%&=
+%
+%\end{split}
+%\end{equation}
+\begin{equation}
+\label{equ:ddcode:sig}
+\begin{split}
+x_i'(t)&=2\times LPF\left\lbrace \left[ x_i(t)\cos(2\pi f_ct+\Delta\phi) +x_q(t)\sin(2\pi f_ct+\Delta\phi)\right] \cos(2\pi f_ct)\right\rbrace \\
+&=x_i(t)\cos(\Delta \phi)+x_q(t)\sin(\Delta \phi) \\
+x_q'(t)&=2\times LPF\left\lbrace \left[ x_i(t)\cos(2\pi f_ct+\Delta\phi) +x_q(t)\sin(2\pi f_ct+\Delta\phi)\right] \sin(2\pi f_ct)\right\rbrace \\
+&=-x_i(t)\sin(\Delta \phi)+x_q(t)\cos(\Delta \phi) \\
+\end{split}
+\end{equation}
+那么基带复信号为：
+\begin{equation}
+\begin{split}
+x'(t)&=x_i'(t)+jx_q'(t)\\
+&=x(t)e^{-j\Delta\phi}
+\end{split}
+\end{equation}
+根据二阶差分检测的性质，常数项$e^{-j\Delta \phi}$可以完全消除。
+
+\section{本章小结}
+本章从扩频通信原理和二阶差分检测两个部分介绍了二阶差分扩频通信系统的基本原理。

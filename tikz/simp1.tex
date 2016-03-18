@@ -1,0 +1,113 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.520000,0.22700,0.44100}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=4.521in,
+height=3.566in,
+at={(0.758in,0.481in)},
+scale only axis,
+xmin=0,
+xmax=20,
+xlabel={SNR/dB},
+xmajorgrids,
+ymode=log,
+ymin=0.001,
+ymax=1,
+yminorticks=true,
+ylabel={BER},
+ymajorgrids,
+yminorgrids,
+axis background/.style={fill=white},
+legend style={at={(0.04,0.014)},anchor=south west,legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=mycolor1,line width=0.8pt,solid,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.182625\\
+2	0.10775\\
+4	0.06675\\
+6	0.051375\\
+8	0.032875\\
+10	0.020375\\
+12	0.012375\\
+14	0.006375\\
+16	0.005375\\
+18	0.00375\\
+20	0.0025\\
+};
+\addlegendentry{DDSS,$\alpha=10^{-3}$};
+
+\addplot [color=mycolor2,line width=0.8pt,solid,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.54575\\
+2	0.54625\\
+4	0.54525\\
+6	0.546125\\
+8	0.546625\\
+10	0.547125\\
+12	0.548\\
+14	0.5495\\
+16	0.549375\\
+18	0.548125\\
+20	0.54975\\
+};
+\addlegendentry{DSSS,$\alpha=10^{-3}$};
+
+\addplot [color=mycolor1,solid,line width=0.8pt,mark=o,mark options={solid}]
+table[row sep=crcr]{%
+	0	0.307\\
+	2	0.266\\
+	4	0.2255\\
+	6	0.192625\\
+	8	0.18675\\
+	10	0.17625\\
+	12	0.168375\\
+	14	0.16725\\
+	16	0.166\\
+	18	0.165125\\
+	20	0.16425\\
+};
+\addlegendentry{DDSS,$\alpha=3\times10^{-3}$};
+
+\addplot [color=mycolor2,solid,mark=o,line width=0.8pt,mark options={solid}]
+table[row sep=crcr]{%
+	0	0.516125\\
+	2	0.50475\\
+	4	0.5095\\
+	6	0.509375\\
+	8	0.508875\\
+	10	0.510875\\
+	12	0.5125\\
+	14	0.51425\\
+	16	0.515875\\
+	18	0.516375\\
+	20	0.516625\\
+};
+\addlegendentry{DSSS,$\alpha=3\times10^{-3}$};
+
+\addplot [color=mycolor3,solid,line width=0.8pt,mark=square,mark options={solid}]
+table[row sep=crcr]{%
+	0	0.142125\\
+	2	0.103625\\
+	4	0.0585\\
+	6	0.048125\\
+	8	0.02675\\
+	10	0.0215\\
+	12	0.015125\\
+	14	0.012\\
+	16	0.00575\\
+	18	0.00625\\
+	20	0.00225\\
+};
+\addlegendentry{DDSS,$\alpha=5\times10^{-4}$};
+
+\end{axis}
+\end{tikzpicture}%

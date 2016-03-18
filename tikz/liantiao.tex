@@ -1,0 +1,56 @@
+\begin{tikzpicture}
+
+\draw (0,0) rectangle (3.2,2);
+\foreach \i in {0.2,0.4,...,1}
+{
+	\fill[gray] (\i,0.2) rectangle (\i+0.1,0.4);	
+}   
+
+\foreach \i in {0.2,0.4,...,1}
+{
+	\fill[gray] (\i,0.9) rectangle (\i+0.1,1.1);	
+}
+
+\fill[gray] (-0.05,0.45) rectangle (0.2,0.85);% usb port
+
+\fill[gray] (0.3,1.3) rectangle (0.7,1.7);
+   
+\foreach \i in {0.3,0.5,0.7,1.2,1.4,1.6}
+{
+	\fill[gray] (1.2,\i) rectangle (1.5,\i+.15);	
+}
+
+\draw[line width=1pt,gray,dashed] (1.35,0) -- (1.35,2);
+
+\fill[gray] (1.8,0.5) rectangle (2.8,1.5);
+\fill[gray] (1.7,0.1) rectangle (2.9,0.3);
+\fill[gray] (1.7,1.9) rectangle (2.9,1.7);
+
+\node at (1.6,-0.4) {\xiaowu TI MSP432开发板};
+
+\draw (-1,0) rectangle (-1.8,2);
+\draw (-1.4,1.4) circle [radius=0.1];
+\fill (-1.7,1.9) rectangle (-1.5,1.8);%usb
+\fill (-1.1,1.9) rectangle (-1.3,1.8);%usb
+
+\draw (-1.7,1) rectangle (-1.1,0.8);
+\fill (-1.2,0.9) circle [radius=0.05];
+\draw[line width=1pt,gray!70!green] (-1.7,0.4) -- (-1.1,0.4);
+\draw[line width=0.5pt,gray!70!green] (-1.7,0.3) -- (-1.1,0.3);
+\draw[line width=0.25pt,gray!70!green] (-1.7,0.2) -- (-1.1,0.2);
+  
+\fill[rounded corners=2pt,color=gray!50!black] (-2.2,0.8) rectangle (-4,2);
+\filldraw[white] (-2.3,1) rectangle (-3.9,1.9);
+
+\fill (-2.95,0.8) rectangle (-3.25,0.4);
+\fill (-2.5,0.4) rectangle (-3.7,0.2);
+\node at (-2.5,-0.4) {\xiaowu 实验PC机};
+
+%连接
+\fill[gray!40!black] (-0.05,0.43) rectangle (-0.45,0.87);
+\draw[line width=1pt] plot[smooth]  coordinates {(-0.45,0.65)  (-1.4,0.65)  (-1.6,1.85)};
+
+\draw[line width=1pt] plot[smooth] coordinates {(-1.0,1.7) (0,2.1) (2.2,1.9)};
+\draw node at (0,2.2) {\liuhao PC音频输出};
+\draw node at (-0.7,0.4) {\liuhao USB};
+\end{tikzpicture}

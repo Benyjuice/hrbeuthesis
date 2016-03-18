@@ -1,69 +1,227 @@
 \defaultfont
-\chapter{接收机系统设计}
+\chapter{系统仿真与设计}
+\section{系统仿真}
+综合考虑到扩频增益和抗多普勒效果，系统选用PN序列码长度为15，扩频增益为12dB。仿真时，每帧发送200bit数据，采用QPSK调制。采样率为24kHz，载波频率为3kHz，带宽为1kHz。仿真使用高斯信道，添加的噪声以带内信噪比计算。
+
+图\ref{fig:software:dop0}为没有多普勒情况下，DDSS和DSSS系统误码率曲线对比。可以看出，DDSS系统抗噪声性能要比传统的DSSS系统优约4dB。
+\begin{figure}[!htbp]
+	\centering
+	\input{tikz/simn1}
+	\caption{$\alpha=0$时DDSS和DSSS仿真误码率}
+	\label{fig:software:dop0}
+\end{figure}
+
+图\ref{fig:software:sig}为$\alpha=10^{-4}$时接收信号经解调后的基带信号。根据\ref{sec:ddcode:dopuler}节分析，多普勒将会给基带信号引入一个频率为$\alpha f_c=0.3Hz$的拍频。根据式(\ref{equ:ddcode:td}),拍包络时间宽度为$T_D=\frac{1}{2\times0.3}=1.67s$。
+根据式(\ref{equ:ddcode:sig}),由于载波不同步，基带信号的实部(虚部)将同时有原基带信号的实部与虚部。图中可见，有两个相互交错的起伏包络既是原实部与虚部叠加后导致的。
+\begin{figure}[htbp]
+	\centering
+	\input{tikz/sig}
+	\caption{接收端基带信号}
+	\label{fig:software:sig}
+\end{figure}
+
+图\ref{fig:software:scatter}为DDSS系统和DSSS系统星座图的对比。图中可看出，DDSS系统的星座图较DSSS系统星座图更加集中在正确解调相位范围内。PSK解调后DSSS的误码率将会比DDSS的误码率大。
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{0.45\textwidth}
+	\centering
+	\subfigure[DDSS星座图]{
+		\input{tikz/sca1}
+	}
+\end{minipage}	
+\begin{minipage}{0.45\textwidth}
+	\centering
+	\subfigure[DSSS星座图]{
+		\input{tikz/sca2}
+	}
+\end{minipage}
+\caption{$\alpha=10^{-4}$时DDSS和DSSS星座图对比}
+\label{fig:software:scatter}
+\end{figure}
+
+图\ref{fig:software:dp1}给出了在不同多普勒情况下DDSS系统和DSSS系统的误码率曲线。可以看出，在没有进行任何多普勒补偿的DSSS系统几乎完全无法正确接收数据。而引入了二阶差分的DDSS系统，在一定程度上消除了多普勒的影响。
+\begin{figure}[!htbp]
+	\centering
+	\input{tikz/simp1}
+	\caption{DDSS和DSSS仿真误码率}
+	\label{fig:software:dp1}
+\end{figure}
 
 \section{MSP432驱动软件设计}
-	MSP432驱动程序包括ADC数据采集驱动和UART数据传输驱动两部分。
-在设计驱动程序时参考了中断-回调函数模型，即中断服务函数处理中断请求然后请求调用
-回调函数。回调函数不是由中断服务函数直接调用，而是由中断服务函数连接到回调函数链表中由
-主函数根据优先级决定执行哪个回调函数。
+%	MSP432驱动程序包括ADC数据采集驱动和UART数据传输驱动两部分。
+%在设计驱动程序时参考了中断-回调函数模型，即中断服务函数处理中断请求然后请求调用
+%回调函数。回调函数不是由中断服务函数直接调用，而是由中断服务函数连接到回调函数链表中由
+%主函数根据优先级决定执行哪个回调函数。
+\subsection{设备驱动模型}
+本文结合linux驱动架构，设计实现了一个设备-驱动的驱动程序模型。模型将外设驱动程序分为设备层和驱动层，设备层描述msp432具体的外设模块，驱动层描述对外设模块的操作。例如msp432中的uart0和uart1是不同的设备，但它们都对应一个驱动。设备由
+msp432\_dev结构体描述，驱动由结构体msp432\_driver描述，它们的定义如下：
+\begin{lstlisting}
+typedef struct msp432_dev_t {
+	void *phy_addr;
+	uint16_t flag;
+	void *prvt;
+} msp432_dev;
 
-	下面结合这一模型及具体驱动程序做详细说明。
+void msp432_dev_init(msp432_dev *dev,
+                     void *phy_addr,
+                     uint16_t flag, 
+                     void *privte);
+typedef struct msp432_driver_t {
+	int (*open)(msp432_dev *dev,int16_t mode);
+	int (*close)(msp432_dev *dev);
+	int (*write)(msp432_dev *dev,void *buf, size_t count);
+	size_t (*read)(msp432_dev *dev,void *buf, size_t count);
+	int (*ioctl)(msp432_dev *dev,int16_t key, int16_t val);
+	void (*interp)(msp432_dev *dev,void *p);
+} msp432_driver;
+\end{lstlisting}
+其中，msp432\_dev描述关于设备的物理地址(phy\_addr)、状态或标志(flag)和私有数据；msp432\_driver描述关于的设备操作，open、close、write、read四个函数指针为操作设备的函数入口，interp函数指针为中断下部处理入口，其参数p为中断上部传入的私有数据。需要指出的是，中断服务(isr)函数属于设备层，中断下部属于驱动层。以上定义了驱动程序的模型，根据这一模型编写设备驱动的方法将更加标准化。下面以UART模块为例，简要介绍如何利用驱动模型编写驱动。
+\begin{lstlisting}
+/*file:msp432_uart.c*/ 
+#include “**.h” //包含必要的头文件
 
-\subsection{ADC数据采集驱动}
-	系统采用带通采样以降低数据处理负荷，采样率$4KHz$。MSP432的Timer\_A0为ADC14提供采样率
-的采样保持时钟。为保证系统实时性，采集数据设计为PING-PONG存储。MSP432的$\mu$DMA模块提供这一功能。
-PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即触发一次中断，在中断服务函数中判断
-是PING还是PONG，然后请求调用回调函数。
+/*UART设备打开函数*/
+int uart_open()
+{
+	// 配置UART，成功返回0，失败返回负值
+}
 
-	回调函数的形式为：void msp432\_adc14\_callback(uint16\_t *data, uint32\_t len)。
-参数data为当前完成采集的存储区的首地址，参数len为存储区大小。图\ref{Figure:Software:ADCModule}为ADC数据采集驱动的流程图。
-	% 流程图定义基本形状
-	\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black]
-	\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black]
-	\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
-	\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black]
-	\tikzstyle{arrow} = [thick,->,>=stealth]
-	\begin{figure}[htbp]
-		\centering
-		\begin{tikzpicture}[node distance=2.0cm]
-		%定义流程图具体形状
-		\node (start) [startstop] {中断触发};
-		\node (dec1) [decision, below of=start, yshift=-1.5cm] {PING中断？};
-		\node (dec2) [decision, below of=dec1, yshift=-2.5cm] {PONG中断?};
-		\node (pro1) [process, right of=dec2, xshift=2.5cm] {请求回调};
-		\node (return) [startstop, below of=dec2,yshift=-1.5cm] {返回};
-		\path node(fake) [right of=pro1]{};
-		
-		
-		%连接具体形状
-		\draw [arrow](start) -- (dec1);
-		\draw [arrow](dec1) -| node[anchor=south] {是} (pro1);
-		\draw [arrow](dec1) -- node[anchor=east] {否} (dec2);
-		
-		\draw [arrow](dec2) -- node[anchor=north] {是} (pro1);
-		\draw [arrow](dec2) -- node[anchor=east] {否} (return);
-		
-		\draw [arrow](pro1) |-  (return);
-		\end{tikzpicture}
-		\caption{ADC数据采集驱动流程图}
-		\label{Figure:Software:ADCModule}
-	\end{figure}
+/*UART关闭、读、控制等函数*/
+int uart_close()
+{
+	//关闭USART
+}
 
-\subsection{UART数据传输驱动}
-	UART驱动设计为1152008N1(波特率115200bps，8位数据位，无校验位，1位停止位)传输格式。UART的接受
-采用中断-回调函数模型，回调函数形式为：void msp432\_uart\_callback(uint16\_t *data, uint32\_t len)。
+int uart_read()
+{
+	//读取数据
+}
 
-	UART的发送利用$\mu$DMA以实现非阻塞调用。提供给的外部编程接口为函数int msp432\_uart\_send(uint8\_t *data, uint32\_t len)
-，函数将数据存入缓存区域并启动uDMA通道。函数返回实际写入缓存区域的数据长度，如果写入失败则返回-1。 
+int uart_ioctl()
+{
+	//控制采样率等
+}
+
+int uart_write()
+{
+	//写入数据
+}
+//interp函数为回调函数在中断服务函数中调用
+/*UART中断服务函数*/
+void uart_interrupt()
+{
+	//处理中断，回调interp
+}
+
+//定义设备操作
+msp432_driver msp432_uart_driver={
+	.open=uart_open,
+	.close=uart_close,
+	.write=uart_write,
+	.read=uart_read,
+	.ioctl=uart_ioctl,
+	.interp=null，
+};
+
+//定义并初始化UART设备
+unsigned char buf0[BUFF_SIZE];//数据缓存
+unsigned char buf1[BUFF_SIZE];//数据缓存
+msp432_dev msp432_uart0，msp432_uart1;
+
+//初始化UART0,将buf0作为私有数据给UART0
+msp432_dev_init(&msp432_uart0,UART0_ADDR,0,(void *)buf0);
+
+//初始化UART1,将buf1作为私有数据给UART1
+msp432_dev_init(&msp432_uart1,UART1_ADDR,0,(void *)buf1);
+\end{lstlisting}
+
+%open函数只做与当前模块有关的初始化，部操作其他模块。例如，UART工作时，还需要Timer\_A0为其提供时钟，Timer\_A0的操作需在UART打开之前完成。open函数根据dev参数决定初始化哪一个设备，并将初始化后的状态写入dev->flag中。open可以将设备打开为阻塞或者费非阻塞、只读只写或者可读可写等，这受mode参数控制。
+%
+%在阻塞的情况下，write将buf中的数据逐字发送然后返回，read则等待读入count比特数据后再返回；在非阻塞情况下，则交由中断函数处理。
+%
+%msp432\_dev\_init将缓存地址给msp432\_dev的私有数据指针，当uart的read函数被调用时可以通过read函数传进的dev参数获取缓存的地址并读出数据。
+
+下面，将详细介绍不同模块基于设备-驱动模型的编写实例。
+
+\subsection{UART驱动模块}
+\begin{figure}[!htbp]
+	\centering
+	\input{tikz/uart_struct}
+	\caption{UART模块结构图}
+	\label{fig::software:uart}
+\end{figure}
+UART设备层程序中声明了类型为msp432\_dev的全局变量uart0和设备私有数据结构变量p，uart0将作为全局设备访问uart0。设备的私有数据为数据缓存结构，包含缓存的首地址、缓存大小的缓存计数。在模块初始化函数中，首先初始化了私有数据结构p，然后将p的地址给uart0的prvt成员。用UART0的物理首地址初始化uart0的phy\_addr成员，并将uart0的flag成员初始化为0。模块的退出函数释放缓存并关闭设备。
+
+模块还引用了类型为msp432\_driver的msp432\_uart\_driver。在模块定义的uart0的中断服务函数中调用msp432\_uart\_driver的interp中断下部函数。
+
+在UART驱动层程序中实现了驱动操作函数的打开、关闭、读数据、写数据及中断下部函数。中断下部函数将接受数据存入接受缓存中，从发送缓存中取出数据发送出去。UART驱动的ioctl函数用于设置数据位、校验为停止位等传输格式。
+
+图\ref{fig::software:uart}为UART模块的结构关系，图中以三个结构体为主线索展示了模块结构。其中msp432\_dev和msp432\_driver为驱动模型顶层的结构，uart\_dev\_private为UART模块私有的结构。对于应用程序来说，只需通过msp432\_dev和msp432\_driver就可以操作模块。
+
+
+%	UART驱动设计为1152008N1(波特率115200bps，8位数据位，无校验位，1位停止位)传输格式。UART的接受
+%采用中断-回调函数模型，回调函数形式为：void msp432\_uart\_callback(uint16\_t *data, uint32\_t len)。在UART中断服务函数中判断如果是接收中断，则将UART接收缓冲区的数据拷贝至接收缓存。UART接受缓冲区位于UART模块内，MSP432内核可以通过外设地址映射来访问它；接收缓存位于内存中，是程序定义的数组缓存。如果接收缓存满且回调函数指针不为null时调用回调函数。回调函数的data参数为内存中接收缓存的首地址，len参数为接收缓存的长度。
+%
+%	UART的发送利用$\mu$DMA以实现非阻塞调用。提供给的外部编程接口为函数int msp432\_uart\_send(uint8\_t *data, uint32\_t len)
+%，函数将数据存入缓存区域并启动$\mu$DMA通道，函数返回实际写入缓存区域的数据长度，如果写入失败则返回-1。UART模块的发送缓冲区为空时，会将UART的发送中断标志位置1。发送中断标志为触发$\mu$DMA对应的通道将待发送的缓存数据转移至UART的发送缓冲区。UART逐bit将发送缓冲区的数据发送出去后，再次将发送中断标志位置1。以此类推，当$\mu$DMA将全部缓存数据转移完毕之后则关闭该$\mu$DAM通道，等待下一次缓存数据到来。 
+\subsection{ADC驱动模块}
+ADC驱动模块与UART模块结构相似，只是私有数据结构不一样。本节只给出结构图和私有数据结构定义，不在赘述其架构原理。
+\begin{figure}[!htbp]
+	\centering
+	\input{tikz/adc_struct}
+	\caption{ADC模块结构图}
+	\label{fig::software:adc}
+\end{figure}
+
+\subsection{DMA驱动模块}
+考虑到DMA的复杂性，DMA模块将不使用设备驱动模型。本文只使用了DMA的通道7的ping-pong模式用于ADC数据采集。
+
+模块首先在RAM中定义了两个ping-pong缓存数据区。然后初始化通道7的主传输通道，用ADC触发通道7的单次循环传输。在DMA的中断中判断，如果是通道7主传输通道传输完毕则初始化通道7的副传输通道；如果是通道7副传输通道传输完毕则初始化通道7的主传输通道。然后调用DMA的回调函数。回调函数可以指向任何需要ADC采集数据的目标函数。
+%	% 流程图定义基本形状
+%	\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black]
+%	\tikzstyle{io} = [trapezium, trapezium left angle=40, trapezium right angle=140, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+%	\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+%	\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black,aspect=2]
+%	\tikzstyle{arrow} = [thick,->,>=stealth]
+%	\begin{figure}[htbp]
+%		\centering
+%		\begin{tikzpicture}[node distance=1.5cm]
+%		%定义流程图具体形状
+%		\node (start) [startstop] {中断触发};
+%		\node (dec1) [decision, below of=start, yshift=-1.0cm] {是否PING中断};
+%		\node (dec2) [decision, below of=dec1, yshift=-1.5cm] {是否PONG中断};
+%		\node (pro1) [process, right of=dec2, xshift=3.0cm] {请求回调};
+%		\node (return) [startstop, below of=dec2,yshift=-1.5cm] {返回};
+%		\path node(fake) [right of=pro1]{};
+%		
+%		
+%		%连接具体形状
+%		\draw [arrow](start) -- (dec1);
+%		\draw [arrow](dec1) -| node[anchor=south] {是} (pro1);
+%		\draw [arrow](dec1) -- node[anchor=east] {否} (dec2);
+%		
+%		\draw [arrow](dec2) -- node[anchor=north] {是} (pro1);
+%		\draw [arrow](dec2) -- node[anchor=east] {否} (return);
+%		
+%		\draw [arrow](pro1) |-  (return);
+%		\end{tikzpicture}
+%		\caption{ADC数据采集驱动流程图}
+%		\label{Figure:Software:ADCModule}
+%	\end{figure}
+%	系统采用带通采样以降低数据处理负荷，采样率$4kHz$。MSP432的Timer\_A0为ADC14提供采样率
+%的采样保持时钟。为保证系统实时性，采集数据设计为PING-PONG存储。MSP432的$\mu$DMA模块提供这一功能。
+%PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即触发一次中断，在中断服务函数中判断
+%是PING还是PONG，然后请求调用回调函数。
+%
+%	回调函数的形式为：void msp432\_adc14\_callback(uint16\_t *data, uint32\_t len)。
+%参数data为当前完成采集的存储区的首地址，参数len为存储区大小。图\ref{Figure:Software:ADCModule}为ADC数据采集驱动的流程图。
 
 \section{MSP432动态内存管理}
-
-
 	单片机在做信号处理算法时常常遇到需要使用较大数组的问题。例如在做32bit浮点采样数据为900点，本地数据为108点的快速相关算法时
 需要分配至少两个4k大小的存储区域。在编写函数时有三种处理方式：
 
 \begin{publist}
-	\item 使用全局变量静态分配内存，存储区位于静态数据区。这样做的好处是分配内存在程序便以阶段就已经做好，但是内存永久占用不能释放，而且对于内存较小的
+	\item 使用全局变量静态分配内存，存储区位于静态数据区。这样做的好处是分配内存在程序编译阶段就已经做好，但是内存永久占用不能释放，而且对于内存较小的
 	单片机来说，分配较多的大块内存将带来大量内存的消耗；
 	\item 使用局部变量，存储区位于栈内。这样做可以函数调用完之后内存可以释放，可以缓解静态分配内存的问题。但是如果遇到函数多次嵌套调用可能会导致栈益处；
 	\item 使用malloc动态分配内存，存储区位于堆内。这样做可以解决静态分配和局部变量动态分配的所有问题，但是c标准库中的malloc函数算法复杂，分配与释放
@@ -129,8 +287,8 @@ PING-PONG大小为$2\times1024$存储单元。每采集完成一次PING-PONG即�
 		\end{tabu}
 	\end{table}
 	
-\section{算法实现程序设计}
-该部分程序主要实现DD-SS算法及数据流程控制，由同步、缓存、解扩三部分组成，它们之间的关系如图\ref{fig:software:ddss}所示。由ADC采集到的数据首先会进行同步搜索，搜索到同步信号后同步信号后的数据解调降采样后缓存。等到缓存满一帧后开始解扩及二阶差分检测，然后通过UART数据传输驱动将数据发出。
+\section{接收机程序设计}
+接收机由MSP432完成，该部分程序主要实现DD-SS算法及数据流程控制，由同步、缓存、解扩三部分组成，它们之间的关系如图\ref{fig:software:ddss}所示。由ADC采集到的数据首先会进行同步搜索，搜索到同步信号后同步信号后的数据解调降采样后缓存。等到缓存满一帧后开始解扩及二阶差分检测，然后通过UART数据传输驱动将数据发出。
 \begin{figure}[htbp]
 	\centering
 	\input{tikz/dd-ss.tex}
@@ -175,7 +333,7 @@ R_{rx}(\tau)=\sum_{p=1}^{N_p}A_pR_{xx}(\tau-\tau_p)+u(\tau)
 式中$u(\tau)$是噪声分量。$R_{rx}(\tau)$在$\tau_p(p=1,2,\cdots,N_p)$处有峰值，峰值$|A_p1R_{xx}(0)|$只与增益$A_p$有关。因此，选择峰值最大的第$q$个峰将得到最大的处理后信噪比。
 
 \subsection{通带解调与缓存}
-通带解调过程如图\ref{fig:software:pass}所示。I路与Q路分别乘以$cos(\omega n)$和$sin(\omega n)$后经过降采样滤波器得到时间宽度为$T_c$(扩频码宽度)的序列，然后缓存到缓存区。降采样滤波器将滤波和降采样结合，能够避免不必要计算的数据点大大节约了计算时间。缓存时，按照I路与路分开存储。
+通带解调过程如图\ref{fig:software:pass}所示。I路与Q路分别乘以$\cos(\omega n)$和$\sin(\omega n)$后经过降采样滤波器得到时间宽度为$T_c$(扩频码宽度)的序列，然后缓存到缓存区。降采样滤波器将滤波和降采样结合，能够避免不必要计算的数据点大大节约了计算时间。缓存时，按照I路与Q路分开存储。
 \begin{figure}[htbp]
 	\centering
 	\input{tikz/pass}
@@ -185,7 +343,47 @@ R_{rx}(\tau)=\sum_{p=1}^{N_p}A_pR_{xx}(\tau-\tau_p)+u(\tau)
 
 当缓存区满一帧时，调用解扩程序进行剩余的数据处理过程。
 
-\subsection{解扩与解二阶差分}
+\subsection{解扩与二阶差分检测}
+\begin{figure}[htbp]
+	\centering
+	\input{tikz/despread}
+	\caption{解扩与二阶差分检测框图}
+	\label{fig:software:despread}
+\end{figure}
+如图\ref{fig:software:despread}所示，解扩分为两步：相关和峰值检测。相关利用ARM CMSIS-DSP库中的相关函数。得到的相关结果为复序列，峰值检测是对复序列的幅值进行的峰值检测。结合扩频相关峰值的特点，本文提出一种滑动峰值检测方法。其工作原理如算法\ref{algo:software:smoothpeak}所示。
+\begin{center}
+	\begin{minipage}{0.8\textwidth}
+		\centering
+		\begin{algorithm}[H]
+			\caption{滑动峰值检测}
+			\label{algo:software:smoothpeak}
+			\KwIn{幅值数据~$G_i(i=0,1,2,\cdots,N-1)$,滑动窗大小$W$,滑动间距$span$}
+			\KwOut{峰值位置~$P_k(k=0,1,2,\cdots,M-1)$}
+			Initlizaton:$i=0,k=0$\\
+			\While{$i<N$} {
+				$p=\max_i(G[i:i+W])$\\
+				$i=i+p+span$\\
+				$P[k]=i+p$\\
+				$k=k+1$
+			}
+		\end{algorithm}
+	\end{minipage}
+\end{center}
+
+二阶差分检测根据式(\ref{fu:ddcode:eq1})设计算法。根据复数除法的性质，有
+\[
+\frac{y[m]}{y[m-1]}=\frac{y[m]y^*[m-1]}{|y[m]|^2}
+\]
+舍去除数项实系数，可以将式(\ref{fu:ddcode:eq1})重新写作
+\begin{equation}
+d[m]=y[m]y^*[m-1]\times y[m-2]y^*[m-1]
+\end{equation}
+因此，将二阶差分检测变成复数乘法，可以利用ARM CMSIS-DSP的复数共轭和乘法库函数实现。
+
+\section{发射机程序设计}
+发射机由PC机完成，程序基于Qt实现。
+%\section{滤波器电路设计}
+
 
 	
 	
